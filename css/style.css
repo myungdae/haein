@@ -1,34 +1,44 @@
 /* ============================================================
    강해인 시낭송 효 콘서트 - Main Stylesheet
-   Color Palette: Ivory, Warm Beige, Soft Gold, Deep Brown
+   Color Palette: Blush Pink, Rose, Dusty Pink, Deep Rose
    ============================================================ */
 
 /* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
 /* ============================================================
-   CSS Variables
+   CSS Variables — Pink Palette
    ============================================================ */
 :root {
-  --ivory: #FDFAF5;
-  --warm-beige: #F5EDD8;
-  --soft-beige: #EDE0C4;
-  --light-beige: #F9F3E8;
-  --soft-gold: #C9A96E;
-  --deep-gold: #A67C3C;
-  --pale-gold: #E8D5A3;
-  --deep-brown: #3E2723;
-  --medium-brown: #5D4037;
-  --warm-brown: #6D4C41;
-  --light-brown: #8D6E63;
-  --text-dark: #2C1810;
-  --text-medium: #4A3728;
-  --text-light: #7A6050;
-  --text-muted: #9E8875;
+  /* 배경 계열 */
+  --ivory: #FFF8F8;           /* 아주 연한 핑크 화이트 */
+  --warm-beige: #FCE8EC;      /* 연핑크 섹션 배경 */
+  --soft-beige: #F7D0D8;      /* 중간 핑크 */
+  --light-beige: #FEF0F3;     /* 밝은 핑크 배경 */
+
+  /* 포인트 — 로즈 골드 & 딥로즈 */
+  --soft-gold: #D4849A;       /* 로즈 핑크 (기존 soft-gold 역할) */
+  --deep-gold: #B05E76;       /* 딥 로즈 (기존 deep-gold 역할) */
+  --pale-gold: #F2B8C6;       /* 페일 핑크 (기존 pale-gold 역할) */
+
+  /* 다크 계열 — 딥 로즈 브라운 */
+  --deep-brown: #6B2737;      /* 딥 로즈 다크 (헤더·배경) */
+  --medium-brown: #8B3A4E;    /* 미디엄 로즈 */
+  --warm-brown: #A04E64;      /* 웜 로즈 */
+  --light-brown: #C47A8A;     /* 라이트 로즈 */
+
+  /* 텍스트 */
+  --text-dark: #3D1520;       /* 딥 로즈 블랙 */
+  --text-medium: #5C2D3A;     /* 미디엄 */
+  --text-light: #85485A;      /* 라이트 */
+  --text-muted: #B07A88;      /* 뮤트 */
   --white: #FFFFFF;
-  --shadow-sm: 0 2px 8px rgba(62, 39, 35, 0.08);
-  --shadow-md: 0 4px 20px rgba(62, 39, 35, 0.12);
-  --shadow-lg: 0 8px 40px rgba(62, 39, 35, 0.18);
+
+  /* 그림자 */
+  --shadow-sm: 0 2px 8px rgba(107, 39, 55, 0.08);
+  --shadow-md: 0 4px 20px rgba(107, 39, 55, 0.13);
+  --shadow-lg: 0 8px 40px rgba(107, 39, 55, 0.20);
+
   --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   --font-serif: 'Noto Serif KR', 'Playfair Display', Georgia, serif;
   --font-sans: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
@@ -344,7 +354,7 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: var(--deep-brown);
+  background: linear-gradient(160deg, #6B2737 0%, #8B3A4E 60%, #A04E64 100%);
 }
 
 .hero-bg {
@@ -366,9 +376,9 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(62, 39, 35, 0.7) 0%,
-    rgba(62, 39, 35, 0.4) 50%,
-    rgba(93, 64, 55, 0.5) 100%
+    rgba(107, 39, 55, 0.78) 0%,
+    rgba(107, 39, 55, 0.50) 50%,
+    rgba(139, 58, 78, 0.60) 100%
   );
 }
 
@@ -416,15 +426,15 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   filter: drop-shadow(0 20px 40px rgba(18, 10, 8, 0.6));
 }
 
-/* 하단 골드 그라데이션 페이드 */
+/* 하단 페이드 */
 .hero-photos::before {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 80px;
-  background: linear-gradient(to top, rgba(40, 22, 18, 0.85), transparent);
+  height: 90px;
+  background: linear-gradient(to top, rgba(107, 39, 55, 0.90), transparent);
   pointer-events: none;
   z-index: 1;
 }
@@ -642,7 +652,7 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
    Poem Highlight Section
    ============================================================ */
 #poem-highlight {
-  background: var(--deep-brown);
+  background: linear-gradient(135deg, #6B2737 0%, #8B3A4E 100%);
   padding: 7rem 0;
   text-align: center;
   position: relative;
@@ -909,7 +919,7 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
    Poems Page
    ============================================================ */
 .page-hero {
-  background: linear-gradient(135deg, var(--deep-brown) 0%, var(--medium-brown) 100%);
+  background: linear-gradient(135deg, #6B2737 0%, #A04E64 100%);
   padding: 10rem 0 4rem;
   text-align: center;
 }
@@ -1359,7 +1369,7 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
    Poetry Class Page
    ============================================================ */
 .class-hero-bg {
-  background: linear-gradient(135deg, var(--medium-brown) 0%, var(--deep-brown) 100%);
+  background: linear-gradient(135deg, #8B3A4E 0%, #6B2737 100%);
 }
 
 .curriculum-wrap {
@@ -1410,7 +1420,7 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 }
 
 .schedule-table th {
-  background: var(--deep-brown);
+  background: #6B2737;
   color: var(--ivory);
   padding: 0.85rem 1.2rem;
   font-family: var(--font-serif);
@@ -1576,8 +1586,8 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
    Footer
    ============================================================ */
 #footer {
-  background: var(--deep-brown);
-  color: rgba(253, 250, 245, 0.7);
+  background: linear-gradient(160deg, #5A1F2E 0%, #6B2737 100%);
+  color: rgba(255, 240, 244, 0.75);
   padding: 4rem 0 2rem;
 }
 
