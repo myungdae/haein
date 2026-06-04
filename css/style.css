@@ -192,6 +192,18 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   letter-spacing: 0.18em;
   font-family: var(--font-serif);
   text-transform: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.logo-hanja {
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  font-family: var(--font-serif);
+  opacity: 0.85;
 }
 
 .nav-menu {
