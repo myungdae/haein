@@ -182,15 +182,16 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   font-size: 1.15rem;
   font-weight: 600;
   color: var(--deep-brown);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .logo-en {
-  font-size: 0.65rem;
-  font-weight: 400;
+  font-size: 0.72rem;
+  font-weight: 500;
   color: var(--soft-gold);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-family: var(--font-serif);
+  text-transform: none;
 }
 
 .nav-menu {
