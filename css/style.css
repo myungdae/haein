@@ -391,96 +391,74 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   min-width: 0;
 }
 
-/* ---- Hero Photos ---- */
+/* ---- Hero Photos (배경 제거 인물 사진) ---- */
 .hero-photos {
   position: relative;
   flex-shrink: 0;
-  width: 420px;
-  height: 480px;
+  width: 340px;
+  align-self: flex-end;
   opacity: 0;
-  animation: fadeInUp 1s ease 0.8s forwards;
+  animation: fadeInRight 1s ease 0.6s forwards;
 }
 
-.hero-photo {
-  position: absolute;
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(18, 10, 8, 0.55);
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
-.hero-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+/* 인물 사진 — 배경 없이 자연스럽게 */
+.hero-person-img {
   display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 20px 40px rgba(18, 10, 8, 0.6));
 }
 
-/* 뒤 사진: 프로필 (오른쪽 위) */
-.hero-photo--back {
-  width: 210px;
-  height: 310px;
-  top: 0;
-  right: 0;
-  border: 3px solid rgba(201, 169, 110, 0.35);
-  transform: rotate(2deg);
-  transition: transform 0.4s ease;
-  z-index: 1;
-}
-
-.hero-photo--back:hover {
-  transform: rotate(0deg) scale(1.02);
-}
-
-/* 앞 사진: 낭송 (왼쪽 아래) */
-.hero-photo--front {
-  width: 230px;
-  height: 290px;
-  bottom: 0;
-  left: 0;
-  border: 3px solid rgba(201, 169, 110, 0.55);
-  transform: rotate(-2.5deg);
-  transition: transform 0.4s ease;
-  z-index: 2;
-  box-shadow: 0 24px 70px rgba(18, 10, 8, 0.65);
-}
-
-.hero-photo--front:hover {
-  transform: rotate(0deg) scale(1.03);
-}
-
-/* 골드 장식선 */
+/* 하단 골드 그라데이션 페이드 */
 .hero-photos::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  height: 300px;
-  border: 1px solid rgba(201, 169, 110, 0.15);
-  border-radius: 50%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, rgba(40, 22, 18, 0.85), transparent);
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 /* 이름 배지 */
-.hero-photos::after {
-  content: '강해인';
+.hero-photo-badge {
   position: absolute;
-  bottom: 80px;
-  right: -12px;
-  background: var(--soft-gold);
-  color: var(--deep-brown);
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.badge-kr {
+  display: block;
   font-family: var(--font-serif);
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
-  padding: 0.4rem 1rem;
-  border-radius: 2px;
-  writing-mode: vertical-rl;
-  z-index: 3;
-  box-shadow: 0 4px 12px rgba(62, 39, 35, 0.3);
+  color: var(--pale-gold);
+  letter-spacing: 0.3em;
+  text-shadow: 0 2px 8px rgba(18,10,8,0.6);
+}
+
+.badge-en {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: rgba(253, 250, 245, 0.55);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
 }
 
 .hero-tag {
@@ -1710,18 +1688,7 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 }
 
 @media (max-width: 1024px) {
-  .hero-photos {
-    width: 320px;
-    height: 380px;
-  }
-  .hero-photo--back {
-    width: 165px;
-    height: 245px;
-  }
-  .hero-photo--front {
-    width: 180px;
-    height: 228px;
-  }
+  .hero-photos { width: 270px; }
 }
 
 @media (max-width: 768px) {
@@ -1732,31 +1699,18 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
     flex-direction: column-reverse;
     align-items: center;
     padding-top: 5rem;
-    gap: 2rem;
+    gap: 1rem;
   }
 
   .hero-text-area { text-align: center; }
   .hero-buttons { justify-content: center; }
 
   .hero-photos {
-    width: 260px;
-    height: 300px;
-    flex-shrink: 0;
+    width: 200px;
+    align-self: center;
   }
-  .hero-photo--back {
-    width: 135px;
-    height: 200px;
-  }
-  .hero-photo--front {
-    width: 148px;
-    height: 188px;
-  }
-  .hero-photos::after {
-    font-size: 0.7rem;
-    right: -8px;
-    bottom: 60px;
-    padding: 0.3rem 0.7rem;
-  }
+
+  .badge-kr { font-size: 0.9rem; }
 
   .hero-title { font-size: 2rem; }
   .hero-subtitle { font-size: 0.8rem; }
