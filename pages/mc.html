@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>전문 MC | 강해인 — 기업행사·공연·컨퍼런스 진행</title>
+  <meta name="description" content="시낭송가 강해인의 전문 MC 활동. 기업 행사, 문화예술 공연, 시상식, 컨퍼런스 등 다양한 현장에서 품격 있는 진행." />
+  <meta property="og:title" content="전문 MC | 강해인" />
+  <meta property="og:description" content="품격 있는 진행으로 행사의 완성도를 높이는 강해인 전문 MC." />
+  <meta property="og:image" content="https://haein.exko.kr/images/og-image.jpg?v=20260604b" />
+  <meta name="twitter:image" content="https://haein.exko.kr/images/og-image.jpg?v=20260604b" />
+  <meta property="og:url" content="https://haein.exko.kr/pages/mc.html" />
+  <link rel="canonical" href="https://haein.exko.kr/pages/mc.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css?v=20260604b" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
+  <style>
+    /* ── MC Page Styles ─────────────────────────── */
+    .mc-hero {
+      background: linear-gradient(135deg, var(--deep-brown) 0%, var(--medium-brown) 60%, var(--warm-brown) 100%);
+      padding: 5rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .mc-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(212,132,154,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .mc-hero-inner {
+      display: flex;
+      align-items: flex-end;
+      gap: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .mc-hero-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .mc-hero-photo {
+      flex-shrink: 0;
+      width: 300px;
+      align-self: flex-end;
+    }
+    .mc-hero-photo img {
+      width: 100%;
+      display: block;
+      filter: drop-shadow(0 20px 40px rgba(18,6,10,0.55));
+    }
+    @media (max-width: 768px) {
+      .mc-hero-inner { flex-direction: column; align-items: center; gap: 2rem; }
+      .mc-hero-text { text-align: center; }
+      .mc-hero-photo { width: 200px; align-self: center; }
+    }
+
+    /* Field cards */
+    .mc-fields {
+      padding: 5rem 0;
+      background: var(--ivory);
+    }
+    .mc-field-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 900px) { .mc-field-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 580px) { .mc-field-grid { grid-template-columns: 1fr; } }
+
+    .mc-field-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem 1.6rem;
+      text-align: center;
+      box-shadow: 0 2px 16px rgba(107,39,55,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .mc-field-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(107,39,55,0.15);
+    }
+    .mc-field-icon {
+      font-size: 2.6rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .mc-field-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 0 0 0.6rem;
+    }
+    .mc-field-card p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Strength section */
+    .mc-strength {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, var(--warm-beige) 0%, var(--light-beige) 100%);
+    }
+    .mc-strength-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .mc-strength-grid { grid-template-columns: 1fr; } }
+    .mc-strength-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+    .mc-strength-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .mc-strength-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--deep-brown);
+      color: var(--ivory);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .mc-strength-list li div h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 0 0 0.25rem;
+    }
+    .mc-strength-list li div p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .mc-photo-display {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(107,39,55,0.18);
+      background: linear-gradient(160deg, var(--warm-beige), var(--soft-beige));
+      aspect-ratio: 4/5;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .mc-photo-display img {
+      width: 90%;
+      display: block;
+      filter: drop-shadow(0 8px 16px rgba(107,39,55,0.2));
+    }
+
+    /* CTA */
+    .mc-cta {
+      background: linear-gradient(135deg, var(--deep-brown) 0%, var(--medium-brown) 100%);
+      padding: 5rem 0;
+      text-align: center;
+      color: var(--ivory);
+    }
+    .mc-cta h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--ivory);
+      margin: 0 0 1rem;
+    }
+    .mc-cta p {
+      color: rgba(255,240,243,0.75);
+      margin: 0 0 2.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="header" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="logo" aria-label="강해인 홈으로">
+        <span class="logo-kr">강해인</span>
+        <span class="logo-en">Kang Haein</span>
+      </a>
+      <nav class="nav-menu" role="navigation" aria-label="주요 메뉴">
+        <a href="../index.html">HOME</a>
+        <a href="about.html" class="active">강해인</a>
+        <a href="poems.html">창작시</a>
+        <a href="concert.html">효 콘서트</a>
+        <a href="gallery.html">갤러리</a>
+        <a href="class.html">시낭송교실</a>
+        <a href="contact.html" class="nav-cta">공연문의</a>
+      </nav>
+      <button class="hamburger" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <nav class="mobile-menu" role="navigation" aria-label="모바일 메뉴">
+    <a href="../index.html">HOME</a>
+    <a href="about.html">강해인</a>
+    <a href="poems.html">창작시</a>
+    <a href="concert.html">효 콘서트</a>
+    <a href="gallery.html">갤러리</a>
+    <a href="class.html">시낭송교실</a>
+    <a href="contact.html">공연문의</a>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb" style="margin-top:70px;">
+    <div class="container">
+      <div class="breadcrumb-inner">
+        <a href="../index.html">HOME</a>
+        <span class="sep">›</span>
+        <a href="about.html">강해인</a>
+        <span class="sep">›</span>
+        <span>전문 MC</span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="mc-hero">
+      <div class="container">
+        <div class="mc-hero-inner">
+          <div class="mc-hero-text fade-up">
+            <span class="section-label" style="color:var(--pale-gold);">Professional MC</span>
+            <h1 style="font-family:var(--font-serif); font-size:clamp(2rem,4vw,3.2rem); color:var(--ivory); margin:0.8rem 0 1.2rem; line-height:1.3;">
+              품격 있는 진행으로<br>행사의 감동을 완성합니다
+            </h1>
+            <p style="color:rgba(255,240,243,0.75); font-size:1rem; line-height:1.8; max-width:480px;">
+              시인의 감성과 시낭송가의 목소리로 행사 현장에 특별한 울림을 더하는
+              강해인의 전문 MC 서비스입니다.
+            </p>
+            <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
+              <a href="contact.html" class="btn btn-primary">MC 섭외 문의</a>
+              <a href="about.html" class="btn btn-outline" style="border-color:rgba(255,240,243,0.4); color:var(--ivory);">강해인 소개</a>
+            </div>
+          </div>
+          <div class="mc-hero-photo fade-in">
+            <img src="../images/haein-profile-nobg.png" alt="강해인 전문 MC" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MC FIELDS -->
+    <section class="mc-fields">
+      <div class="container">
+        <div class="section-header fade-up" style="text-align:center;">
+          <span class="section-label">Fields</span>
+          <h2 class="section-title">진행 분야</h2>
+          <p class="section-subtitle">다양한 행사 현장에서의 풍부한 경험</p>
+        </div>
+
+        <div class="mc-field-grid">
+          <div class="mc-field-card fade-up" data-delay="0">
+            <span class="mc-field-icon">🏢</span>
+            <h3>기업 행사</h3>
+            <p>창립기념식, 시무식, 종무식, 시상식, 기업 컨퍼런스 및 세미나 진행</p>
+          </div>
+          <div class="mc-field-card fade-up" data-delay="80">
+            <span class="mc-field-icon">🎭</span>
+            <h3>문화예술 공연</h3>
+            <p>시낭송 공연, 콘서트, 뮤지컬, 클래식 음악회, 효 콘서트 총 진행</p>
+          </div>
+          <div class="mc-field-card fade-up" data-delay="160">
+            <span class="mc-field-icon">🏆</span>
+            <h3>시상식 · 수여식</h3>
+            <p>각종 문학상 시상식, 졸업식, 수상 기념 행사 품격 있는 진행</p>
+          </div>
+          <div class="mc-field-card fade-up" data-delay="240">
+            <span class="mc-field-icon">🎓</span>
+            <h3>교육 · 특강 행사</h3>
+            <p>대학교 강의, 기업 문화예술 특강, 포럼, 학술 대회 사회</p>
+          </div>
+          <div class="mc-field-card fade-up" data-delay="320">
+            <span class="mc-field-icon">🌸</span>
+            <h3>사회·공공 행사</h3>
+            <p>지자체 문화 행사, 축제, 기념식, 지역 사회 공연 진행</p>
+          </div>
+          <div class="mc-field-card fade-up" data-delay="400">
+            <span class="mc-field-icon">📺</span>
+            <h3>방송 · 온라인</h3>
+            <p>라디오 방송 출연, 온라인 스트리밍 행사, 유튜브 문화 콘텐츠</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRENGTH -->
+    <section class="mc-strength">
+      <div class="container">
+        <div class="mc-strength-grid">
+          <div>
+            <span class="section-label">Why Haein</span>
+            <h2 class="section-title fade-up" style="text-align:left;">강해인 MC만의<br>특별한 강점</h2>
+            <div class="divider divider-left"></div>
+            <ul class="mc-strength-list">
+              <li class="fade-up" data-delay="0">
+                <span class="mc-strength-num">01</span>
+                <div>
+                  <h4>시인의 언어 감수성</h4>
+                  <p>시인으로서 갈고 닦은 언어 감각으로, 행사의 분위기와 감동을 섬세하게 표현합니다.</p>
+                </div>
+              </li>
+              <li class="fade-up" data-delay="80">
+                <span class="mc-strength-num">02</span>
+                <div>
+                  <h4>검증된 무대 경험</h4>
+                  <p>10년 이상의 시낭송 무대 경험으로 어떤 규모의 행사에서도 안정적이고 품격 있는 진행을 보장합니다.</p>
+                </div>
+              </li>
+              <li class="fade-up" data-delay="160">
+                <span class="mc-strength-num">03</span>
+                <div>
+                  <h4>맞춤형 진행 스크립트</h4>
+                  <p>행사의 성격과 주최 측의 요구에 맞춰 섬세하게 구성된 진행 스크립트로 완성도를 높입니다.</p>
+                </div>
+              </li>
+              <li class="fade-up" data-delay="240">
+                <span class="mc-strength-num">04</span>
+                <div>
+                  <h4>시낭송 콜라보 가능</h4>
+                  <p>MC 진행에 시낭송을 자연스럽게 녹여 행사에 문화적 품격과 감동을 더할 수 있습니다.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="mc-photo-display fade-in">
+            <img src="../images/haein-profile-nobg.png" alt="강해인 MC 활동" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mc-cta">
+      <div class="container">
+        <h2 class="fade-up">특별한 행사를 더욱 빛나게 만들어 드립니다</h2>
+        <p class="fade-up" data-delay="100">MC 섭외 및 행사 진행 문의는 아래 버튼을 눌러 연락해 주세요.</p>
+        <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+          <a href="contact.html" class="btn btn-primary fade-up" data-delay="200">MC 섭외 문의하기</a>
+          <a href="tel:010-0000-0000" class="btn btn-outline fade-up" style="border-color:rgba(255,240,243,0.4); color:var(--ivory);" data-delay="280">전화 문의</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <span class="logo-kr">강해인</span>
+          <span class="logo-en">Kang Haein</span>
+        </a>
+        <p>시로 마음을 잇고<br>낭송으로 감동을 전합니다.<br><br>Poetry Recital · Hyo Concert<br>Healing Stage</p>
+      </div>
+      <div class="footer-col">
+        <h4>메뉴</h4>
+        <a href="../index.html">HOME</a>
+        <a href="about.html">강해인</a>
+        <a href="poems.html">창작시</a>
+        <a href="concert.html">효 콘서트</a>
+      </div>
+      <div class="footer-col">
+        <h4>더 보기</h4>
+        <a href="gallery.html">갤러리</a>
+        <a href="class.html">시낭송교실</a>
+        <a href="mc.html">전문 MC</a>
+        <a href="image-consulting.html">이미지 컨설팅</a>
+        <a href="contact.html">공연문의</a>
+      </div>
+      <div class="footer-col">
+        <h4>연락처</h4>
+        <a href="mailto:haein@exko.kr">haein@exko.kr</a>
+        <a href="tel:010-0000-0000">010-0000-0000</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 강해인. All rights reserved.</span>
+      <span>haein.exko.kr</span>
+    </div>
+  </footer>
+
+  <script src="../js/main.js?v=20260604b"></script>
+</body>
+</html>

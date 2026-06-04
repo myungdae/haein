@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이미지 컨설팅 | 강해인 — 퍼스널 컬러·스타일·스피치 코칭</title>
+  <meta name="description" content="강해인 이미지 컨설팅. 퍼스널 컬러 진단, 스타일 코칭, 스피치 이미지 메이킹으로 내면의 아름다움을 외면으로 표현합니다." />
+  <meta property="og:title" content="이미지 컨설팅 | 강해인" />
+  <meta property="og:description" content="퍼스널 컬러 진단, 스타일 코칭, 스피치 이미지 메이킹 — 강해인 이미지 컨설팅." />
+  <meta property="og:image" content="https://haein.exko.kr/images/og-image.jpg?v=20260604b" />
+  <meta name="twitter:image" content="https://haein.exko.kr/images/og-image.jpg?v=20260604b" />
+  <meta property="og:url" content="https://haein.exko.kr/pages/image-consulting.html" />
+  <link rel="canonical" href="https://haein.exko.kr/pages/image-consulting.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css?v=20260604b" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
+  <style>
+    /* ── Image Consulting Page Styles ──────────── */
+    .ic-hero {
+      background: linear-gradient(135deg, var(--soft-beige) 0%, var(--pale-gold) 50%, var(--soft-gold) 100%);
+      padding: 5rem 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .ic-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 40%, rgba(107,39,55,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .ic-hero-inner {
+      display: flex;
+      align-items: flex-end;
+      gap: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .ic-hero-text {
+      flex: 1;
+      padding-bottom: 4rem;
+    }
+    .ic-hero-photo {
+      flex-shrink: 0;
+      width: 280px;
+      align-self: flex-end;
+    }
+    .ic-hero-photo img {
+      width: 100%;
+      display: block;
+      filter: drop-shadow(0 16px 32px rgba(107,39,55,0.3));
+    }
+    @media (max-width: 768px) {
+      .ic-hero-inner { flex-direction: column; align-items: center; gap: 2rem; }
+      .ic-hero-text { text-align: center; padding-bottom: 2rem; }
+      .ic-hero-photo { width: 200px; }
+    }
+
+    /* Service cards */
+    .ic-services {
+      padding: 5rem 0;
+      background: var(--ivory);
+    }
+    .ic-service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 900px) { .ic-service-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; } }
+
+    .ic-service-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2.4rem 2rem 2.2rem;
+      box-shadow: 0 2px 20px rgba(107,39,55,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-top: 3px solid var(--pale-gold);
+    }
+    .ic-service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 36px rgba(107,39,55,0.15);
+    }
+    .ic-service-icon {
+      font-size: 2.4rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .ic-service-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 0 0 0.8rem;
+    }
+    .ic-service-card p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin: 0 0 1.2rem;
+    }
+    .ic-service-card ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      font-size: 0.83rem;
+      color: var(--text-medium);
+      line-height: 2;
+    }
+
+    /* Process */
+    .ic-process {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, var(--warm-beige) 0%, var(--light-beige) 100%);
+    }
+    .ic-process-steps {
+      display: flex;
+      gap: 0;
+      margin-top: 3rem;
+      position: relative;
+    }
+    .ic-process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(10% + 28px);
+      right: calc(10% + 28px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--pale-gold), var(--soft-gold));
+      z-index: 0;
+    }
+    @media (max-width: 768px) {
+      .ic-process-steps { flex-direction: column; gap: 2rem; }
+      .ic-process-steps::before { display: none; }
+    }
+    .ic-step {
+      flex: 1;
+      text-align: center;
+      padding: 0 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+    .ic-step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--deep-brown), var(--soft-gold));
+      color: var(--ivory);
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      box-shadow: 0 4px 16px rgba(107,39,55,0.3);
+    }
+    .ic-step h4 {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 0 0 0.5rem;
+    }
+    .ic-step p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* Photo feature section */
+    .ic-feature {
+      padding: 5rem 0;
+      background: var(--ivory);
+    }
+    .ic-feature-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .ic-feature-inner { grid-template-columns: 1fr; } }
+    .ic-feature-photo {
+      border-radius: 20px;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--soft-beige), var(--pale-gold));
+      aspect-ratio: 3/4;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      box-shadow: 0 8px 40px rgba(107,39,55,0.18);
+    }
+    .ic-feature-photo img {
+      width: 85%;
+      display: block;
+      filter: drop-shadow(0 8px 16px rgba(107,39,55,0.2));
+    }
+    .ic-quote {
+      margin: 2rem 0;
+      padding: 1.4rem 1.6rem;
+      border-left: 3px solid var(--soft-gold);
+      background: var(--warm-beige);
+      border-radius: 0 8px 8px 0;
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--deep-brown);
+      line-height: 1.7;
+    }
+
+    /* CTA */
+    .ic-cta {
+      background: linear-gradient(135deg, var(--deep-brown) 0%, var(--medium-brown) 100%);
+      padding: 5rem 0;
+      text-align: center;
+    }
+    .ic-cta h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--ivory);
+      margin: 0 0 1rem;
+    }
+    .ic-cta p { color: rgba(255,240,243,0.75); margin: 0 0 2.5rem; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="header" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="logo" aria-label="강해인 홈으로">
+        <span class="logo-kr">강해인</span>
+        <span class="logo-en">Kang Haein</span>
+      </a>
+      <nav class="nav-menu" role="navigation" aria-label="주요 메뉴">
+        <a href="../index.html">HOME</a>
+        <a href="about.html" class="active">강해인</a>
+        <a href="poems.html">창작시</a>
+        <a href="concert.html">효 콘서트</a>
+        <a href="gallery.html">갤러리</a>
+        <a href="class.html">시낭송교실</a>
+        <a href="contact.html" class="nav-cta">공연문의</a>
+      </nav>
+      <button class="hamburger" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <nav class="mobile-menu" role="navigation" aria-label="모바일 메뉴">
+    <a href="../index.html">HOME</a>
+    <a href="about.html">강해인</a>
+    <a href="poems.html">창작시</a>
+    <a href="concert.html">효 콘서트</a>
+    <a href="gallery.html">갤러리</a>
+    <a href="class.html">시낭송교실</a>
+    <a href="contact.html">공연문의</a>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb" style="margin-top:70px;">
+    <div class="container">
+      <div class="breadcrumb-inner">
+        <a href="../index.html">HOME</a>
+        <span class="sep">›</span>
+        <a href="about.html">강해인</a>
+        <span class="sep">›</span>
+        <span>이미지 컨설팅</span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="ic-hero">
+      <div class="container">
+        <div class="ic-hero-inner">
+          <div class="ic-hero-text fade-up">
+            <span class="section-label" style="color:var(--deep-brown);">Image Consulting</span>
+            <h1 style="font-family:var(--font-serif); font-size:clamp(2rem,4vw,3.2rem); color:var(--deep-brown); margin:0.8rem 0 1.2rem; line-height:1.3;">
+              내면의 아름다움을<br>외면으로 표현합니다
+            </h1>
+            <p style="color:var(--text-medium); font-size:1rem; line-height:1.8; max-width:480px;">
+              퍼스널 컬러 진단, 스타일 코칭, 스피치 이미지 메이킹으로
+              당신만의 고유한 아름다움을 발견하고 표현하도록 돕습니다.
+            </p>
+            <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
+              <a href="contact.html" class="btn btn-primary">컨설팅 문의</a>
+              <a href="about.html" class="btn btn-outline">강해인 소개</a>
+            </div>
+          </div>
+          <div class="ic-hero-photo fade-in">
+            <img src="../images/haein-profile-nobg.png" alt="강해인 이미지 컨설턴트" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="ic-services">
+      <div class="container">
+        <div class="section-header fade-up" style="text-align:center;">
+          <span class="section-label">Services</span>
+          <h2 class="section-title">컨설팅 서비스</h2>
+          <p class="section-subtitle">당신에게 꼭 맞는 이미지 컨설팅 프로그램</p>
+        </div>
+
+        <div class="ic-service-grid">
+          <div class="ic-service-card fade-up" data-delay="0">
+            <span class="ic-service-icon">🎨</span>
+            <h3>퍼스널 컬러 진단</h3>
+            <p>피부 톤, 눈동자 색, 머리카락 색을 분석해 당신에게 가장 잘 어울리는 컬러 팔레트를 찾아드립니다.</p>
+            <ul>
+              <li>1:1 개인 컬러 진단</li>
+              <li>계절 유형 분석 (봄/여름/가을/겨울)</li>
+              <li>베스트 컬러 가이드북 제공</li>
+              <li>쇼핑 동행 컨설팅 (선택)</li>
+            </ul>
+          </div>
+
+          <div class="ic-service-card fade-up" data-delay="100">
+            <span class="ic-service-icon">✨</span>
+            <h3>스타일 코칭</h3>
+            <p>체형과 라이프스타일에 맞는 옷차림과 스타일링으로 자신감 있는 이미지를 만들어 드립니다.</p>
+            <ul>
+              <li>체형 분석 및 스타일 진단</li>
+              <li>TPO별 코디네이션 가이드</li>
+              <li>워드로브 정리 & 구성 조언</li>
+              <li>시즌별 코디 업데이트</li>
+            </ul>
+          </div>
+
+          <div class="ic-service-card fade-up" data-delay="200">
+            <span class="ic-service-icon">🎤</span>
+            <h3>스피치 이미지 메이킹</h3>
+            <p>목소리, 표정, 자세, 제스처를 포함한 종합 스피치 이미지 코칭으로 설득력 있는 표현력을 키웁니다.</p>
+            <ul>
+              <li>발성 · 발음 · 호흡 교정</li>
+              <li>표정 및 바디랭귀지 트레이닝</li>
+              <li>프레젠테이션 이미지 코칭</li>
+              <li>시낭송 연계 표현력 향상</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="ic-process">
+      <div class="container">
+        <div class="section-header fade-up" style="text-align:center;">
+          <span class="section-label">Process</span>
+          <h2 class="section-title">컨설팅 진행 과정</h2>
+          <p class="section-subtitle">체계적인 4단계 프로세스로 변화를 만들어 드립니다</p>
+        </div>
+
+        <div class="ic-process-steps">
+          <div class="ic-step fade-up" data-delay="0">
+            <div class="ic-step-num">01</div>
+            <h4>상담 & 분석</h4>
+            <p>라이프스타일, 직업, 목표를 파악하는 심층 상담과 현재 이미지 진단</p>
+          </div>
+          <div class="ic-step fade-up" data-delay="80">
+            <div class="ic-step-num">02</div>
+            <h4>컬러 & 스타일 진단</h4>
+            <p>퍼스널 컬러 측정과 체형 분석을 통한 맞춤 이미지 방향 설정</p>
+          </div>
+          <div class="ic-step fade-up" data-delay="160">
+            <div class="ic-step-num">03</div>
+            <h4>코칭 & 실습</h4>
+            <p>1:1 스타일링 코칭, 스피치 트레이닝, 실전 적용 연습</p>
+          </div>
+          <div class="ic-step fade-up" data-delay="240">
+            <div class="ic-step-num">04</div>
+            <h4>가이드 제공 & 사후 관리</h4>
+            <p>맞춤 이미지 가이드북 제공 및 지속적인 팔로우업 관리</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURE SECTION -->
+    <section class="ic-feature">
+      <div class="container">
+        <div class="ic-feature-inner">
+          <div class="ic-feature-photo fade-in">
+            <img src="../images/haein-profile-nobg.png" alt="강해인 이미지 컨설팅" />
+          </div>
+          <div>
+            <span class="section-label">Philosophy</span>
+            <h2 class="section-title fade-up" style="text-align:left;">이미지는 첫인상이 아닌<br>진심의 표현입니다</h2>
+            <div class="divider divider-left"></div>
+            <p class="fade-up" data-delay="80" style="color:var(--text-medium); line-height:1.85; font-size:0.95rem;">
+              강해인은 시인으로서 언어의 아름다움을 탐구해온 만큼, 사람의 아름다움도 내면에서 비롯된다고 믿습니다. 이미지 컨설팅은 단순한 외모 개선이 아니라, 내면의 가치와 개성을 세상에 자신 있게 표현하는 과정입니다.
+            </p>
+            <blockquote class="ic-quote fade-up" data-delay="160">
+              "시가 언어로 마음을 표현하듯, 이미지는 존재로 마음을 표현합니다."
+            </blockquote>
+            <p class="fade-up" data-delay="240" style="color:var(--text-medium); line-height:1.85; font-size:0.95rem;">
+              시낭송을 통해 수많은 무대에서 익힌 표현력과 이미지 메이킹의 노하우를 결합하여, 여러분이 어디서든 빛날 수 있도록 함께합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="ic-cta">
+      <div class="container">
+        <h2 class="fade-up">나만의 아름다움을 발견할 준비가 되셨나요?</h2>
+        <p class="fade-up" data-delay="100">이미지 컨설팅 문의 및 예약은 아래 버튼을 눌러 연락해 주세요.</p>
+        <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+          <a href="contact.html" class="btn btn-primary fade-up" data-delay="200">컨설팅 문의하기</a>
+          <a href="tel:010-0000-0000" class="btn btn-outline fade-up" style="border-color:rgba(255,240,243,0.4); color:var(--ivory);" data-delay="280">전화 문의</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <span class="logo-kr">강해인</span>
+          <span class="logo-en">Kang Haein</span>
+        </a>
+        <p>시로 마음을 잇고<br>낭송으로 감동을 전합니다.<br><br>Poetry Recital · Hyo Concert<br>Healing Stage</p>
+      </div>
+      <div class="footer-col">
+        <h4>메뉴</h4>
+        <a href="../index.html">HOME</a>
+        <a href="about.html">강해인</a>
+        <a href="poems.html">창작시</a>
+        <a href="concert.html">효 콘서트</a>
+      </div>
+      <div class="footer-col">
+        <h4>더 보기</h4>
+        <a href="gallery.html">갤러리</a>
+        <a href="class.html">시낭송교실</a>
+        <a href="mc.html">전문 MC</a>
+        <a href="image-consulting.html">이미지 컨설팅</a>
+        <a href="contact.html">공연문의</a>
+      </div>
+      <div class="footer-col">
+        <h4>연락처</h4>
+        <a href="mailto:haein@exko.kr">haein@exko.kr</a>
+        <a href="tel:010-0000-0000">010-0000-0000</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 강해인. All rights reserved.</span>
+      <span>haein.exko.kr</span>
+    </div>
+  </footer>
+
+  <script src="../js/main.js?v=20260604b"></script>
+</body>
+</html>

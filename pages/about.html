@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>강해인 소개 | 시인 · 시낭송가 · 효 콘서트 기획자</title>
-  <meta name="description" content="시인, 시낭송가, 효 콘서트 기획자 강해인을 소개합니다. 약력, 활동 이력, 수상 경력, 언론 보도를 확인하세요." />
+  <title>강해인 소개 | 시인 · 시낭송가 · 전문MC · 이미지컨설턴트 · 효 콘서트 기획자</title>
+  <meta name="description" content="시인, 시낭송가, 전문MC, 이미지컨설턴트, 효 콘서트 기획자 강해인을 소개합니다." />
   <meta property="og:title" content="강해인 소개 | 시인 · 시낭송가" />
   <meta property="og:description" content="시로 마음을 잇고 낭송으로 감동을 전하는 강해인." />
   <meta property="og:image" content="https://haein.exko.kr/images/og-image.jpg?v=20260604b" />
@@ -14,8 +14,130 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/style.css?v=20260604" />
+  <link rel="stylesheet" href="../css/style.css?v=20260604b" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
+  <style>
+    /* ── Activity Cards ──────────────────────────────── */
+    .activity-section {
+      padding: 5rem 0;
+      background: var(--ivory);
+    }
+    .activity-section .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .activity-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      .activity-cards { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    }
+    .activity-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(107,39,55,0.10);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .activity-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(107,39,55,0.18);
+    }
+    .activity-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      background: linear-gradient(160deg, var(--warm-beige), var(--soft-beige));
+    }
+    .activity-card-img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+    }
+    .activity-card-body {
+      padding: 1.8rem 1.6rem 2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .activity-card-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--soft-gold);
+      margin-bottom: 0.7rem;
+    }
+    .activity-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 0 0 0.8rem;
+      line-height: 1.4;
+    }
+    .activity-card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      flex: 1;
+      margin-bottom: 1.4rem;
+    }
+    .activity-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--deep-brown);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--pale-gold);
+      padding-bottom: 2px;
+      align-self: flex-start;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .activity-card-btn:hover {
+      color: var(--deep-gold);
+      border-color: var(--deep-gold);
+    }
+    .activity-card-btn svg {
+      transition: transform 0.2s;
+    }
+    .activity-card-btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* ── Profile photo with nobg image ──────────────── */
+    .profile-photo-nobg {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 4px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--warm-beige) 0%, var(--soft-beige) 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .profile-photo-nobg img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: bottom center;
+      filter: drop-shadow(0 8px 20px rgba(107,39,55,0.25));
+    }
+  </style>
 </head>
 <body>
 
@@ -64,11 +186,13 @@
   <main>
 
     <!-- ABOUT HERO -->
-    <section id="about-hero" style="background:linear-gradient(135deg, #3E2723 0%, #5D4037 100%); padding:5rem 0 4rem; text-align:center;">
+    <section id="about-hero" style="background:linear-gradient(135deg, var(--deep-brown) 0%, var(--medium-brown) 100%); padding:5rem 0 4rem; text-align:center;">
       <div class="container">
         <span class="section-label" style="color:var(--pale-gold);">About</span>
         <h1 class="page-title" style="font-family:var(--font-serif); font-size:clamp(2rem,4vw,3rem); color:var(--ivory); margin:0.75rem 0 1rem;">강해인</h1>
-        <p style="color:rgba(253,250,245,0.6); font-size:0.9rem; letter-spacing:0.2em;">시인 · 시낭송가 · 효 콘서트 기획자 · 문화예술 강사</p>
+        <p style="color:rgba(253,240,243,0.75); font-size:0.9rem; letter-spacing:0.18em;">
+          시인 · 시낭송가 · 전문 MC · 이미지 컨설턴트 · 효 콘서트 기획자 · 문화예술 강사
+        </p>
       </div>
     </section>
 
@@ -79,17 +203,15 @@
 
           <!-- Photo & Roles -->
           <div class="profile-photo-wrap fade-in">
-            <div class="profile-photo" style="width:100%; aspect-ratio:3/4; border-radius:4px; box-shadow:var(--shadow-lg); background:linear-gradient(160deg, #EDE0C4 0%, #C9A96E 50%, #8D6E63 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem;">
-              <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="36" cy="28" r="18" stroke="rgba(253,250,245,0.6)" stroke-width="1.5" fill="none"/>
-                <path d="M10 68 C10 52 20 44 36 44 C52 44 62 52 62 68" stroke="rgba(253,250,245,0.6)" stroke-width="1.5" fill="none"/>
-              </svg>
-              <span style="color:rgba(253,250,245,0.5); font-size:0.8rem; letter-spacing:0.15em;">강해인 사진</span>
+            <div class="profile-photo-nobg">
+              <img src="../images/haein-profile-nobg.png" alt="강해인 프로필 사진" />
             </div>
             <h2 class="profile-name-kr">강해인</h2>
             <div class="profile-roles">
               <span class="role-badge">시인</span>
               <span class="role-badge">시낭송가</span>
+              <span class="role-badge">전문 MC</span>
+              <span class="role-badge">이미지 컨설턴트</span>
               <span class="role-badge">효 콘서트 기획자</span>
               <span class="role-badge">문화예술 강사</span>
             </div>
@@ -103,7 +225,7 @@
               강해인은 시인이자 시낭송가로, 시와 낭송을 통해 사람들의 마음에 따뜻한 치유와 감동을 전하는 문화예술인입니다. 특히 부모님에 대한 사랑과 효(孝)의 가치를 시낭송으로 승화시킨 <strong>「효 콘서트」</strong>를 기획하고 이끌며, 우리 사회에 잊혀 가는 효의 아름다움을 되새기게 하는 데 힘쓰고 있습니다.
             </p>
             <p class="profile-intro fade-up" data-delay="150">
-              시집 『어머니의 봄』, 『빛의 낭송』 등을 출간하였으며, 전국 각지에서 시낭송 공연과 문화예술 강의를 통해 수만 명의 관객과 수강생들을 만나왔습니다. "시는 삶의 가장 아름다운 고백"이라는 신념으로, 오늘도 무대 위에서 시를 낭송하며 사람들과 마음을 잇고 있습니다.
+              시집 『어머니의 봄』, 『빛의 낭송』 등을 출간하였으며, 전국 각지에서 시낭송 공연과 문화예술 강의를 통해 수만 명의 관객과 수강생들을 만나왔습니다. 전문 MC로서 품격 있는 진행 역량과, 이미지 컨설팅을 통한 내면과 외면의 조화를 추구하며 "시는 삶의 가장 아름다운 고백"이라는 신념으로 활동하고 있습니다.
             </p>
 
             <!-- Career -->
@@ -139,8 +261,9 @@
               <h3>활동 이력</h3>
               <ul class="career-list">
                 <li><span class="year">현재</span><span>강해인 시낭송교실 운영 (서울 · 온라인)</span></li>
+                <li><span class="year">현재</span><span>전문 MC — 기업 행사, 문화예술 공연, 방송 진행</span></li>
+                <li><span class="year">현재</span><span>이미지 컨설팅 — 퍼스널 브랜딩 · 스피치 코칭</span></li>
                 <li><span class="year">현재</span><span>한국문인협회 회원, 한국시낭송가협회 이사</span></li>
-                <li><span class="year">현재</span><span>각종 문화예술 행사 시낭송 기획 및 진행</span></li>
                 <li><span class="year">현재</span><span>초·중·고교, 대학교, 기업체 문화예술 특강</span></li>
               </ul>
             </div>
@@ -159,6 +282,78 @@
 
           </div><!-- /profile-info -->
         </div><!-- /profile-grid -->
+      </div>
+    </section>
+
+    <!-- ── ACTIVITY CARDS SECTION ── -->
+    <section class="activity-section">
+      <div class="container">
+        <div class="section-header fade-up">
+          <span class="section-label">Activities</span>
+          <h2 class="section-title">주요 활동 분야</h2>
+          <p class="section-subtitle">강해인의 다양한 활동을 만나보세요</p>
+        </div>
+
+        <div class="activity-cards">
+
+          <!-- 전문 MC -->
+          <a href="mc.html" class="activity-card fade-up" data-delay="0">
+            <div class="activity-card-img-placeholder" style="background:linear-gradient(135deg, var(--deep-brown) 0%, var(--medium-brown) 50%, var(--soft-gold) 100%);">
+              🎤
+            </div>
+            <div class="activity-card-body">
+              <span class="activity-card-tag">Professional MC</span>
+              <h3 class="activity-card-title">전문 MC</h3>
+              <p class="activity-card-desc">
+                기업 행사, 문화예술 공연, 시상식, 컨퍼런스 등 다양한 현장에서
+                품격 있는 진행으로 행사의 완성도를 높입니다.
+              </p>
+              <span class="activity-card-btn">
+                자세히 보기
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </a>
+
+          <!-- 이미지 컨설턴트 -->
+          <a href="image-consulting.html" class="activity-card fade-up" data-delay="100">
+            <div class="activity-card-img-placeholder" style="background:linear-gradient(135deg, var(--soft-beige) 0%, var(--pale-gold) 50%, var(--soft-gold) 100%);">
+              ✨
+            </div>
+            <div class="activity-card-body">
+              <span class="activity-card-tag">Image Consulting</span>
+              <h3 class="activity-card-title">이미지 컨설턴트</h3>
+              <p class="activity-card-desc">
+                퍼스널 컬러 진단, 스타일 코칭, 스피치 이미지 메이킹으로
+                내면의 아름다움을 외면으로 표현하도록 돕습니다.
+              </p>
+              <span class="activity-card-btn">
+                자세히 보기
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </a>
+
+          <!-- 시낭송교실 -->
+          <a href="class.html" class="activity-card fade-up" data-delay="200">
+            <div class="activity-card-img-placeholder" style="background:linear-gradient(135deg, var(--warm-beige) 0%, var(--soft-beige) 50%, var(--pale-gold) 100%);">
+              📖
+            </div>
+            <div class="activity-card-body">
+              <span class="activity-card-tag">Poetry Recital Class</span>
+              <h3 class="activity-card-title">시낭송교실</h3>
+              <p class="activity-card-desc">
+                시를 읽고, 느끼고, 온 몸으로 표현하는 시낭송의 세계로 초대합니다.
+                입문부터 심화까지 체계적인 커리큘럼으로 안내합니다.
+              </p>
+              <span class="activity-card-btn">
+                자세히 보기
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </a>
+
+        </div><!-- /activity-cards -->
       </div>
     </section>
 
@@ -194,6 +389,8 @@
         <h4>더 보기</h4>
         <a href="gallery.html">갤러리</a>
         <a href="class.html">시낭송교실</a>
+        <a href="mc.html">전문 MC</a>
+        <a href="image-consulting.html">이미지 컨설팅</a>
         <a href="contact.html">공연문의</a>
       </div>
       <div class="footer-col">
@@ -208,6 +405,6 @@
     </div>
   </footer>
 
-  <script src="../js/main.js?v=20260604"></script>
+  <script src="../js/main.js?v=20260604b"></script>
 </body>
 </html>
