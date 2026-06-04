@@ -13,7 +13,40 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/style.css?v=20260604" />
+  <link rel="stylesheet" href="../css/style.css?v=20260604b" />
+  <style>
+    .class-teacher-photo {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--soft-beige) 0%, var(--pale-gold) 100%);
+      aspect-ratio: 3/4;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(107,39,55,0.15);
+      margin-bottom: 1.5rem;
+    }
+    .class-teacher-photo img {
+      width: 90%;
+      display: block;
+      filter: drop-shadow(0 6px 14px rgba(107,39,55,0.2));
+    }
+    .class-teacher-name {
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--deep-brown);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .class-teacher-title {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+  </style>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
 </head>
 <body>
@@ -105,6 +138,13 @@
             </div>
           </div>
           <div class="fade-in" data-delay="200">
+            <!-- Teacher Photo -->
+            <div class="class-teacher-photo">
+              <img src="../images/haein-trench-nobg.png" alt="강해인 시낭송교실 원장" />
+            </div>
+            <p class="class-teacher-name">강해인</p>
+            <p class="class-teacher-title">시인 · 시낭송가 · 문화예술 강사</p>
+            <div style="height:1.5rem;"></div>
             <div style="background:linear-gradient(160deg, var(--soft-beige), var(--pale-gold)); border-radius:4px; padding:2.5rem; box-shadow:var(--shadow-md);">
               <h3 style="font-family:var(--font-serif); color:var(--deep-brown); font-size:1.1rem; margin-bottom:1.5rem;">수업 안내</h3>
               <ul style="list-style:none;">
