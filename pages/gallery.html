@@ -13,7 +13,59 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/style.css?v=20260604" />
+  <link rel="stylesheet" href="../css/style.css?v=20260604b" />
+  <style>
+    /* gallery bottom CTA with photo */
+    .gallery-cta {
+      background: linear-gradient(135deg, var(--deep-brown) 0%, var(--medium-brown) 100%);
+      padding: 4.5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(212,132,154,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .gallery-cta-inner {
+      display: flex;
+      align-items: flex-end;
+      gap: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .gallery-cta-photo {
+      flex-shrink: 0;
+      width: 200px;
+      align-self: flex-end;
+    }
+    .gallery-cta-photo img {
+      width: 100%;
+      display: block;
+      filter: drop-shadow(0 12px 28px rgba(18,6,10,0.45));
+    }
+    .gallery-cta-text { flex: 1; padding-bottom: 1rem; }
+    .gallery-cta-text h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--ivory);
+      margin: 0 0 0.8rem;
+      line-height: 1.4;
+    }
+    .gallery-cta-text p {
+      color: rgba(255,240,243,0.7);
+      font-size: 0.92rem;
+      line-height: 1.75;
+      margin: 0 0 2rem;
+    }
+    @media (max-width: 640px) {
+      .gallery-cta-inner { flex-direction: column; align-items: center; }
+      .gallery-cta-text { text-align: center; padding-bottom: 0; }
+      .gallery-cta-photo { width: 150px; order: -1; }
+    }
+  </style>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
 </head>
 <body>
@@ -189,6 +241,28 @@
 
       </div>
     </section>
+
+    <!-- GALLERY CTA -->
+    <section class="gallery-cta">
+      <div class="container">
+        <div class="gallery-cta-inner">
+          <div class="gallery-cta-photo fade-in">
+            <img src="../images/haein-pink-nobg.png" alt="강해인" />
+          </div>
+          <div class="gallery-cta-text fade-up">
+            <span class="section-label" style="color:var(--pale-gold);">Performance &amp; Contact</span>
+            <h2>강해인의 무대를<br>여러분의 행사에 초대하세요</h2>
+            <p>공연 출연, 강의 진행, MC 섯재 및 효 콘서트 협력 문의를
+              언제든지 환영합니다.</p>
+            <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+              <a href="contact.html" class="btn btn-primary">공연문의 하기</a>
+              <a href="about.html" class="btn btn-outline" style="border-color:rgba(255,240,243,0.35); color:var(--ivory);">강해인 소개</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- LIGHTBOX -->

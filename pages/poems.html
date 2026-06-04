@@ -14,7 +14,74 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/style.css?v=20260604" />
+  <link rel="stylesheet" href="../css/style.css?v=20260604b" />
+  <style>
+    /* poems hero 2-col with photo */
+    .poems-hero-inner {
+      display: flex;
+      align-items: flex-end;
+      gap: 3rem;
+      padding-bottom: 0;
+    }
+    .poems-hero-text { flex: 1; padding-bottom: 3rem; }
+    .poems-hero-photo {
+      flex-shrink: 0;
+      width: 200px;
+      align-self: flex-end;
+    }
+    .poems-hero-photo img {
+      width: 100%;
+      display: block;
+      filter: drop-shadow(0 16px 32px rgba(18,6,10,0.5));
+    }
+    @media (max-width: 640px) {
+      .poems-hero-inner { flex-direction: column; align-items: center; }
+      .poems-hero-text { text-align: center; padding-bottom: 1rem; }
+      .poems-hero-photo { width: 140px; }
+    }
+    /* poet quote strip under grid */
+    .poems-quote-strip {
+      background: linear-gradient(135deg, var(--warm-beige) 0%, var(--light-beige) 100%);
+      padding: 3.5rem 0;
+    }
+    .poems-quote-inner {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .poems-quote-photo {
+      flex-shrink: 0;
+      width: 140px;
+    }
+    .poems-quote-photo img {
+      width: 100%;
+      display: block;
+      filter: drop-shadow(0 6px 16px rgba(107,39,55,0.2));
+    }
+    .poems-quote-text blockquote {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--deep-brown);
+      line-height: 1.7;
+      margin: 0 0 0.8rem;
+      padding-left: 1.2rem;
+      border-left: 3px solid var(--soft-gold);
+    }
+    .poems-quote-text cite {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      font-style: normal;
+    }
+    @media (max-width: 580px) {
+      .poems-quote-inner { flex-direction: column; text-align: center; }
+      .poems-quote-photo { width: 100px; }
+      .poems-quote-text blockquote { border-left: none; padding-left: 0; }
+    }
+  </style>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
 </head>
 <body>
@@ -51,20 +118,26 @@
   </nav>
 
   <!-- PAGE HERO -->
-  <section class="page-hero" style="padding-top:9rem;">
+  <section class="page-hero" style="padding-top:7rem;">
     <div class="container">
-      <span class="section-label" style="color:var(--pale-gold);">Creative Poetry</span>
-      <h1 class="page-title" style="font-family:var(--font-serif); font-size:clamp(2rem,4vw,3rem); color:var(--ivory); margin:0.75rem 0 1rem;">창작시</h1>
-      <p class="page-subtitle" style="color:rgba(253,250,245,0.6); letter-spacing:0.15em; font-size:0.9rem;">강해인이 직접 쓴 시들을 만나보세요</p>
-
-      <!-- Search -->
-      <div class="poem-search-bar">
-        <input type="search" id="poemSearch" placeholder="시 제목 또는 내용으로 검색..." aria-label="시 검색" />
-        <span class="search-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-          </svg>
-        </span>
+      <div class="poems-hero-inner">
+        <div class="poems-hero-text">
+          <span class="section-label" style="color:var(--pale-gold);">Creative Poetry</span>
+          <h1 class="page-title" style="font-family:var(--font-serif); font-size:clamp(2rem,4vw,3rem); color:var(--ivory); margin:0.75rem 0 1rem;">창작시</h1>
+          <p class="page-subtitle" style="color:rgba(253,250,245,0.6); letter-spacing:0.15em; font-size:0.9rem; margin-bottom:1.8rem;">강해인이 직접 쓴 시들을 만나보세요</p>
+          <!-- Search -->
+          <div class="poem-search-bar">
+            <input type="search" id="poemSearch" placeholder="시 제목 또는 내용으로 검색..." aria-label="시 검색" />
+            <span class="search-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+        <div class="poems-hero-photo">
+          <img src="../images/haein-pink-nobg.png" alt="시인 강해인" />
+        </div>
       </div>
     </div>
   </section>
@@ -306,6 +379,28 @@
         </div><!-- /poems-grid -->
       </div>
     </section>
+
+    <!-- POET QUOTE STRIP -->
+    <section class="poems-quote-strip">
+      <div class="container">
+        <div class="poems-quote-inner">
+          <div class="poems-quote-photo fade-in">
+            <img src="../images/haein-pink-nobg.png" alt="시인 강해인" />
+          </div>
+          <div class="poems-quote-text fade-up">
+            <blockquote>
+              "시는 삶의 가장 아름다운 고백입니다.<br>
+              낭송은 그 고백을 소리로 전하는 일입니다."
+            </blockquote>
+            <cite>— 강해인 (시인 · 시낭송가)</cite>
+            <div style="margin-top:1.4rem;">
+              <a href="about.html" class="btn btn-outline" style="font-size:0.85rem;">강해인 소개 보기</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- POEM MODAL -->
