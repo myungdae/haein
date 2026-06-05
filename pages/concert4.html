@@ -401,24 +401,31 @@
     }
     .c4-bg-strip {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.5rem;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 0.6rem;
+      align-items: stretch;
     }
     .c4-bg-strip img {
       width: 100%;
-      aspect-ratio: 4/3;
+      height: 300px;
       object-fit: cover;
-      object-position: center top;
-      border-radius: 6px;
-      filter: brightness(0.8) saturate(0.9);
+      object-position: center center;
+      border-radius: 8px;
+      filter: brightness(0.88) saturate(0.95);
       transition: filter 0.3s, transform 0.3s;
+      display: block;
     }
     .c4-bg-strip img:hover {
-      filter: brightness(1) saturate(1);
-      transform: scale(1.03);
+      filter: brightness(1.05) saturate(1.05);
+      transform: scale(1.02);
     }
-    @media(max-width:640px){
-      .c4-bg-strip { grid-template-columns: repeat(2, 1fr); }
+    @media(max-width:768px){
+      .c4-bg-strip { grid-template-columns: 1fr 1fr; }
+      .c4-bg-strip img { height: 200px; }
+    }
+    @media(max-width:480px){
+      .c4-bg-strip { grid-template-columns: 1fr; }
+      .c4-bg-strip img { height: 240px; }
     }
 
     /* ── 하단 CTA ── */
@@ -906,10 +913,9 @@
           <h2 style="font-family:var(--font-serif); font-size:1.6rem; color:var(--ivory); font-weight:300; margin:0.5rem 0 0;">공연의 순간들</h2>
         </div>
         <div class="c4-bg-strip">
-          <img src="../images/concert4-haein3.jpg" alt="강해인 낭송" />
-          <img src="../images/concert4-haein4.jpg" alt="강해인 낭송 2" />
-          <img src="../images/concert4-haein5.jpg" alt="강해인 낭송 3" />
-          <img src="../images/concert4-duet.jpg" alt="듀엣 낭송" />
+          <img src="../images/concert4-mood1.jpg" alt="제4회 효 콘서트 단체 기념 촬영" />
+          <img src="../images/concert4-mood2.jpg" alt="듀엣 낭송 — 최송자 · 강해인" />
+          <img src="../images/concert4-mood3.jpg" alt="인사말 & 내빈소개 — 박용숙 진행자" />
         </div>
       </div>
     </section>
