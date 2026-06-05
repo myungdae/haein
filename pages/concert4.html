@@ -281,34 +281,51 @@
 
     /* ── 출연진 ── */
     .c4-cast {
-      background: #fff;
+      background: linear-gradient(180deg, #fff7f9 0%, #fff 100%);
       padding: 5rem 0;
     }
     .c4-cast-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.8rem;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.6rem;
     }
     .c4-cast-card {
-      background: var(--ivory);
-      border-radius: 10px;
+      background: #fff;
+      border-radius: 14px;
       overflow: hidden;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 4px 20px rgba(160,60,80,0.10);
       transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
     .c4-cast-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-md);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 36px rgba(160,60,80,0.18);
+    }
+    /* 배경제거 이미지 래퍼 */
+    .c4-cast-photo {
+      width: 100%;
+      background: linear-gradient(160deg, #fde8ef 0%, #fdf3f0 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 220px;
+      overflow: hidden;
     }
     .c4-cast-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      object-position: center top;
+      width: auto;
+      max-width: 100%;
+      height: 220px;
+      object-fit: contain;
+      object-position: bottom center;
       display: block;
+      filter: drop-shadow(0 6px 16px rgba(120,30,50,0.18));
     }
     .c4-cast-body {
-      padding: 1.2rem 1.4rem 1.4rem;
+      padding: 1.1rem 1.3rem 1.4rem;
+      width: 100%;
     }
     .c4-cast-name {
       font-family: var(--font-serif);
@@ -342,9 +359,12 @@
     .c4-cast-card.c4-duet {
       grid-column: span 2;
     }
+    .c4-cast-card.c4-duet .c4-cast-photo {
+      height: 240px;
+    }
     .c4-cast-card.c4-duet .c4-cast-img {
-      height: 220px;
-      object-position: center 30%;
+      height: 240px;
+      object-position: center bottom;
     }
     @media(max-width:640px){
       .c4-cast-card.c4-duet { grid-column: span 1; }
@@ -695,7 +715,7 @@
 
           <!-- 강해인 -->
           <div class="c4-cast-card fade-up">
-            <img class="c4-cast-img" src="../images/concert4-haein-hanbok.jpg" alt="강해인" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-haein-hanbok-nobg.png" alt="강해인" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">강해인</h3>
               <p class="c4-cast-title">국제문화예술인연합회 회장<br>대전시낭송가협회 회장</p>
@@ -708,7 +728,7 @@
 
           <!-- 이순선 -->
           <div class="c4-cast-card fade-up" data-delay="100">
-            <img class="c4-cast-img" src="../images/concert4-lee-soon-seon.jpg" alt="이순선" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-lee-soon-seon-nobg.png" alt="이순선" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">이순선</h3>
               <p class="c4-cast-title">백제연예술단 단장</p>
@@ -721,7 +741,7 @@
 
           <!-- 오순옥 -->
           <div class="c4-cast-card fade-up" data-delay="0">
-            <img class="c4-cast-img" src="../images/concert4-oh-soon-ok.jpg" alt="오순옥" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-oh-soon-ok-nobg.png" alt="오순옥" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">오순옥</h3>
               <p class="c4-cast-title">서미에 낭송 부회장</p>
@@ -734,7 +754,7 @@
 
           <!-- 이영숙 -->
           <div class="c4-cast-card fade-up" data-delay="100">
-            <img class="c4-cast-img" src="../images/concert4-lee-young-sook.jpg" alt="이영숙" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-lee-young-sook-nobg.png" alt="이영숙" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">이영숙</h3>
               <p class="c4-cast-title">효문화박사</p>
@@ -747,7 +767,7 @@
 
           <!-- 구본중 -->
           <div class="c4-cast-card fade-up" data-delay="0">
-            <img class="c4-cast-img" src="../images/concert4-gu-bon-jung.jpg" alt="구본중" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-gu-bon-jung-nobg.png" alt="구본중" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">구본중</h3>
               <p class="c4-cast-title">미래교육캠퍼스 대표<br>오카리나 강사</p>
@@ -760,7 +780,7 @@
 
           <!-- 최송자 -->
           <div class="c4-cast-card fade-up" data-delay="100">
-            <img class="c4-cast-img" src="../images/concert4-choi-song-ja.jpg" alt="최송자" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-choi-song-ja-nobg.png" alt="최송자" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">최송자</h3>
               <p class="c4-cast-title">국제시낭송예술인연합회 회장<br>세계로시낭송협회 회장</p>
@@ -773,7 +793,7 @@
 
           <!-- 김경희 -->
           <div class="c4-cast-card fade-up" data-delay="0">
-            <img class="c4-cast-img" src="../images/concert4-kim-kyung-hee.jpg" alt="김경희" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-kim-kyung-hee-nobg.png" alt="김경희" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">김경희</h3>
               <p class="c4-cast-title">용인시 타오름봉사단 부단장</p>
@@ -786,7 +806,7 @@
 
           <!-- 박동주 -->
           <div class="c4-cast-card fade-up" data-delay="100">
-            <img class="c4-cast-img" src="../images/concert4-park-dong-joo.jpg" alt="박동주" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-park-dong-joo-nobg.png" alt="박동주" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">박동주</h3>
               <p class="c4-cast-title">국제시낭송예술인연합회 사무총장<br>유니온대학 경영학 박사</p>
@@ -799,7 +819,7 @@
 
           <!-- 김춘희 -->
           <div class="c4-cast-card fade-up" data-delay="0">
-            <img class="c4-cast-img" src="../images/concert4-kim-chun-hee.jpg" alt="김춘희" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-kim-chun-hee-nobg.png" alt="김춘희" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">김춘희</h3>
               <p class="c4-cast-title">백제시낭송회 회장</p>
@@ -812,7 +832,7 @@
 
           <!-- 전길례 -->
           <div class="c4-cast-card fade-up" data-delay="100">
-            <img class="c4-cast-img" src="../images/concert4-jeon-gil-rye.jpg" alt="전길례" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-jeon-gil-rye-nobg.png" alt="전길례" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">전길례</h3>
               <p class="c4-cast-title">대전시낭송가협회 회원<br>한화손해보험 FP</p>
@@ -825,7 +845,7 @@
 
           <!-- 듀엣 -->
           <div class="c4-cast-card c4-duet fade-up" data-delay="0">
-            <img class="c4-cast-img" src="../images/concert4-duet.jpg" alt="듀엣 공연 — 최송자 · 강해인" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-duet.jpg" alt="듀엣 공연 — 최송자 · 강해인" style="object-fit:cover; width:100%;" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">듀엣 낭송</h3>
               <p class="c4-cast-title">최송자 × 강해인</p>
@@ -838,7 +858,7 @@
 
           <!-- 진행자 -->
           <div class="c4-cast-card fade-up" data-delay="100">
-            <img class="c4-cast-img" src="../images/concert4-haein2.jpg" alt="박용숙 진행자" />
+            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-park-yong-sook-nobg.png" alt="박용숙 진행자" /></div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">박용숙</h3>
               <p class="c4-cast-title">계룡시청 공무원 · 시인<br><em style="font-style:normal;color:#a05060;font-size:0.78rem;">진행자</em></p>
