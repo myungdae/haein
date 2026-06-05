@@ -355,19 +355,41 @@
       font-size: 0.78rem;
       color: var(--text-muted);
     }
-    /* 듀엣 카드 */
+    /* 듀엣 카드 — 2칸 차지, 두 인물 나란히 */
     .c4-cast-card.c4-duet {
       grid-column: span 2;
+      flex-direction: row;
+      align-items: stretch;
+      text-align: left;
     }
-    .c4-cast-card.c4-duet .c4-cast-photo {
+    .c4-duet-photos {
+      display: flex;
+      flex-shrink: 0;
+      width: 50%;
+      background: linear-gradient(160deg, #fde8ef 0%, #fdf3f0 100%);
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0;
       height: 240px;
+      overflow: hidden;
     }
-    .c4-cast-card.c4-duet .c4-cast-img {
+    .c4-duet-photos img {
+      width: 50%;
       height: 240px;
-      object-position: center bottom;
+      object-fit: contain;
+      object-position: bottom center;
+      filter: drop-shadow(0 4px 12px rgba(120,30,50,0.15));
+    }
+    .c4-cast-card.c4-duet .c4-cast-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1.5rem 1.6rem;
     }
     @media(max-width:640px){
-      .c4-cast-card.c4-duet { grid-column: span 1; }
+      .c4-cast-card.c4-duet { grid-column: span 1; flex-direction: column; }
+      .c4-duet-photos { width: 100%; }
       .c4-info-grid { grid-template-columns: 1fr; }
       .c4-org-row { grid-template-columns: 1fr; }
     }
@@ -845,7 +867,10 @@
 
           <!-- 듀엣 -->
           <div class="c4-cast-card c4-duet fade-up" data-delay="0">
-            <div class="c4-cast-photo"><img class="c4-cast-img" src="../images/concert4-duet.jpg" alt="듀엣 공연 — 최송자 · 강해인" style="object-fit:cover; width:100%;" /></div>
+            <div class="c4-duet-photos">
+              <img src="../images/concert4-choi-song-ja-nobg.png" alt="최송자" />
+              <img src="../images/concert4-haein-hanbok-nobg.png" alt="강해인" />
+            </div>
             <div class="c4-cast-body">
               <h3 class="c4-cast-name">듀엣 낭송</h3>
               <p class="c4-cast-title">최송자 × 강해인</p>
