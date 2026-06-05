@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>제4회 효 콘서트 — 다시, 행복 | 강해인 시낭송</title>
+  <meta name="description" content="제4회 강해인의 시낭송 효 콘서트 '다시, 행복' — 2026년 5월 30일(토) 오후 2시, 계룡복합문화센터" />
+  <meta property="og:title" content="제4회 효 콘서트 — 다시, 행복 | 강해인" />
+  <meta property="og:description" content="변함없는 부모님의 사랑에 감사드립니다. 2026.05.30 계룡복합문화센터" />
+  <meta property="og:image" content="https://haein.exko.kr/images/og-image.jpg?v=20260604b" />
+  <meta property="og:url" content="https://haein.exko.kr/pages/concert4.html" />
+  <link rel="canonical" href="https://haein.exko.kr/pages/concert4.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css?v=20260604b" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
+
+  <style>
+    /* ── 히어로 ── */
+    .c4-hero {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background: #2a0e18;
+    }
+    .c4-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../images/concert4-bg.jpg');
+      background-size: cover;
+      background-position: center 20%;
+      filter: brightness(0.45) saturate(0.8);
+    }
+    .c4-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(30,8,16,0.1) 0%,
+        rgba(30,8,16,0.3) 50%,
+        rgba(20,5,12,0.92) 100%);
+    }
+    .c4-hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 5rem 0 4rem;
+    }
+    .c4-badge {
+      display: inline-block;
+      background: var(--soft-gold);
+      color: var(--deep-brown);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+    .c4-hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      color: var(--ivory);
+      font-weight: 300;
+      line-height: 1.2;
+      margin: 0 0 0.5rem;
+    }
+    .c4-hero-title em {
+      font-style: normal;
+      color: var(--pale-gold);
+    }
+    .c4-hero-sub {
+      font-family: var(--font-serif);
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      color: rgba(253,240,210,0.75);
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      margin: 0 0 2rem;
+    }
+    .c4-hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .c4-hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(253,250,245,0.8);
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+    .c4-hero-meta-item svg { flex-shrink: 0; color: var(--pale-gold); }
+
+    /* ── 초대장 섹션 ── */
+    .c4-invitation {
+      background: linear-gradient(135deg, #fdf0f4 0%, #fff7f0 100%);
+      padding: 5rem 0;
+    }
+    .c4-invitation-card {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(160,60,80,0.12);
+      overflow: hidden;
+      text-align: center;
+      border: 1px solid rgba(212,132,154,0.2);
+    }
+    .c4-invitation-top {
+      background: linear-gradient(135deg, #f7b8c4 0%, #f9d0a0 100%);
+      padding: 2.5rem 2rem 2rem;
+      position: relative;
+    }
+    .c4-invitation-top::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: rgba(255,255,255,0.6);
+      margin: 1.2rem auto 0;
+      border-radius: 2px;
+    }
+    .c4-invitation-ribbon {
+      display: inline-block;
+      background: #c0392b;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      padding: 0.3rem 1.2rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+    .c4-invitation-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      color: #2a0e18;
+      font-weight: 600;
+      line-height: 1.3;
+      margin: 0 0 0.4rem;
+    }
+    .c4-invitation-subtitle {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: #7a3040;
+      letter-spacing: 0.15em;
+    }
+    .c4-invitation-body {
+      padding: 2.5rem 2.5rem 2rem;
+    }
+    .c4-invitation-quote {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--deep-brown);
+      line-height: 1.9;
+      font-weight: 400;
+      margin-bottom: 2rem;
+    }
+    .c4-invitation-quote strong {
+      display: block;
+      font-size: 1.15rem;
+      color: #7a3040;
+      margin-bottom: 0.5rem;
+    }
+    .c4-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .c4-info-item {
+      background: #fdf0f4;
+      border-radius: 8px;
+      padding: 1.2rem;
+      text-align: left;
+    }
+    .c4-info-item-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: #a05060;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+    .c4-info-item-value {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      color: var(--deep-brown);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .c4-org-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      border-top: 1px solid rgba(212,132,154,0.25);
+      padding-top: 1.5rem;
+    }
+    .c4-org-box {
+      text-align: center;
+    }
+    .c4-org-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: #a05060;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .c4-org-name {
+      font-size: 0.82rem;
+      color: var(--deep-brown);
+      line-height: 1.7;
+    }
+
+    /* ── 프로그램 순서 ── */
+    .c4-program {
+      background: var(--warm-beige);
+      padding: 5rem 0;
+    }
+    .c4-program-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--ivory);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .c4-program-table thead tr {
+      background: linear-gradient(135deg, var(--deep-brown), var(--medium-brown));
+    }
+    .c4-program-table thead th {
+      padding: 1rem 1.2rem;
+      color: var(--pale-gold);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-align: left;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    .c4-program-table tbody tr {
+      border-bottom: 1px solid rgba(160,80,60,0.1);
+      transition: background 0.2s;
+    }
+    .c4-program-table tbody tr:hover { background: rgba(212,132,154,0.06); }
+    .c4-program-table tbody tr:last-child { border-bottom: none; }
+    .c4-program-table tbody td {
+      padding: 1rem 1.2rem;
+      font-size: 0.88rem;
+      color: var(--text-medium);
+      vertical-align: middle;
+    }
+    .c4-program-table .td-num {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--deep-brown);
+      font-weight: 500;
+      width: 2.5rem;
+    }
+    .c4-program-table .td-type {
+      width: 6rem;
+    }
+    .c4-type-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+    .c4-type-recit { background: rgba(212,132,154,0.18); color: #7a3040; }
+    .c4-type-event { background: rgba(180,140,60,0.18); color: #5a4010; }
+    .c4-type-music { background: rgba(80,120,180,0.15); color: #2a4080; }
+    .c4-type-duet  { background: rgba(120,60,150,0.15); color: #50207a; }
+    .c4-program-table .td-poem { font-weight: 500; color: var(--deep-brown); }
+    .c4-program-table .td-poet { font-size: 0.82rem; color: var(--text-muted); }
+    .c4-program-table .td-reciter { font-weight: 400; }
+
+    /* ── 출연진 ── */
+    .c4-cast {
+      background: #fff;
+      padding: 5rem 0;
+    }
+    .c4-cast-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.8rem;
+    }
+    .c4-cast-card {
+      background: var(--ivory);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .c4-cast-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+    .c4-cast-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .c4-cast-body {
+      padding: 1.2rem 1.4rem 1.4rem;
+    }
+    .c4-cast-name {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--deep-brown);
+      font-weight: 600;
+      margin: 0 0 0.3rem;
+    }
+    .c4-cast-title {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 0.8rem;
+    }
+    .c4-cast-poem {
+      border-top: 1px solid rgba(160,80,60,0.12);
+      padding-top: 0.75rem;
+    }
+    .c4-cast-poem-title {
+      font-family: var(--font-serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #7a3040;
+      margin-bottom: 0.2rem;
+    }
+    .c4-cast-poem-poet {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    /* 듀엣 카드 */
+    .c4-cast-card.c4-duet {
+      grid-column: span 2;
+    }
+    .c4-cast-card.c4-duet .c4-cast-img {
+      height: 220px;
+      object-position: center 30%;
+    }
+    @media(max-width:640px){
+      .c4-cast-card.c4-duet { grid-column: span 1; }
+      .c4-info-grid { grid-template-columns: 1fr; }
+      .c4-org-row { grid-template-columns: 1fr; }
+    }
+
+    /* ── 갤러리 배경 섹션 ── */
+    .c4-bg-gallery {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, #2a0e18 0%, #4a1a22 100%);
+    }
+    .c4-bg-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+    }
+    .c4-bg-strip img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 6px;
+      filter: brightness(0.8) saturate(0.9);
+      transition: filter 0.3s, transform 0.3s;
+    }
+    .c4-bg-strip img:hover {
+      filter: brightness(1) saturate(1);
+      transform: scale(1.03);
+    }
+    @media(max-width:640px){
+      .c4-bg-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── 하단 CTA ── */
+    .c4-cta {
+      background: linear-gradient(135deg, var(--deep-brown) 0%, #4a1a22 100%);
+      padding: 4rem 0;
+      text-align: center;
+    }
+    .c4-cta-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--ivory);
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+    .c4-cta-sub {
+      color: rgba(253,250,245,0.55);
+      font-size: 0.88rem;
+      margin-bottom: 2rem;
+      letter-spacing: 0.08em;
+    }
+    .c4-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--soft-gold);
+      color: var(--deep-brown);
+      padding: 0.9rem 2.2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .c4-cta-btn:hover {
+      background: var(--pale-gold);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="header" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-kr">怡娜</span>
+        <span class="logo-en">강해인 <span class="logo-hanja">怡娜</span></span>
+      </a>
+      <nav class="nav-menu" role="navigation">
+        <a href="../index.html">HOME</a>
+        <a href="about.html">강해인</a>
+        <a href="poems.html">창작시</a>
+        <a href="concert.html" class="active">효 콘서트</a>
+        <a href="gallery.html">갤러리</a>
+        <a href="class.html">시낭송교실</a>
+        <a href="contact.html" class="nav-cta">공연문의</a>
+      </nav>
+      <button class="hamburger" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <nav class="mobile-menu" role="navigation">
+    <a href="../index.html">HOME</a>
+    <a href="about.html">강해인</a>
+    <a href="poems.html">창작시</a>
+    <a href="concert.html">효 콘서트</a>
+    <a href="gallery.html">갤러리</a>
+    <a href="class.html">시낭송교실</a>
+    <a href="contact.html">공연문의</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="c4-hero">
+    <div class="c4-hero-bg"></div>
+    <div class="c4-hero-overlay"></div>
+    <div class="c4-hero-content">
+      <div class="container">
+        <div class="breadcrumb-inner" style="margin-bottom:1.5rem;">
+          <a href="../index.html" style="color:rgba(253,250,245,0.5); font-size:0.8rem;">HOME</a>
+          <span class="sep" style="color:rgba(253,250,245,0.3);">›</span>
+          <a href="concert.html" style="color:rgba(253,250,245,0.5); font-size:0.8rem;">효 콘서트</a>
+          <span class="sep" style="color:rgba(253,250,245,0.3);">›</span>
+          <span style="color:var(--pale-gold); font-size:0.8rem;">제4회</span>
+        </div>
+        <span class="c4-badge">제 4 회 · 2026 4회</span>
+        <h1 class="c4-hero-title">강해인의 시낭송 <em>효</em> 콘서트</h1>
+        <p class="c4-hero-sub">— 다시, 행복 —</p>
+        <div class="c4-hero-meta">
+          <div class="c4-hero-meta-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            <span>2026년 5월 30일(토) 오후 2시</span>
+          </div>
+          <div class="c4-hero-meta-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <span>계룡복합문화센터</span>
+          </div>
+          <div class="c4-hero-meta-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>주최·주관: 국제문화예술인연합회</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+
+    <!-- 초대장 -->
+    <section class="c4-invitation">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label fade-up">Invitation</span>
+          <h2 class="section-title fade-up" data-delay="100">초대합니다</h2>
+          <div class="divider"></div>
+        </div>
+
+        <div class="c4-invitation-card fade-up" data-delay="150">
+          <div class="c4-invitation-top">
+            <div class="c4-invitation-ribbon">제 4 회</div>
+            <h3 class="c4-invitation-title">강해인의 시낭송 효 콘서트</h3>
+            <p class="c4-invitation-subtitle">— 다시, 행복 —</p>
+          </div>
+          <div class="c4-invitation-body">
+            <div class="c4-invitation-quote">
+              <strong>변함없는 부모님의 사랑에 감사드립니다.</strong>
+              고맙습니다, 사랑합니다 — 마음으로 전하세요.
+            </div>
+            <div class="c4-info-grid">
+              <div class="c4-info-item">
+                <div class="c4-info-item-label">일시</div>
+                <div class="c4-info-item-value">2026년 5월 30일(토)<br>오후 2시</div>
+              </div>
+              <div class="c4-info-item">
+                <div class="c4-info-item-label">장소</div>
+                <div class="c4-info-item-value">계룡복합문화센터</div>
+              </div>
+            </div>
+            <div class="c4-org-row">
+              <div class="c4-org-box">
+                <div class="c4-org-label">주최·주관</div>
+                <div class="c4-org-name">국제문화예술인연합회</div>
+              </div>
+              <div class="c4-org-box">
+                <div class="c4-org-label">후원</div>
+                <div class="c4-org-name">
+                  대전시낭송가협회<br>
+                  한국문화예술명인회<br>
+                  국제시낭송예술인연합회
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 프로그램 순서 -->
+    <section class="c4-program">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label fade-up">Program</span>
+          <h2 class="section-title fade-up" data-delay="100">공연 프로그램</h2>
+          <div class="divider"></div>
+        </div>
+
+        <div class="fade-up" data-delay="150" style="overflow-x:auto;">
+          <table class="c4-program-table">
+            <thead>
+              <tr>
+                <th>순서</th>
+                <th>구분</th>
+                <th>작품명</th>
+                <th>시인</th>
+                <th>낭송 / 출연</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-num">—</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-event">행사</span></td>
+                <td class="td-poem">인사말 &amp; 내빈소개</td>
+                <td class="td-poet">—</td>
+                <td>진행: 박용숙</td>
+              </tr>
+              <tr>
+                <td class="td-num">—</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-event">행사</span></td>
+                <td class="td-poem">축사</td>
+                <td class="td-poet">—</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td class="td-num">1</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">그 창</td>
+                <td class="td-poet">양애경 詩</td>
+                <td>강해인 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">2</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">어머니의 편지</td>
+                <td class="td-poet">문정희 詩</td>
+                <td>이순선 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">3</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">어머니</td>
+                <td class="td-poet">강정란 詩</td>
+                <td>강해인 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">4</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">어머니의 기억</td>
+                <td class="td-poet">신석정 詩</td>
+                <td>오순옥 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">5</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">아버지</td>
+                <td class="td-poet">김용욱 詩</td>
+                <td>이영숙 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">6</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">딸아!</td>
+                <td class="td-poet">강신용 詩</td>
+                <td>강해인 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">7</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-music">오카리나</span></td>
+                <td class="td-poem">오카리나 연주</td>
+                <td class="td-poet">—</td>
+                <td>구본중</td>
+              </tr>
+              <tr>
+                <td class="td-num">8</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">행복</td>
+                <td class="td-poet">유치환 詩</td>
+                <td>강해인 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">9</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">황옥의 사랑가</td>
+                <td class="td-poet">정일근 詩</td>
+                <td>최송자 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">10</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">내가 사랑하는 당신은</td>
+                <td class="td-poet">도종환 詩</td>
+                <td>김경희 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">11</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">우주만상속의 당신</td>
+                <td class="td-poet">박경리 詩</td>
+                <td>박동주 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">12</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-duet">듀엣</span></td>
+                <td class="td-poem">천년 사랑</td>
+                <td class="td-poet">작자미상</td>
+                <td>최송자 · 강해인 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">13</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">두꺼비</td>
+                <td class="td-poet">박성우 詩</td>
+                <td>김춘희 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">14</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">선물</td>
+                <td class="td-poet">나태주 詩</td>
+                <td>전길례 朗誦</td>
+              </tr>
+              <tr>
+                <td class="td-num">15</td>
+                <td class="td-type"><span class="c4-type-tag c4-type-recit">낭송</span></td>
+                <td class="td-poem">부르지 못한 그 이름</td>
+                <td class="td-poet">강해인 詩</td>
+                <td>강해인 朗誦</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 출연진 -->
+    <section class="c4-cast">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label fade-up">Cast</span>
+          <h2 class="section-title fade-up" data-delay="100">출연진</h2>
+          <div class="divider"></div>
+        </div>
+
+        <div class="c4-cast-grid">
+
+          <!-- 강해인 -->
+          <div class="c4-cast-card fade-up">
+            <img class="c4-cast-img" src="../images/concert4-haein-hanbok.jpg" alt="강해인" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">강해인</h3>
+              <p class="c4-cast-title">국제문화예술인연합회 회장<br>대전시낭송가협회 회장</p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">그 창 · 어머니 · 딸아! · 행복 · 부르지 못한 그 이름</div>
+                <div class="c4-cast-poem-poet">양애경 詩 외 / 강해인 朗誦</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 이순선 -->
+          <div class="c4-cast-card fade-up" data-delay="100">
+            <img class="c4-cast-img" src="../images/concert4-lee-soon-seon.jpg" alt="이순선" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">이순선</h3>
+              <p class="c4-cast-title">백제연예술단 단장</p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">어머니의 편지</div>
+                <div class="c4-cast-poem-poet">문정희 詩 / 이순선 朗誦</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 오순옥 -->
+          <div class="c4-cast-card fade-up" data-delay="0">
+            <img class="c4-cast-img" src="../images/concert4-oh-soon-ok.jpg" alt="오순옥" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">오순옥</h3>
+              <p class="c4-cast-title">서미에 낭송 부회장</p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">어머니의 기억</div>
+                <div class="c4-cast-poem-poet">신석정 詩 / 오순옥 朗誦</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 이영숙 -->
+          <div class="c4-cast-card fade-up" data-delay="100">
+            <img class="c4-cast-img" src="../images/concert4-lee-young-sook.jpg" alt="이영숙" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">이영숙</h3>
+              <p class="c4-cast-title">효문화박사</p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">아버지</div>
+                <div class="c4-cast-poem-poet">김용욱 詩 / 이영숙 朗誦</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 구본중 -->
+          <div class="c4-cast-card fade-up" data-delay="0">
+            <img class="c4-cast-img" src="../images/concert4-gu-bon-jung.jpg" alt="구본중" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">구본중</h3>
+              <p class="c4-cast-title">미래교육캠퍼스 대표<br>오카리나 강사</p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">오카리나 연주</div>
+                <div class="c4-cast-poem-poet">특별 연주</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 최송자 -->
+          <div class="c4-cast-card fade-up" data-delay="100">
+            <img class="c4-cast-img" src="../images/concert4-choi-song-ja.jpg" alt="최송자" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">최송자</h3>
+              <p class="c4-cast-title">국제시낭송예술인연합회 회장<br>세계로시낭송협회 회장</p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">황옥의 사랑가 · 천년 사랑(듀엣)</div>
+                <div class="c4-cast-poem-poet">정일근 詩 외 / 최송자 朗誦</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 김경희 -->
+          <div class="c4-cast-card fade-up" data-delay="0">
+            <img class="c4-cast-img" src="../images/concert4-kim-kyung-hee.jpg" alt="김경희" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">김경희</h3>
+              <p class="c4-cast-title">용인시 타오름봉사단 부단장</p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">내가 사랑하는 당신은</div>
+                <div class="c4-cast-poem-poet">도종환 詩 / 김경희 朗誦</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 박동주 -->
+          <div class="c4-cast-card fade-up" data-delay="100">
+            <img class="c4-cast-img" src="../images/concert4-park-dong-joo.jpg" alt="박동주" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">박동주</h3>
+              <p class="c4-cast-title">국제시낭송예술인연합회 사무총장<br>유니온대학 경영학 박사</p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">우주만상속의 당신</div>
+                <div class="c4-cast-poem-poet">박경리 詩 / 박동주 朗誦</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 김춘희 -->
+          <div class="c4-cast-card fade-up" data-delay="0">
+            <img class="c4-cast-img" src="../images/concert4-kim-chun-hee.jpg" alt="김춘희" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">김춘희</h3>
+              <p class="c4-cast-title">백제시낭송회 회장</p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">두꺼비</div>
+                <div class="c4-cast-poem-poet">박성우 詩 / 김춘희 朗誦</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 전길례 -->
+          <div class="c4-cast-card fade-up" data-delay="100">
+            <img class="c4-cast-img" src="../images/concert4-jeon-gil-rye.jpg" alt="전길례" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">전길례</h3>
+              <p class="c4-cast-title">대전시낭송가협회 회원<br>한화손해보험 FP</p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">선물</div>
+                <div class="c4-cast-poem-poet">나태주 詩 / 전길례 朗誦</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 듀엣 -->
+          <div class="c4-cast-card c4-duet fade-up" data-delay="0">
+            <img class="c4-cast-img" src="../images/concert4-duet.jpg" alt="듀엣 공연 — 최송자 · 강해인" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">듀엣 낭송</h3>
+              <p class="c4-cast-title">최송자 × 강해인</p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">천년 사랑</div>
+                <div class="c4-cast-poem-poet">작자미상 / 최송자 · 강해인 朗誦</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 진행자 -->
+          <div class="c4-cast-card fade-up" data-delay="100">
+            <img class="c4-cast-img" src="../images/concert4-haein2.jpg" alt="박용숙 진행자" />
+            <div class="c4-cast-body">
+              <h3 class="c4-cast-name">박용숙</h3>
+              <p class="c4-cast-title">계룡시청 공무원 · 시인<br><em style="font-style:normal;color:#a05060;font-size:0.78rem;">진행자</em></p>
+              <div class="c4-cast-poem">
+                <div class="c4-cast-poem-title">인사말 &amp; 내빈소개 진행</div>
+                <div class="c4-cast-poem-poet">사회 담당</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 공연 무드 갤러리 -->
+    <section class="c4-bg-gallery">
+      <div class="container">
+        <div style="text-align:center; margin-bottom:2rem;">
+          <span class="section-label" style="color:var(--pale-gold);">Concert Mood</span>
+          <h2 style="font-family:var(--font-serif); font-size:1.6rem; color:var(--ivory); font-weight:300; margin:0.5rem 0 0;">공연의 순간들</h2>
+        </div>
+        <div class="c4-bg-strip">
+          <img src="../images/concert4-haein3.jpg" alt="강해인 낭송" />
+          <img src="../images/concert4-haein4.jpg" alt="강해인 낭송 2" />
+          <img src="../images/concert4-haein5.jpg" alt="강해인 낭송 3" />
+          <img src="../images/concert4-duet.jpg" alt="듀엣 낭송" />
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="c4-cta">
+      <div class="container">
+        <p class="c4-cta-title">공연 관련 문의사항이 있으신가요?</p>
+        <p class="c4-cta-sub">협찬 · 출연 · 단체관람 등 문의를 환영합니다</p>
+        <a href="contact.html" class="c4-cta-btn">
+          공연 문의하기
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div style="margin-top:2rem;">
+          <a href="concert.html" style="color:rgba(253,250,245,0.4); font-size:0.82rem; text-decoration:none; letter-spacing:0.08em;">
+            ← 효 콘서트 목록으로 돌아가기
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <span class="logo-kr">怡娜</span>
+          <span class="logo-en">강해인 <span class="logo-hanja">怡娜</span></span>
+        </a>
+        <p>시로 마음을 잇고<br>낭송으로 감동을 전합니다.</p>
+      </div>
+      <div class="footer-col">
+        <h4>메뉴</h4>
+        <a href="../index.html">HOME</a>
+        <a href="about.html">강해인</a>
+        <a href="poems.html">창작시</a>
+        <a href="concert.html">효 콘서트</a>
+      </div>
+      <div class="footer-col">
+        <h4>더 보기</h4>
+        <a href="gallery.html">갤러리</a>
+        <a href="class.html">시낭송교실</a>
+        <a href="contact.html">공연문의</a>
+      </div>
+      <div class="footer-col">
+        <h4>연락처</h4>
+        <a href="mailto:haein@exko.kr">haein@exko.kr</a>
+        <a href="tel:010-0000-0000">010-0000-0000</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 강해인. All rights reserved.</span>
+      <span>haein.exko.kr</span>
+    </div>
+  </footer>
+
+  <script src="../js/main.js?v=20260604"></script>
+</body>
+</html>
