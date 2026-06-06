@@ -661,6 +661,156 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   line-height: 1.6;
 }
 
+/* ── Featured Grid: 상단 2열 (concert3, concert4) ── */
+.featured-grid-top {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.2rem;
+  margin-bottom: 2.2rem;
+}
+.featured-grid-top .featured-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(107,39,55,0.10);
+}
+.featured-grid-top .featured-img {
+  height: 260px;
+  position: relative;
+  overflow: hidden;
+  background: var(--soft-beige);
+}
+.featured-grid-top .featured-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s cubic-bezier(.25,.8,.25,1);
+}
+.featured-grid-top .featured-card:hover .featured-img img {
+  transform: scale(1.06);
+}
+.featured-grid-top .featured-body {
+  padding: 1.8rem 1.8rem 1.6rem;
+}
+.featured-grid-top .featured-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.7rem;
+}
+.featured-grid-top .featured-desc {
+  margin-bottom: 1.1rem;
+}
+
+/* ── Featured Grid: 하단 3열 (10회, 순회, 출판기념회) ── */
+.featured-grid-bottom {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+}
+.featured-grid-bottom .featured-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(107,39,55,0.09);
+}
+.featured-grid-bottom .featured-img {
+  height: 190px;
+  position: relative;
+  overflow: hidden;
+}
+.featured-grid-bottom .featured-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s cubic-bezier(.25,.8,.25,1);
+}
+.featured-grid-bottom .featured-card:hover .featured-img img {
+  transform: scale(1.06);
+}
+.featured-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 카드 링크 래퍼 */
+.featured-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 이미지 오버레이 (hover 시 어둡게 + 플레이 버튼) */
+.featured-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(107,39,55,0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: background 0.3s;
+}
+.featured-card:hover .featured-img-overlay {
+  background: rgba(107,39,55,0.35);
+}
+.featured-play-btn {
+  width: 54px;
+  height: 54px;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s, transform 0.3s;
+  backdrop-filter: blur(4px);
+}
+.featured-card:hover .featured-play-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+.featured-img-overlay-pub .featured-pub-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.9);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s 0.05s, transform 0.3s 0.05s;
+}
+.featured-card:hover .featured-pub-badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 더 보기 버튼 */
+.featured-more-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--medium-brown);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  border-bottom: 1.5px solid var(--pale-gold);
+  padding-bottom: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.featured-more-btn:hover {
+  color: var(--deep-brown);
+  border-color: var(--soft-gold);
+}
+
+/* 반응형 */
+@media (max-width: 860px) {
+  .featured-grid-top  { grid-template-columns: 1fr; }
+  .featured-grid-bottom { grid-template-columns: 1fr; }
+}
+@media (min-width: 861px) and (max-width: 1100px) {
+  .featured-grid-top  { grid-template-columns: repeat(2, 1fr); }
+  .featured-grid-bottom { grid-template-columns: repeat(3, 1fr); }
+  .featured-grid-bottom .featured-img { height: 160px; }
+}
+
 /* ============================================================
    Poem Highlight Section
    ============================================================ */
