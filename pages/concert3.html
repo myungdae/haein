@@ -198,6 +198,136 @@
       margin-bottom: 0.2rem;
     }
 
+    /* ── 유튜브 영상 섹션 ── */
+    .c3-video {
+      padding: 5rem 0 4rem;
+      background: #fff;
+    }
+    .c3-video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(107,39,55,0.22);
+      margin-top: 2.5rem;
+    }
+    .c3-video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .c3-video-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 1.8rem;
+      background: #FF0000;
+      color: #fff;
+      text-decoration: none;
+      padding: 0.75rem 1.8rem;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .c3-video-btn:hover { background: #cc0000; transform: translateY(-2px); }
+
+    /* ── 공연 장면 갤러리 ── */
+    .c3-gallery {
+      padding: 5rem 0 4rem;
+      background: linear-gradient(160deg, #fff7f9 0%, #fff 100%);
+    }
+    .c3-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    }
+    .c3-gallery-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(107,39,55,0.12);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: #1a0a10;
+      text-decoration: none;
+    }
+    .c3-gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 36px rgba(107,39,55,0.22);
+    }
+    .c3-gallery-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s, opacity 0.3s;
+    }
+    .c3-gallery-item:hover .c3-gallery-thumb {
+      transform: scale(1.06);
+      opacity: 0.82;
+    }
+    .c3-gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(80,20,35,0.88) 0%, transparent 55%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0.9rem 1rem;
+    }
+    .c3-gallery-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%) scale(0.85);
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .c3-gallery-play svg { margin-left: 4px; }
+    .c3-gallery-item:hover .c3-gallery-play {
+      opacity: 1;
+      transform: translate(-50%,-50%) scale(1);
+    }
+    .c3-gallery-label {
+      font-size: 0.75rem;
+      color: rgba(255,240,244,0.85);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.2rem;
+    }
+    .c3-gallery-caption {
+      font-family: var(--font-serif);
+      font-size: 0.88rem;
+      color: #fff;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    .c3-gallery-time {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.7rem;
+      background: rgba(0,0,0,0.62);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.7rem;
+      padding: 0.18rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.06em;
+    }
+
     /* ── CTA ── */
     .c3-cta {
       padding: 4rem 0;
@@ -241,10 +371,18 @@
     }
     .c3-back-link:hover { color: rgba(253,245,235,0.75); }
 
+    @media(max-width:900px) {
+      .c3-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media(max-width:640px) {
       .c3-posters-inner { grid-template-columns: 1fr; }
       .c3-info-grid { grid-template-columns: 1fr; }
       .c3-hero-content { padding: 2rem 1.2rem 3rem; }
+      .c3-gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+      .c3-gallery-caption { font-size: 0.78rem; }
+    }
+    @media(max-width:420px) {
+      .c3-gallery-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -335,6 +473,206 @@
             <p class="c3-info-key">후원</p>
             <p class="c3-info-val">대전시낭송가협회<br>국제시낭송예술인연합회<br>식장산시민산악구조봉사대<br>천동 에프엠영수학원</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ③-A 공연 영상 -->
+    <section class="c3-video">
+      <div class="container">
+        <div style="text-align:center;" class="fade-up">
+          <p class="c3-section-label">Concert Video</p>
+          <h2 class="c3-section-title">공연 실황 영상</h2>
+        </div>
+        <div class="c3-video-wrap fade-up" data-delay="100">
+          <iframe
+            src="https://www.youtube.com/embed/Rh9yEeGzAkA?rel=0&modestbranding=1"
+            title="제3회 강해인의 시낭송 효 콘서트 — 아버님전상서"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+        <div style="text-align:center;" class="fade-up" data-delay="200">
+          <a
+            href="https://youtu.be/Rh9yEeGzAkA?si=zMq_MPaB5OxptBnW"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="c3-video-btn"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            YouTube에서 전체 영상 보기
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ③-B 공연 장면 갤러리 -->
+    <section class="c3-gallery">
+      <div class="container">
+        <div style="text-align:center; margin-bottom:0.5rem;" class="fade-up">
+          <p class="c3-section-label">Performance Gallery</p>
+          <h2 class="c3-section-title">공연 하이라이트</h2>
+          <p style="font-size:0.85rem; color:var(--text-muted,#888); margin-top:0.5rem;">
+            각 장면을 클릭하면 해당 구간 영상으로 이동합니다
+          </p>
+        </div>
+        <div class="c3-gallery-grid">
+
+          <!-- 1. 오프닝 대북 공연 (1:41) -->
+          <a class="c3-gallery-item fade-up" data-delay="0"
+             href="https://youtu.be/Rh9yEeGzAkA?t=101" target="_blank" rel="noopener noreferrer">
+            <img class="c3-gallery-thumb"
+                 src="https://img.youtube.com/vi/Rh9yEeGzAkA/hqdefault.jpg"
+                 alt="오프닝 대북 공연"
+                 loading="lazy" />
+            <div class="c3-gallery-overlay">
+              <span class="c3-gallery-label">OPENING</span>
+              <span class="c3-gallery-caption">최순복 대표 · 대북 오프닝</span>
+            </div>
+            <div class="c3-gallery-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#c0304a"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <span class="c3-gallery-time">1:41</span>
+          </a>
+
+          <!-- 2. 강해인 오프닝 멘트 (5:00) -->
+          <a class="c3-gallery-item fade-up" data-delay="80"
+             href="https://youtu.be/Rh9yEeGzAkA?t=300" target="_blank" rel="noopener noreferrer">
+            <img class="c3-gallery-thumb"
+                 src="https://img.youtube.com/vi/Rh9yEeGzAkA/maxresdefault.jpg"
+                 alt="강해인 사회자 오프닝"
+                 loading="lazy" />
+            <div class="c3-gallery-overlay">
+              <span class="c3-gallery-label">MC</span>
+              <span class="c3-gallery-caption">강해인 시인 · 오프닝 멘트</span>
+            </div>
+            <div class="c3-gallery-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#c0304a"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <span class="c3-gallery-time">5:00</span>
+          </a>
+
+          <!-- 3. 권득용 시낭송 (5:33) -->
+          <a class="c3-gallery-item fade-up" data-delay="160"
+             href="https://youtu.be/Rh9yEeGzAkA?t=333" target="_blank" rel="noopener noreferrer">
+            <img class="c3-gallery-thumb"
+                 src="https://img.youtube.com/vi/Rh9yEeGzAkA/hqdefault.jpg"
+                 alt="권득용 시낭송"
+                 loading="lazy"
+                 style="object-position: center 30%;" />
+            <div class="c3-gallery-overlay">
+              <span class="c3-gallery-label">시낭송</span>
+              <span class="c3-gallery-caption">권득용 시인 · 천번만번 용서하소서</span>
+            </div>
+            <div class="c3-gallery-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#c0304a"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <span class="c3-gallery-time">5:33</span>
+          </a>
+
+          <!-- 4. 이상희 낭송가 (8:34) -->
+          <a class="c3-gallery-item fade-up" data-delay="0"
+             href="https://youtu.be/Rh9yEeGzAkA?t=514" target="_blank" rel="noopener noreferrer">
+            <img class="c3-gallery-thumb"
+                 src="https://img.youtube.com/vi/Rh9yEeGzAkA/hqdefault.jpg"
+                 alt="이상희 낭송가"
+                 loading="lazy" />
+            <div class="c3-gallery-overlay">
+              <span class="c3-gallery-label">시낭송</span>
+              <span class="c3-gallery-caption">이상희 낭송가 · 아버지의 그늘</span>
+            </div>
+            <div class="c3-gallery-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#c0304a"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <span class="c3-gallery-time">8:34</span>
+          </a>
+
+          <!-- 5. 성담비 바이올린 연주 (15:46) -->
+          <a class="c3-gallery-item fade-up" data-delay="80"
+             href="https://youtu.be/Rh9yEeGzAkA?t=946" target="_blank" rel="noopener noreferrer">
+            <img class="c3-gallery-thumb"
+                 src="https://img.youtube.com/vi/Rh9yEeGzAkA/hqdefault.jpg"
+                 alt="성담비 바이올린 연주"
+                 loading="lazy" />
+            <div class="c3-gallery-overlay">
+              <span class="c3-gallery-label">특별 공연</span>
+              <span class="c3-gallery-caption">성담비 연주가 · 바이올린 연주</span>
+            </div>
+            <div class="c3-gallery-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#c0304a"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <span class="c3-gallery-time">15:46</span>
+          </a>
+
+          <!-- 6. 강해인 한복 낭송 (20:01) -->
+          <a class="c3-gallery-item fade-up" data-delay="160"
+             href="https://youtu.be/Rh9yEeGzAkA?t=1201" target="_blank" rel="noopener noreferrer">
+            <img class="c3-gallery-thumb"
+                 src="https://img.youtube.com/vi/Rh9yEeGzAkA/maxresdefault.jpg"
+                 alt="강해인 한복 시낭송"
+                 loading="lazy" />
+            <div class="c3-gallery-overlay">
+              <span class="c3-gallery-label">메인 낭송</span>
+              <span class="c3-gallery-caption">강해인 시인 · 아버님전상서</span>
+            </div>
+            <div class="c3-gallery-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#c0304a"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <span class="c3-gallery-time">20:01</span>
+          </a>
+
+          <!-- 7. 합동 낭송 (22:36) -->
+          <a class="c3-gallery-item fade-up" data-delay="0"
+             href="https://youtu.be/Rh9yEeGzAkA?t=1356" target="_blank" rel="noopener noreferrer">
+            <img class="c3-gallery-thumb"
+                 src="https://img.youtube.com/vi/Rh9yEeGzAkA/hqdefault.jpg"
+                 alt="합동 낭송"
+                 loading="lazy" />
+            <div class="c3-gallery-overlay">
+              <span class="c3-gallery-label">합동 낭송</span>
+              <span class="c3-gallery-caption">박성현 & 강해인 · 천년 사랑</span>
+            </div>
+            <div class="c3-gallery-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#c0304a"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <span class="c3-gallery-time">22:36</span>
+          </a>
+
+          <!-- 8. 노금선 이사장 (23:26) -->
+          <a class="c3-gallery-item fade-up" data-delay="80"
+             href="https://youtu.be/Rh9yEeGzAkA?t=1406" target="_blank" rel="noopener noreferrer">
+            <img class="c3-gallery-thumb"
+                 src="https://img.youtube.com/vi/Rh9yEeGzAkA/hqdefault.jpg"
+                 alt="노금선 이사장 시낭송"
+                 loading="lazy" />
+            <div class="c3-gallery-overlay">
+              <span class="c3-gallery-label">시낭송</span>
+              <span class="c3-gallery-caption">노금선 이사장 · 어머니</span>
+            </div>
+            <div class="c3-gallery-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#c0304a"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <span class="c3-gallery-time">23:26</span>
+          </a>
+
+          <!-- 9. 전 출연진 무대 인사 (24:15) -->
+          <a class="c3-gallery-item fade-up" data-delay="160"
+             href="https://youtu.be/Rh9yEeGzAkA?t=1455" target="_blank" rel="noopener noreferrer">
+            <img class="c3-gallery-thumb"
+                 src="https://img.youtube.com/vi/Rh9yEeGzAkA/hqdefault.jpg"
+                 alt="전 출연진 무대 인사"
+                 loading="lazy" />
+            <div class="c3-gallery-overlay">
+              <span class="c3-gallery-label">피날레</span>
+              <span class="c3-gallery-caption">전 출연진 · 무대 인사 & 기념촬영</span>
+            </div>
+            <div class="c3-gallery-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#c0304a"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <span class="c3-gallery-time">24:15</span>
+          </a>
+
         </div>
       </div>
     </section>
