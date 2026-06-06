@@ -118,6 +118,129 @@
       transform: translateX(4px);
     }
 
+    /* ── Publication Event Video Section ─────────────── */
+    .pub-video-section {
+      background: linear-gradient(160deg, var(--deep-brown) 0%, #4a1a28 100%);
+      padding: 5rem 0;
+    }
+    .pub-video-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .pub-video-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    .pub-video-text .section-label {
+      color: var(--pale-gold);
+    }
+    .pub-video-text h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--ivory);
+      margin: 0.6rem 0 1rem;
+      line-height: 1.4;
+    }
+    .pub-video-text .pub-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--pale-gold);
+      letter-spacing: 0.12em;
+      margin-bottom: 1.2rem;
+    }
+    .pub-video-text p {
+      font-size: 0.95rem;
+      color: rgba(253,240,243,0.72);
+      line-height: 1.9;
+    }
+    .pub-video-text .pub-watch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-top: 2rem;
+      padding: 0.75rem 1.6rem;
+      background: transparent;
+      border: 1.5px solid var(--pale-gold);
+      color: var(--pale-gold);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.25s, color 0.25s;
+    }
+    .pub-video-text .pub-watch-btn:hover {
+      background: var(--pale-gold);
+      color: var(--deep-brown);
+    }
+    /* YouTube embed wrapper */
+    .pub-video-embed {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 16px 60px rgba(0,0,0,0.45);
+    }
+    .pub-video-embed-ratio {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 */
+      background: #000;
+    }
+    .pub-video-embed-ratio iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    /* Thumbnail fallback / poster overlay */
+    .pub-video-poster {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s;
+    }
+    .pub-video-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      display: block;
+    }
+    .pub-video-poster .play-btn {
+      position: absolute;
+      width: 68px;
+      height: 68px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s, background 0.25s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .pub-video-poster .play-btn svg {
+      width: 28px;
+      height: 28px;
+      margin-left: 4px;
+      fill: var(--deep-brown);
+    }
+    .pub-video-poster:hover .play-btn {
+      transform: scale(1.12);
+      background: #fff;
+    }
+    .pub-video-poster.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
     /* ── Profile photo with nobg image ──────────────── */
     .profile-photo-nobg {
       width: 100%;
@@ -258,7 +381,7 @@
               <h3>약력</h3>
               <ul class="career-list">
                 <li><span class="year">2024</span><span>대한민국 시낭송 대상 최우수상 수상</span></li>
-                <li><span class="year">2023</span><span>시집 『빛의 낭송』 출간 (도서출판 시와)</span></li>
+                <li><span class="year">2023</span><span>시집 『빛의 낭송』 출간 · 출판기념회 개최 (2023.12.16)</span></li>
                 <li><span class="year">2022</span><span>전국 순회 시낭송 공연 「효를 읽다」 (7개 도시)</span></li>
                 <li><span class="year">2021</span><span>제10회 효 콘서트 「어머니의 강」 개최</span></li>
                 <li><span class="year">2020</span><span>시집 『어머니의 봄』 출간 (도서출판 시와)</span></li>
@@ -309,6 +432,74 @@
         </div><!-- /profile-grid -->
       </div>
     </section>
+
+    <!-- ── PUBLICATION EVENT VIDEO ── -->
+    <section class="pub-video-section">
+      <div class="container">
+        <div class="pub-video-inner">
+
+          <!-- 텍스트 -->
+          <div class="pub-video-text fade-up">
+            <span class="section-label">Publication Event</span>
+            <h2>강해인 시인<br>첫 시집 출판기념회</h2>
+            <p class="pub-date">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="opacity:.75;">
+                <rect x="1" y="2" width="14" height="13" rx="2" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M1 6h14M5 1v2M11 1v2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+              2023년 12월 16일
+            </p>
+            <p>
+              시인 강해인의 첫 시집 출판을 기념하는 자리로,
+              시와 낭송, 그리고 따뜻한 만남이 어우러진 특별한 날의 기록입니다.
+              오랫동안 품어 온 시 한 편 한 편에 담긴 이야기를
+              무대 위에서 직접 낭송으로 전했습니다.
+            </p>
+            <a href="https://youtu.be/kGCL4zhk9BM?si=lxz7tZqjSVP_L1H1"
+               target="_blank" rel="noopener noreferrer"
+               class="pub-watch-btn">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M6.5 5.5l4 2.5-4 2.5V5.5z" fill="currentColor"/>
+              </svg>
+              유튜브에서 보기
+            </a>
+          </div>
+
+          <!-- YouTube 임베드 -->
+          <div class="pub-video-embed fade-in" data-delay="150">
+            <div class="pub-video-embed-ratio">
+              <iframe
+                id="pub-yt-iframe"
+                src="https://www.youtube.com/embed/kGCL4zhk9BM?si=lxz7tZqjSVP_L1H1&rel=0&modestbranding=1&enablejsapi=1"
+                title="강해인 시인 첫 시집 출판기념회 (2023.12.16)"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+              <!-- 썸네일 포스터 (클릭 시 재생) -->
+              <div class="pub-video-poster" id="pub-poster" onclick="playPubVideo()">
+                <img src="https://img.youtube.com/vi/kGCL4zhk9BM/maxresdefault.jpg"
+                     onerror="this.src='https://img.youtube.com/vi/kGCL4zhk9BM/hqdefault.jpg'"
+                     alt="강해인 시인 첫 시집 출판기념회 영상 썸네일" />
+                <div class="play-btn">
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <script>
+      function playPubVideo() {
+        var poster = document.getElementById('pub-poster');
+        var iframe = document.getElementById('pub-yt-iframe');
+        poster.classList.add('hidden');
+        iframe.src = iframe.src.replace('enablejsapi=1', 'enablejsapi=1') + '&autoplay=1';
+      }
+    </script>
 
     <!-- ── ACTIVITY CARDS SECTION ── -->
     <section class="activity-section">
