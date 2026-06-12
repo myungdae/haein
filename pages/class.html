@@ -83,24 +83,62 @@
   </nav>
 
   <style>
-    .page-hero-2col { display:flex; align-items:flex-end; gap:2.5rem; }
-    .page-hero-2col-text { flex:1; padding-bottom:3rem; }
+    /* 히어로 섹션 전체를 position:relative로 잡아 사진이 꽉 차게 */
+    .class-hero-wrap {
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      display: flex;
+      align-items: flex-end;
+      padding: 7rem 0 0;
+    }
+    .class-hero-wrap .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+    .page-hero-2col {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5rem;
+    }
+    .page-hero-2col-text {
+      flex: 1;
+      padding-bottom: 3rem;
+    }
     .page-hero-2col-photo {
-      flex-shrink:0;
-      width:380px;
-      align-self:flex-end;
-      margin-bottom:-4px; /* 섹션 하단 패딩을 상쇄해 바닥에 밀착 */
+      flex-shrink: 0;
+      /* 섹션 전체 높이에 맞게 절대 배치 */
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      height: 100%;          /* 섹션 높이 전체 */
+      display: flex;
+      align-items: flex-end;
     }
     .page-hero-2col-photo img {
-      width:100%;
-      display:block;
-      filter:drop-shadow(0 16px 36px rgba(18,6,10,0.55));
+      height: 100%;          /* 이미지가 섹션 높이를 꽉 채움 */
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 12px 28px rgba(18,6,10,0.5));
     }
-    @media(max-width:900px){ .page-hero-2col-photo { width:280px; } }
-    @media(max-width:640px){ .page-hero-2col{flex-direction:column;align-items:center;} .page-hero-2col-text{text-align:center;padding-bottom:1rem;} .page-hero-2col-photo{width:200px;order:-1;margin-bottom:0;} }
+    @media(max-width:900px){
+      .page-hero-2col-photo { height: 85%; }
+    }
+    @media(max-width:640px){
+      .page-hero-2col { flex-direction:column; align-items:center; }
+      .page-hero-2col-text { text-align:center; padding-bottom:1rem; }
+      .page-hero-2col-photo {
+        position: static;
+        height: auto;
+        width: 180px;
+        order: -1;
+      }
+      .page-hero-2col-photo img { height: auto; width: 100%; }
+    }
   </style>
   <!-- PAGE HERO -->
-  <section class="page-hero class-hero-bg" style="padding-top:7rem; padding-bottom:0; overflow:hidden;">
+  <section class="page-hero class-hero-bg class-hero-wrap" style="padding-bottom:0;">
     <div class="container">
       <div class="page-hero-2col">
         <div class="page-hero-2col-text">
