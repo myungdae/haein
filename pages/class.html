@@ -85,12 +85,22 @@
   <style>
     .page-hero-2col { display:flex; align-items:flex-end; gap:2.5rem; }
     .page-hero-2col-text { flex:1; padding-bottom:3rem; }
-    .page-hero-2col-photo { flex-shrink:0; width:340px; align-self:flex-end; margin-bottom:0; }
-    .page-hero-2col-photo img { width:100%; display:block; filter:drop-shadow(0 16px 36px rgba(18,6,10,0.55)); vertical-align:bottom; }
-    @media(max-width:640px){ .page-hero-2col{flex-direction:column;align-items:center;} .page-hero-2col-text{text-align:center;padding-bottom:1rem;} .page-hero-2col-photo{width:200px;order:-1;} }
+    .page-hero-2col-photo {
+      flex-shrink:0;
+      width:380px;
+      align-self:flex-end;
+      margin-bottom:-4px; /* 섹션 하단 패딩을 상쇄해 바닥에 밀착 */
+    }
+    .page-hero-2col-photo img {
+      width:100%;
+      display:block;
+      filter:drop-shadow(0 16px 36px rgba(18,6,10,0.55));
+    }
+    @media(max-width:900px){ .page-hero-2col-photo { width:280px; } }
+    @media(max-width:640px){ .page-hero-2col{flex-direction:column;align-items:center;} .page-hero-2col-text{text-align:center;padding-bottom:1rem;} .page-hero-2col-photo{width:200px;order:-1;margin-bottom:0;} }
   </style>
   <!-- PAGE HERO -->
-  <section class="page-hero class-hero-bg" style="padding-top:7rem;">
+  <section class="page-hero class-hero-bg" style="padding-top:7rem; padding-bottom:0; overflow:hidden;">
     <div class="container">
       <div class="page-hero-2col">
         <div class="page-hero-2col-text">
