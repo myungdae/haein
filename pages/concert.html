@@ -152,7 +152,23 @@
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
           <div class="fade-up">
             <span class="section-label">About Hyo Concert</span>
-            <h2 class="section-title" style="margin-top:0.5rem;">효 콘서트란</h2>
+            <div style="display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap; margin-top:0.5rem; margin-bottom:0;">
+              <h2 class="section-title" style="margin:0;">효 콘서트란</h2>
+              <button id="videoModalBtn" onclick="document.getElementById('videoModal').classList.add('active')" style="
+                display:inline-flex; align-items:center; gap:0.5rem;
+                background:var(--deep-brown); color:var(--ivory);
+                border:none; border-radius:30px;
+                padding:0.5rem 1.1rem;
+                font-family:var(--font-serif); font-size:0.82rem; letter-spacing:0.08em;
+                cursor:pointer; white-space:nowrap;
+                box-shadow:0 3px 12px rgba(100,30,50,0.25);
+                transition:background 0.2s, transform 0.2s;
+              "
+              onmouseover="this.style.background='#5a1a2a'" onmouseout="this.style.background='var(--deep-brown)'">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                공연 영상 보기
+              </button>
+            </div>
             <div class="divider divider-left"></div>
             <p style="font-size:0.95rem; color:var(--text-medium); line-height:1.9; margin-bottom:1rem; font-weight:300;">
               효 콘서트는 강해인이 2018년에 창립한 시낭송 공연 시리즈입니다. 부모님에 대한 사랑과 고마움, 그리고 우리 삶 속 효(孝)의 가치를 시낭송 예술로 표현하는 특별한 무대입니다.
@@ -193,46 +209,6 @@
             </div>
             </div><!-- /stats grid -->
           </div><!-- /concert-intro-photo -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Concert Video Section -->
-    <section style="background:var(--deep-brown); padding:5rem 0;">
-      <div class="container">
-        <div class="section-header" style="margin-bottom:2.5rem;">
-          <span class="section-label fade-up" style="color:var(--pale-gold);">공연 영상</span>
-          <h2 class="section-title fade-up" style="color:var(--ivory);" data-delay="100">강해인의 효 콘서트</h2>
-          <div class="divider"></div>
-          <p class="fade-up" data-delay="200" style="color:rgba(253,250,245,0.6); font-size:0.95rem; letter-spacing:0.05em; margin-top:1rem;">사랑과 효를 노래하는 감동의 시낭송 무대를 영상으로 만나보세요</p>
-        </div>
-
-        <div class="fade-up" data-delay="250" style="
-          max-width: 860px;
-          margin: 0 auto;
-          border-radius: 16px;
-          overflow: hidden;
-          box-shadow: 0 24px 64px rgba(18,6,10,0.6);
-          position: relative;
-        ">
-          <!-- Decorative gold border top -->
-          <div style="height:3px; background:linear-gradient(90deg, transparent 0%, var(--pale-gold) 30%, var(--soft-gold) 60%, transparent 100%);"></div>
-          <video
-            controls
-            preload="metadata"
-            style="width:100%; display:block; background:#1a0810;"
-            poster="../images/concert3-poster.jpg"
-          >
-            <source src="../videos/hyo-concert.mp4" type="video/mp4" />
-            브라우저가 동영상을 지원하지 않습니다.
-          </video>
-          <!-- Decorative gold border bottom -->
-          <div style="height:3px; background:linear-gradient(90deg, transparent 0%, var(--pale-gold) 30%, var(--soft-gold) 60%, transparent 100%);"></div>
-        </div>
-
-        <!-- Video caption -->
-        <div class="fade-up" data-delay="300" style="text-align:center; margin-top:1.8rem;">
-          <p style="font-family:var(--font-serif); color:var(--pale-gold); font-size:0.85rem; letter-spacing:0.18em; text-transform:uppercase;">Hyo Concert · 강해인</p>
         </div>
       </div>
     </section>
@@ -426,5 +402,67 @@
   </footer>
 
   <script src="../js/main.js?v=20260604"></script>
+
+  <!-- Video Modal -->
+  <div id="videoModal" style="
+    display:none;
+    position:fixed; inset:0; z-index:9999;
+    background:rgba(18,6,10,0.88);
+    align-items:center; justify-content:center;
+    padding:1rem;
+  " onclick="if(event.target===this){closeVideoModal();}"
+  class="">
+    <div style="
+      position:relative;
+      width:100%; max-width:860px;
+      border-radius:14px; overflow:hidden;
+      box-shadow:0 32px 80px rgba(18,6,10,0.8);
+    ">
+      <!-- Gold top bar -->
+      <div style="height:3px; background:linear-gradient(90deg,transparent 0%,var(--pale-gold,#d4a06a) 30%,var(--soft-gold,#c8903a) 60%,transparent 100%);"></div>
+      <!-- Close button -->
+      <button onclick="closeVideoModal()" style="
+        position:absolute; top:0.7rem; right:0.7rem; z-index:10;
+        background:rgba(18,6,10,0.6); border:none; border-radius:50%;
+        width:36px; height:36px; cursor:pointer;
+        display:flex; align-items:center; justify-content:center;
+        color:#fff; font-size:1.1rem; line-height:1;
+        transition:background 0.2s;
+      " onmouseover="this.style.background='rgba(90,26,42,0.9)'" onmouseout="this.style.background='rgba(18,6,10,0.6)'" aria-label="닫기">
+        ✕
+      </button>
+      <!-- Title bar -->
+      <div style="background:var(--deep-brown,#3d0e1e); padding:0.75rem 1.2rem; display:flex; align-items:center; gap:0.6rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(232,213,163,0.9)"><polygon points="5,3 19,12 5,21"/></svg>
+        <span style="font-family:'Noto Serif KR',serif; color:rgba(232,213,163,0.9); font-size:0.85rem; letter-spacing:0.15em;">강해인의 효 콘서트</span>
+      </div>
+      <video id="modalVideo"
+        controls
+        preload="metadata"
+        style="width:100%; display:block; background:#1a0810; max-height:70vh;"
+        poster="../images/concert3-poster.jpg"
+      >
+        <source src="../videos/hyo-concert.mp4" type="video/mp4" />
+        브라우저가 동영상을 지원하지 않습니다.
+      </video>
+      <!-- Gold bottom bar -->
+      <div style="height:3px; background:linear-gradient(90deg,transparent 0%,var(--pale-gold,#d4a06a) 30%,var(--soft-gold,#c8903a) 60%,transparent 100%);"></div>
+    </div>
+  </div>
+
+  <style>
+    #videoModal.active { display:flex !important; }
+  </style>
+  <script>
+    function closeVideoModal() {
+      var modal = document.getElementById('videoModal');
+      var video = document.getElementById('modalVideo');
+      modal.classList.remove('active');
+      video.pause();
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVideoModal();
+    });
+  </script>
 </body>
 </html>
