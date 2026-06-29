@@ -343,6 +343,21 @@
     }
     .btn-refresh:hover { border-color: var(--gold); color: var(--brown); }
 
+    .btn-sync {
+      padding: 0.45rem 1rem;
+      background: linear-gradient(135deg, #1a6e3c, #27ae60);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .btn-sync:hover:not(:disabled) { opacity: 0.85; }
+    .btn-sync:disabled { opacity: 0.5; cursor: not-allowed; }
+
     /* 이미지 그리드 */
     .img-grid {
       display: grid;
@@ -725,6 +740,9 @@
       <span class="list-title">업로드된 이미지</span>
       <span class="list-count" id="listCount">— 장</span>
       <div class="list-header-spacer"></div>
+      <button class="btn-sync" id="btnSync" onclick="syncImages()" title="서버 폴더의 이미지를 DB에 자동 등록">
+        🔄 기존 이미지 불러오기
+      </button>
     </div>
 
     <!-- 카테고리 탭 -->
@@ -969,6 +987,36 @@
       xhr.addEventListener('error', () => reject(new Error('네트워크 오류')));
       xhr.send(fd);
     });
+  }
+
+  // ============================================================
+  // 기존 이미지 동기화 (폴더 스캔 → DB 자동 등록)
+  // ============================================================
+  async function syncImages() {
+    const token = getToken();
+    if (!token) return showAlert('먼저 관리자 토큰을 입력해 주세요.', 'error');
+
+    const btn = document.getElementById('btnSync');
+    btn.disabled = true;
+    btn.textContent = '⏳ 불러오는 중…';
+
+    try {
+      const res  = await fetch(`${API_BASE}/gallery/sync`, {
+        method:  'POST',
+        headers: { 'x-admin-token': token },
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.message);
+
+      showAlert(`✅ ${data.message}`, 'success');
+      loadImages();  // 목록 새로고침
+
+    } catch (err) {
+      showAlert(err.message || '동기화 실패', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '🔄 기존 이미지 불러오기';
+    }
   }
 
   // ============================================================
