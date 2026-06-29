@@ -15,6 +15,97 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css?v=20260604b" />
   <style>
+    /* ── 태그 클라우드 ── */
+    .gallery-tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 1rem;
+      padding: 0.9rem 1.1rem;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(201,169,110,0.25);
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+      min-height: 44px;
+    }
+    .gallery-tag-cloud.hidden { display: none; }
+
+    .gallery-tag-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--medium-brown, #7a4f3e);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-right: 0.3rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .gallery-tag-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 99px;
+      border: 1px solid rgba(201,169,110,0.45);
+      background: rgba(255,255,255,0.8);
+      font-size: 0.78rem;
+      color: #5a3e35;
+      cursor: pointer;
+      transition: all 0.18s;
+      user-select: none;
+      white-space: nowrap;
+      font-family: var(--font-sans, sans-serif);
+    }
+    .gallery-tag-chip:hover {
+      border-color: var(--gold, #c9a96e);
+      background: #fffdf5;
+      color: #4a2c2a;
+    }
+    .gallery-tag-chip.active {
+      background: var(--gold, #c9a96e);
+      border-color: var(--gold, #c9a96e);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(201,169,110,0.4);
+    }
+    .gallery-tag-chip .chip-count {
+      font-size: 0.67rem;
+      opacity: 0.72;
+      background: rgba(0,0,0,0.1);
+      padding: 1px 5px;
+      border-radius: 99px;
+    }
+    .gallery-tag-chip.active .chip-count {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .gallery-tag-clear {
+      margin-left: auto;
+      font-size: 0.72rem;
+      color: #888;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      transition: color 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .gallery-tag-clear:hover { color: #c0392b; }
+    .gallery-tag-clear.hidden { display: none; }
+
+    .gallery-no-result {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: #aaa;
+      font-size: 0.95rem;
+      display: none;
+    }
+    .gallery-no-result.show { display: block; }
+
     /* gallery bottom CTA with photo */
     .gallery-cta {
       background: linear-gradient(135deg, var(--deep-brown) 0%, var(--medium-brown) 100%);
@@ -139,7 +230,7 @@
     <section class="section">
       <div class="container">
 
-        <!-- Filter -->
+        <!-- Category Filter -->
         <div class="gallery-filter fade-up">
           <button class="filter-btn active" data-cat="all">전체</button>
           <button class="filter-btn" data-cat="performance">공연 사진</button>
@@ -147,11 +238,23 @@
           <button class="filter-btn" data-cat="event">행사 스케치</button>
         </div>
 
+        <!-- Tag Cloud -->
+        <div class="gallery-tag-cloud fade-up" id="galleryTagCloud">
+          <span class="gallery-tag-label">🏷 태그</span>
+          <!-- JS로 동적 생성 -->
+          <button class="gallery-tag-clear hidden" id="galleryTagClear">✕ 선택 해제</button>
+        </div>
+
+        <!-- No Result -->
+        <div class="gallery-no-result" id="galleryNoResult">
+          <p>😕 해당 태그의 사진이 없습니다.</p>
+        </div>
+
         <!-- Masonry Grid -->
         <div class="masonry-grid" id="galleryGrid">
 
           <!-- 공연 사진 1: 마이크 공연 (흰 재킷) -->
-          <div class="masonry-item fade-in" data-cat="performance" data-caption="공연 무대 위 강해인">
+          <div class="masonry-item fade-in" data-cat="performance" data-caption="공연 무대 위 강해인" data-tags="공연,마이크,흰재킷,무대">
             <img src="../images/gallery/perf-01-mic.jpg" alt="공연 무대 위 강해인" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon">
@@ -162,7 +265,7 @@
           </div>
 
           <!-- 공연 사진 2: 사계문화제 한복 -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="사계문화제 한복 공연">
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="사계문화제 한복 공연" data-tags="공연,한복,사계문화제,문화행사">
             <img src="../images/gallery/perf-02-sagye.jpg" alt="사계문화제 한복 공연" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -171,7 +274,7 @@
           </div>
 
           <!-- 연습/일상 1: 꽃화관 측면 (숲속) -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="꽃화관을 쓴 강해인">
+          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="꽃화관을 쓴 강해인" data-tags="일상,꽃화관,야외,봄">
             <img src="../images/gallery/daily-01-flower-crown.jpg" alt="꽃화관을 쓴 강해인" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -180,7 +283,7 @@
           </div>
 
           <!-- 행사 스케치 1: 취임식 (크림코트+꽃) -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="국제시낭송예술인연합회 취임식">
+          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="국제시낭송예술인연합회 취임식" data-tags="취임식,국제시낭송예술인연합회,행사,꽃다발">
             <img src="../images/gallery/event-01-inauguration.jpg" alt="국제시낭송예술인연합회 취임식" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -189,7 +292,7 @@
           </div>
 
           <!-- 공연 사진 3: 하늘색 재킷 (강릉 예선대회) -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="강릉지역 시낭송예선대회">
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="강릉지역 시낭송예선대회" data-tags="공연,강릉,시낭송대회,예선">
             <img src="../images/gallery/perf-03-blue-jacket.jpg" alt="강릉지역 시낭송예선대회" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -198,7 +301,7 @@
           </div>
 
           <!-- 연습/일상 2: 공식 프로필 (베이지 코트) -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="강해인 공식 프로필">
+          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="강해인 공식 프로필" data-tags="프로필,일상,야외">
             <img src="../images/gallery/daily-03-profile.jpg" alt="강해인 공식 프로필" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -207,7 +310,7 @@
           </div>
 
           <!-- 행사 스케치 2: 빨간치마 전신 (취임식) -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="취임식 무대 전경">
+          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="취임식 무대 전경" data-tags="취임식,행사,무대,단체">
             <img src="../images/gallery/event-02-red-dress.jpg" alt="취임식 무대 전경" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -216,7 +319,7 @@
           </div>
 
           <!-- 공연 사진 4: 흰 수트 (마이크 들고 앉아) -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="공연 중 강해인">
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="공연 중 강해인" data-tags="공연,마이크,흰수트,무대">
             <img src="../images/gallery/perf-06-white-suit.jpg" alt="공연 중 강해인" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -225,7 +328,7 @@
           </div>
 
           <!-- 행사 스케치 3: 단체 엄지 (취임식) -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="취임식 단체 기념 사진">
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="취임식 단체 기념 사진" data-tags="취임식,단체사진,행사">
             <img src="../images/gallery/event-03-group-thumbs.jpg" alt="취임식 단체 기념 사진" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -234,7 +337,7 @@
           </div>
 
           <!-- 공연 사진 5: 한밭시낭송 한복 (파란 한복) -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="한밭시낭송 전국대회">
+          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="한밭시낭송 전국대회" data-tags="공연,한복,한밭시낭송,시낭송대회">
             <img src="../images/gallery/perf-07-hanbat-hanbok.jpg" alt="한밭시낭송 전국대회" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -243,7 +346,7 @@
           </div>
 
           <!-- 공연 사진 6: 천년사랑 무대 (흰 드레스) -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="천년사랑 시낭송 무대">
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="천년사랑 시낭송 무대" data-tags="공연,시낭송,흰드레스,무대">
             <img src="../images/gallery/perf-08-thousand-love.jpg" alt="천년사랑 시낭송 무대" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -252,7 +355,7 @@
           </div>
 
           <!-- 행사 스케치 4: 효콘서트 단체 (꽃다발) -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="강해인의 시낭송 효 콘서트">
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="강해인의 시낭송 효 콘서트" data-tags="효콘서트,단체사진,꽃다발,행사">
             <img src="../images/gallery/event-04-hyo-group1.jpg" alt="강해인의 시낭송 효 콘서트" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -261,7 +364,7 @@
           </div>
 
           <!-- 공연 사진 7: 효콘서트 꽃다발 (흰 드레스) -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="효 콘서트 무대 인사">
+          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="효 콘서트 무대 인사" data-tags="효콘서트,공연,꽃다발,무대인사">
             <img src="../images/gallery/perf-09-hyo-bouquet.jpg" alt="효 콘서트 무대 인사" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -270,7 +373,7 @@
           </div>
 
           <!-- 행사 스케치 5: 효콘서트 단체2 (전체 단체) -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="event" data-caption="효 콘서트 단체 기념 사진">
+          <div class="masonry-item fade-in" data-delay="60" data-cat="event" data-caption="효 콘서트 단체 기념 사진" data-tags="효콘서트,단체사진,행사">
             <img src="../images/gallery/event-05-hyo-group2.jpg" alt="효 콘서트 단체 기념 사진" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -279,7 +382,7 @@
           </div>
 
           <!-- 연습/일상 3: 목련 빨간재킷 야외 -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="봄날 목련 아래서">
+          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="봄날 목련 아래서" data-tags="일상,야외,봄,목련">
             <img src="../images/gallery/daily-04-magnolia-red.jpg" alt="봄날 목련 아래서" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -288,7 +391,7 @@
           </div>
 
           <!-- 공연 사진 8: 분홍한복 -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="한복 공연">
+          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="한복 공연" data-tags="공연,한복,무대">
             <img src="../images/gallery/perf-10-pink-hanbok.jpg" alt="한복 공연" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -297,7 +400,7 @@
           </div>
 
           <!-- 공연 사진 9: 시낭송콘서트 (꽃 배경) -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="시낭송 콘서트">
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="시낭송 콘서트" data-tags="공연,시낭송,콘서트,무대">
             <img src="../images/gallery/perf-11-concert.jpg" alt="시낭송 콘서트" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -306,7 +409,7 @@
           </div>
 
           <!-- 행사 스케치 6: 전주예선 단체 -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="전주지역 시낭송예선대회">
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="전주지역 시낭송예선대회" data-tags="전주,시낭송대회,예선,단체사진">
             <img src="../images/gallery/event-06-jeonju-group.jpg" alt="전주지역 시낭송예선대회" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -315,7 +418,7 @@
           </div>
 
           <!-- 연습/일상 4: 꽃화관 정면 (숲속) -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="rehearsal" data-caption="꽃화관 강해인">
+          <div class="masonry-item fade-in" data-delay="0" data-cat="rehearsal" data-caption="꽃화관 강해인" data-tags="일상,꽃화관,야외,봄">
             <img src="../images/gallery/daily-02-flower-crown-side.jpg" alt="꽃화관 강해인" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -324,7 +427,7 @@
           </div>
 
           <!-- 연습/일상 5: 핑크재킷야외 -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="rehearsal" data-caption="핑크 재킷 야외">
+          <div class="masonry-item fade-in" data-delay="60" data-cat="rehearsal" data-caption="핑크 재킷 야외" data-tags="일상,야외,봄">
             <img src="../images/gallery/daily-05-pink-jacket.jpg" alt="핑크 재킷 야외" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -333,7 +436,7 @@
           </div>
 
           <!-- 행사 스케치 7: 단체 (한밭 단체) -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="시낭송 단체 기념">
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="시낭송 단체 기념" data-tags="한밭시낭송,단체사진,행사">
             <img src="../images/gallery/event-07-group.jpg" alt="시낭송 단체 기념" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -342,7 +445,7 @@
           </div>
 
           <!-- 공연 사진 10: 하늘색 웃음 -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="하늘빛 무대 위 미소">
+          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="하늘빛 무대 위 미소" data-tags="공연,강릉,시낭송대회,무대">
             <img src="../images/gallery/perf-04-blue-smile.jpg" alt="하늘빛 무대 위 미소" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -351,7 +454,7 @@
           </div>
 
           <!-- 공연 사진 11: 하늘색 열정 -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="열정의 무대">
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="열정의 무대" data-tags="공연,강릉,시낭송대회,무대">
             <img src="../images/gallery/perf-05-blue-passion.jpg" alt="열정의 무대" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -360,7 +463,7 @@
           </div>
 
           <!-- 일상 사진: 강릉 야경 다리 -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="강릉 야경">
+          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="강릉 야경" data-tags="일상,강릉,야경">
             <img src="../images/gallery/daily-06-gangneung-night.jpg" alt="강릉 야경" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -369,7 +472,7 @@
           </div>
 
           <!-- 행사 스케치 8: 취임식 단체 케이크 -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="취임식 축하 단체 사진">
+          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="취임식 축하 단체 사진" data-tags="취임식,단체사진,케이크,행사">
             <img src="../images/gallery/event-08-cake-group.jpg" alt="취임식 축하 단체 사진" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -378,7 +481,7 @@
           </div>
 
           <!-- 연습/일상: 피아노 옆 노래 -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="rehearsal" data-caption="강해인 강의">
+          <div class="masonry-item fade-in" data-delay="60" data-cat="rehearsal" data-caption="강해인 강의" data-tags="강의,시낭송교실,일상">
             <img src="../images/gallery/daily-07-lecture.jpg" alt="강해인 강의" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -387,7 +490,7 @@
           </div>
 
           <!-- 공연 사진: 한밭시낭송 파란한복 낭송 -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="performance" data-caption="한밭시낭송대회 낭송">
+          <div class="masonry-item fade-in" data-delay="120" data-cat="performance" data-caption="한밭시낭송대회 낭송" data-tags="공연,한복,한밭시낭송,시낭송대회">
             <img src="../images/gallery/perf-12-hanbat-recite.jpg" alt="한밭시낭송대회 낭송" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -396,7 +499,7 @@
           </div>
 
           <!-- 행사: 전주예선 대회장 -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="전주지역 예선대회 현장">
+          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="전주지역 예선대회 현장" data-tags="전주,시낭송대회,예선,행사">
             <img src="../images/gallery/event-09-jeonju-hall.jpg" alt="전주지역 예선대회 현장" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -405,7 +508,7 @@
           </div>
 
           <!-- 일상: 빨간 스웨터 정원 -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="rehearsal" data-caption="봄 나들이">
+          <div class="masonry-item fade-in" data-delay="60" data-cat="rehearsal" data-caption="봄 나들이" data-tags="일상,야외,봄">
             <img src="../images/gallery/daily-08-garden.jpg" alt="봄 나들이" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -414,7 +517,7 @@
           </div>
 
           <!-- 행사: 시낭송 효콘서트 무대팀 -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="효 콘서트 공연팀">
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="효 콘서트 공연팀" data-tags="효콘서트,단체사진,행사">
             <img src="../images/gallery/event-10-hyo-team.jpg" alt="효 콘서트 공연팀" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -423,7 +526,7 @@
           </div>
 
           <!-- 일상: 꽃길 산책 (붉은 스웨터) -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="rehearsal" data-caption="꽃길 산책">
+          <div class="masonry-item fade-in" data-delay="0" data-cat="rehearsal" data-caption="꽃길 산책" data-tags="일상,야외,봄,꽃">
             <img src="../images/gallery/daily-09-flower-walk.jpg" alt="꽃길 산책" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -432,7 +535,7 @@
           </div>
 
           <!-- 행사: 책 출판 기념 -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="event" data-caption="출판 기념 행사">
+          <div class="masonry-item fade-in" data-delay="60" data-cat="event" data-caption="출판 기념 행사" data-tags="출판기념,행사,단체사진">
             <img src="../images/gallery/event-11-publication.jpg" alt="출판 기념 행사" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -441,7 +544,7 @@
           </div>
 
           <!-- 행사: 강릉 단체 야외 -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="강릉 단체 행사">
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="강릉 단체 행사" data-tags="강릉,단체사진,야외,행사">
             <img src="../images/gallery/event-12-gangneung-group.jpg" alt="강릉 단체 행사" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -529,17 +632,98 @@
 
   <script src="../js/main.js?v=20260604"></script>
   <script>
-    // Gallery filter
-    document.querySelectorAll('.gallery-filter .filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.gallery-filter .filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const cat = btn.dataset.cat;
-        document.querySelectorAll('.masonry-item').forEach(item => {
-          item.style.display = (cat === 'all' || item.dataset.cat === cat) ? '' : 'none';
+    // ============================================================
+    // 갤러리 필터 (카테고리 + 태그)
+    // ============================================================
+    (function () {
+      const allItems   = Array.from(document.querySelectorAll('.masonry-item'));
+      const tagCloud   = document.getElementById('galleryTagCloud');
+      const tagClear   = document.getElementById('galleryTagClear');
+      const noResult   = document.getElementById('galleryNoResult');
+
+      let currentCat   = 'all';
+      let selectedTags = new Set();
+
+      /* ── 태그 클라우드 빌드 ── */
+      function buildTagCloud() {
+        // 현재 카테고리 기준 태그 빈도 계산
+        const freq = new Map();
+        allItems.forEach(item => {
+          const inCat = (currentCat === 'all' || item.dataset.cat === currentCat);
+          if (!inCat || !item.dataset.tags) return;
+          item.dataset.tags.split(',').map(t => t.trim()).filter(Boolean).forEach(tag => {
+            freq.set(tag, (freq.get(tag) || 0) + 1);
+          });
+        });
+
+        // 기존 칩 제거 (label, clear 버튼은 유지)
+        tagCloud.querySelectorAll('.gallery-tag-chip').forEach(c => c.remove());
+
+        if (freq.size === 0) {
+          tagClear.classList.add('hidden');
+          return;
+        }
+
+        // 빈도순 정렬 후 칩 삽입 (clear 버튼 앞에)
+        const sorted = [...freq.entries()].sort((a, b) => b[1] - a[1]);
+        sorted.forEach(([tag, cnt]) => {
+          const chip = document.createElement('button');
+          chip.className = 'gallery-tag-chip' + (selectedTags.has(tag) ? ' active' : '');
+          chip.innerHTML = `#${tag}<span class="chip-count">${cnt}</span>`;
+          chip.addEventListener('click', () => toggleTag(tag));
+          tagCloud.insertBefore(chip, tagClear);
+        });
+
+        tagClear.classList.toggle('hidden', selectedTags.size === 0);
+      }
+
+      /* ── 태그 토글 ── */
+      function toggleTag(tag) {
+        if (selectedTags.has(tag)) selectedTags.delete(tag);
+        else selectedTags.add(tag);
+        buildTagCloud();
+        applyFilter();
+      }
+
+      /* ── 선택 해제 ── */
+      tagClear.addEventListener('click', () => {
+        selectedTags.clear();
+        buildTagCloud();
+        applyFilter();
+      });
+
+      /* ── 필터 적용 ── */
+      function applyFilter() {
+        let visible = 0;
+        allItems.forEach(item => {
+          const catOk = (currentCat === 'all' || item.dataset.cat === currentCat);
+          let tagOk   = true;
+          if (selectedTags.size > 0) {
+            const itemTags = (item.dataset.tags || '').split(',').map(t => t.trim()).filter(Boolean);
+            tagOk = [...selectedTags].every(sel => itemTags.includes(sel));
+          }
+          const show = catOk && tagOk;
+          item.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        noResult.classList.toggle('show', visible === 0);
+      }
+
+      /* ── 카테고리 탭 ── */
+      document.querySelectorAll('.gallery-filter .filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.gallery-filter .filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentCat = btn.dataset.cat;
+          selectedTags.clear(); // 카테고리 전환 시 태그 선택 초기화
+          buildTagCloud();
+          applyFilter();
         });
       });
-    });
+
+      // 초기 태그 클라우드 빌드
+      buildTagCloud();
+    })();
 
     // Lightbox for real images
     (function() {
