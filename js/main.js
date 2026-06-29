@@ -259,36 +259,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // Google Sheets 연동 설정
-  // Google Apps Script 배포 후 아래 URL을 교체하세요
+  // API 서버 설정 (PostgreSQL 연동)
   // ==========================================
-  const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+  const API_BASE = 'https://haein.exko.kr/api';
 
   // 공통 전송 함수
-  async function sendToSheet(payload, btn, successMsg) {
+  async function sendToAPI(endpoint, payload, btn, successMsg) {
     const original = btn.textContent;
     btn.disabled = true;
     btn.textContent = '전송 중...';
 
-    // SCRIPT_URL 미설정 시 안내
-    if (!SCRIPT_URL || SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
-      showNotification(successMsg, 'success');
-      btn.disabled = false;
-      btn.textContent = original;
-      return;
-    }
-
     try {
-      const res = await fetch(SCRIPT_URL, {
+      const res = await fetch(API_BASE + endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' }, // CORS 우회
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
       const data = await res.json();
-      if (data.result === 'success') {
+      if (data.ok) {
         showNotification(successMsg, 'success');
       } else {
-        throw new Error(data.message || '오류');
+        throw new Error(data.message || '오류가 발생했습니다.');
       }
     } catch (err) {
       console.error('폼 전송 오류:', err);
@@ -323,8 +314,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const btn = contactForm.querySelector('[type="submit"]');
-      await sendToSheet(
-        { formType: 'contact', name, tel, email, type, org, message },
+      await sendToAPI(
+        '/contact',
+        { name, tel, email, type, org, message },
         btn,
         '문의가 접수되었습니다. 빠른 시일 내에 답변 드리겠습니다.'
       );
@@ -351,8 +343,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const btn = applyForm.querySelector('[type="submit"]');
-      await sendToSheet(
-        { formType: 'apply', name, tel, email, course, message },
+      await sendToAPI(
+        '/apply',
+        { name, tel, email, course, message },
         btn,
         '수강 신청이 완료되었습니다. 확인 후 연락 드리겠습니다.'
       );
