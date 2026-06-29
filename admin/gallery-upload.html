@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>갤러리 이미지 관리 | 강해인 관리자</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brown:      #4a2c2a;
+      --gold:       #c9a96e;
+      --light-gold: #e8d5a3;
+      --bg:         #faf7f2;
+      --white:      #ffffff;
+      --gray:       #888;
+      --border:     #ddd;
+      --red:        #c0392b;
+      --green:      #27ae60;
+      --blue:       #2980b9;
+      --radius:     10px;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      background: var(--bg);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* ── 헤더 ── */
+    .admin-header {
+      background: var(--brown);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .admin-header h1 { font-size: 1.1rem; font-weight: 600; }
+    .admin-header .subtitle { font-size: 0.78rem; opacity: 0.65; margin-top: 2px; }
+    .header-spacer { flex: 1; }
+    .auth-badge {
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .auth-badge.ok  { background: rgba(39,174,96,0.3); }
+    .auth-badge.err { background: rgba(192,57,43,0.3); }
+
+    /* ── 레이아웃 ── */
+    .admin-body {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 0;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* ── 좌측 패널 (업로드 폼) ── */
+    .panel-left {
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      overflow-y: auto;
+      max-height: calc(100vh - 56px);
+      position: sticky;
+      top: 56px;
+    }
+
+    .section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--brown);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--light-gold);
+    }
+
+    /* 토큰 입력 */
+    .token-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .token-row input {
+      flex: 1;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      font-family: monospace;
+    }
+    .token-row button {
+      padding: 0.55rem 1rem;
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 0.82rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .token-row button:hover { background: #6d3f3c; }
+
+    /* 드롭존 */
+    .dropzone {
+      border: 2px dashed var(--gold);
+      border-radius: var(--radius);
+      padding: 2rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #fffdf8;
+      position: relative;
+    }
+    .dropzone:hover, .dropzone.drag-over {
+      border-color: var(--brown);
+      background: #fdf5e8;
+    }
+    .dropzone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .dropzone-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .dropzone-text { font-size: 0.9rem; color: #666; }
+    .dropzone-hint { font-size: 0.75rem; color: #aaa; margin-top: 0.3rem; }
+
+    /* 미리보기 */
+    .preview-wrap {
+      position: relative;
+      display: none;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+    .preview-wrap img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: cover;
+      display: block;
+    }
+    .preview-clear {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .preview-info {
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 0.72rem;
+      padding: 0.3rem 0.6rem;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    /* 폼 필드 */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #555;
+    }
+    .form-group label .required { color: var(--red); margin-left: 2px; }
+    .form-group label .hint {
+      font-weight: 400;
+      color: #aaa;
+      font-size: 0.72rem;
+      margin-left: 0.4rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.6rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      background: #fff;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,169,110,0.15);
+    }
+    .form-group textarea { resize: vertical; min-height: 72px; }
+
+    /* 업로드 버튼 */
+    .btn-upload {
+      width: 100%;
+      padding: 0.85rem;
+      background: linear-gradient(135deg, var(--brown), #6d3f3c);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .btn-upload:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+    .btn-upload:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* 진행 바 */
+    .progress-wrap { display: none; }
+    .progress-bar-bg {
+      background: #eee;
+      border-radius: 99px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--brown));
+      border-radius: 99px;
+      transition: width 0.3s;
+      width: 0%;
+    }
+    .progress-text {
+      font-size: 0.78rem;
+      color: #666;
+      margin-top: 0.3rem;
+      text-align: center;
+    }
+
+    /* 알림 */
+    .alert {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      display: none;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .alert.show { display: flex; }
+    .alert.success { background: #eafaf1; color: #1e8449; border: 1px solid #a9dfbf; }
+    .alert.error   { background: #fdedec; color: #922b21; border: 1px solid #f1948a; }
+    .alert-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .alert-msg { flex: 1; }
+
+    /* ── 우측 패널 (업로드된 목록) ── */
+    .panel-right {
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+
+    .list-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+    }
+    .list-title { font-size: 1rem; font-weight: 700; color: var(--brown); }
+    .list-count { font-size: 0.82rem; color: var(--gray); }
+    .list-header-spacer { flex: 1; }
+
+    /* 카테고리 탭 */
+    .cat-tabs {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .cat-tab {
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #555;
+    }
+    .cat-tab:hover { border-color: var(--gold); color: var(--brown); }
+    .cat-tab.active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: #fff;
+    }
+
+    /* 검색 */
+    .search-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .search-row input {
+      flex: 1;
+      padding: 0.5rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+    .btn-refresh {
+      padding: 0.5rem 1rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      color: #555;
+      transition: all 0.15s;
+    }
+    .btn-refresh:hover { border-color: var(--gold); color: var(--brown); }
+
+    /* 이미지 그리드 */
+    .img-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .img-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .img-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+
+    .img-card-thumb {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+    .img-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+    .img-card:hover .img-card-thumb img { transform: scale(1.05); }
+
+    .img-card-cat {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: rgba(74,44,42,0.85);
+      color: #fff;
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 10px;
+      letter-spacing: 0.03em;
+    }
+    .img-card-del {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(192,57,43,0.85);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .img-card:hover .img-card-del { opacity: 1; }
+    .img-card-del:hover { background: var(--red); }
+
+    .img-card-body {
+      padding: 0.6rem 0.75rem;
+    }
+    .img-card-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #333;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.2rem;
+    }
+    .img-card-caption {
+      font-size: 0.73rem;
+      color: #888;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .img-card-url {
+      font-size: 0.68rem;
+      color: var(--blue);
+      font-family: monospace;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 0.3rem;
+      padding: 0.25rem 0.4rem;
+      background: #f4f8ff;
+      border-radius: 4px;
+      border: 1px solid #dce8ff;
+    }
+    .img-card-url:hover { background: #dce8ff; }
+
+    /* 빈 상태 */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #aaa;
+    }
+    .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .empty-state-text { font-size: 0.95rem; }
+
+    /* 로딩 스피너 */
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #eee;
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 3rem auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* 복사 완료 토스트 */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #333;
+      color: #fff;
+      padding: 0.65rem 1.4rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      transition: transform 0.3s;
+      z-index: 9999;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* 반응형 */
+    @media (max-width: 900px) {
+      .admin-body { grid-template-columns: 1fr; }
+      .panel-left {
+        position: static;
+        max-height: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+    @media (max-width: 480px) {
+      .img-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header class="admin-header">
+  <div>
+    <h1>🌸 갤러리 이미지 관리</h1>
+    <div class="subtitle">강해인 怡娜 — 이미지 업로드 & 관리</div>
+  </div>
+  <div class="header-spacer"></div>
+  <div class="auth-badge" id="authBadge">🔒 미인증</div>
+</header>
+
+<div class="admin-body">
+
+  <!-- ── 좌측: 업로드 폼 ── -->
+  <aside class="panel-left">
+
+    <!-- 관리자 인증 -->
+    <div>
+      <div class="section-title">🔑 관리자 인증</div>
+      <div style="margin-top:0.75rem;">
+        <div class="token-row">
+          <input type="password" id="adminToken" placeholder="Admin Token 입력" autocomplete="off" />
+          <button onclick="saveToken()">확인</button>
+        </div>
+        <p style="font-size:0.72rem;color:#aaa;margin-top:0.4rem;">토큰은 브라우저에만 저장됩니다.</p>
+      </div>
+    </div>
+
+    <!-- 이미지 선택 -->
+    <div>
+      <div class="section-title">📁 이미지 선택</div>
+      <div style="margin-top:0.75rem;">
+        <div class="dropzone" id="dropzone">
+          <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/gif" />
+          <div class="dropzone-icon">🖼️</div>
+          <div class="dropzone-text">클릭하거나 파일을 드래그하세요</div>
+          <div class="dropzone-hint">JPG · PNG · WEBP · GIF / 최대 20MB</div>
+        </div>
+        <div class="preview-wrap" id="previewWrap">
+          <img id="previewImg" src="" alt="미리보기" />
+          <button class="preview-clear" onclick="clearFile()" title="취소">✕</button>
+          <div class="preview-info" id="previewInfo"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 메타 정보 -->
+    <div>
+      <div class="section-title">📝 메타 정보</div>
+      <div style="margin-top:0.75rem; display:flex; flex-direction:column; gap:0.85rem;">
+
+        <div class="form-group">
+          <label>카테고리 <span class="required">*</span></label>
+          <select id="fCategory">
+            <option value="performance">공연 사진</option>
+            <option value="event">행사 스케치</option>
+            <option value="rehearsal">일상 &amp; 스케치</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>
+            제목
+            <span class="hint">갤러리 카드 위에 표시</span>
+          </label>
+          <input type="text" id="fTitle" placeholder="예) 제10회 효 콘서트" maxlength="200" />
+        </div>
+
+        <div class="form-group">
+          <label>
+            캡션
+            <span class="hint">라이트박스 하단 설명</span>
+          </label>
+          <textarea id="fCaption" placeholder="예) 2024년 5월 대전 효 콘서트 무대 인사" maxlength="500"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>
+            태그
+            <span class="hint">쉼표로 구분</span>
+          </label>
+          <input type="text" id="fTags" placeholder="예) 효콘서트, 한복, 2024" maxlength="300" />
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 진행 상태 -->
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-text" id="progressText">업로드 중...</div>
+    </div>
+
+    <!-- 알림 -->
+    <div class="alert" id="alertBox">
+      <span class="alert-icon" id="alertIcon"></span>
+      <span class="alert-msg" id="alertMsg"></span>
+    </div>
+
+    <!-- 업로드 버튼 -->
+    <button class="btn-upload" id="btnUpload" onclick="doUpload()">
+      <span>⬆️</span> 업로드
+    </button>
+
+  </aside>
+
+  <!-- ── 우측: 이미지 목록 ── -->
+  <main class="panel-right">
+
+    <div class="list-header">
+      <span class="list-title">업로드된 이미지</span>
+      <span class="list-count" id="listCount">— 장</span>
+      <div class="list-header-spacer"></div>
+    </div>
+
+    <!-- 카테고리 탭 -->
+    <div class="cat-tabs">
+      <button class="cat-tab active" data-cat="all" onclick="switchCat(this)">전체</button>
+      <button class="cat-tab" data-cat="performance" onclick="switchCat(this)">공연 사진</button>
+      <button class="cat-tab" data-cat="event" onclick="switchCat(this)">행사 스케치</button>
+      <button class="cat-tab" data-cat="rehearsal" onclick="switchCat(this)">일상 &amp; 스케치</button>
+    </div>
+
+    <!-- 검색 -->
+    <div class="search-row">
+      <input type="text" id="searchInput" placeholder="제목·캡션·태그 검색…" oninput="renderGrid()" />
+      <button class="btn-refresh" onclick="loadImages()">🔄 새로고침</button>
+    </div>
+
+    <!-- 그리드 -->
+    <div class="img-grid" id="imgGrid">
+      <div class="spinner"></div>
+    </div>
+
+  </main>
+
+</div>
+
+<!-- 복사 토스트 -->
+<div class="toast" id="toast">클립보드에 복사되었습니다 ✓</div>
+
+<script>
+  // ============================================================
+  // 설정
+  // ============================================================
+  const API_BASE = 'https://haein.exko.kr/api';   // 실제 서버 API URL
+  // 로컬 테스트 시 아래 주석 해제:
+  // const API_BASE = 'http://localhost:3000/api';
+
+  const CAT_LABEL = {
+    performance: '공연 사진',
+    event:       '행사 스케치',
+    rehearsal:   '일상 & 스케치',
+    etc:         '기타',
+  };
+
+  let allImages    = [];   // 전체 이미지 캐시
+  let currentCat   = 'all';
+  let selectedFile = null;
+
+  // ============================================================
+  // 토큰 관리
+  // ============================================================
+  function getToken() { return localStorage.getItem('haein_admin_token') || ''; }
+
+  function saveToken() {
+    const t = document.getElementById('adminToken').value.trim();
+    if (!t) return showAlert('토큰을 입력해 주세요.', 'error');
+    localStorage.setItem('haein_admin_token', t);
+    document.getElementById('adminToken').value = '';
+    updateAuthBadge(true);
+    showAlert('토큰이 저장되었습니다.', 'success');
+    loadImages();
+  }
+
+  function updateAuthBadge(ok) {
+    const b = document.getElementById('authBadge');
+    if (ok) {
+      b.textContent = '🔓 인증됨';
+      b.className = 'auth-badge ok';
+    } else {
+      b.textContent = '🔒 미인증';
+      b.className = 'auth-badge err';
+    }
+  }
+
+  // ============================================================
+  // 파일 선택 & 미리보기
+  // ============================================================
+  const fileInput  = document.getElementById('fileInput');
+  const dropzone   = document.getElementById('dropzone');
+  const previewWrap = document.getElementById('previewWrap');
+  const previewImg  = document.getElementById('previewImg');
+  const previewInfo = document.getElementById('previewInfo');
+
+  fileInput.addEventListener('change', e => handleFile(e.target.files[0]));
+
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
+  dropzone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropzone.classList.remove('drag-over');
+    handleFile(e.dataTransfer.files[0]);
+  });
+
+  function handleFile(file) {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) return showAlert('이미지 파일만 선택 가능합니다.', 'error');
+    if (file.size > 20 * 1024 * 1024) return showAlert('20MB 이하 파일만 업로드 가능합니다.', 'error');
+
+    selectedFile = file;
+    const url = URL.createObjectURL(file);
+    previewImg.src = url;
+    previewInfo.textContent = `${file.name}  ·  ${(file.size / 1024).toFixed(0)} KB`;
+    previewWrap.style.display = 'block';
+    dropzone.style.display = 'none';
+    clearAlert();
+
+    // 파일명에서 제목 자동 채우기 (비어있을 때만)
+    const titleInput = document.getElementById('fTitle');
+    if (!titleInput.value) {
+      titleInput.value = file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+    }
+  }
+
+  function clearFile() {
+    selectedFile = null;
+    fileInput.value = '';
+    previewImg.src = '';
+    previewWrap.style.display = 'none';
+    dropzone.style.display = 'block';
+  }
+
+  // ============================================================
+  // 업로드
+  // ============================================================
+  async function doUpload() {
+    const token = getToken();
+    if (!token)        return showAlert('먼저 관리자 토큰을 입력해 주세요.', 'error');
+    if (!selectedFile) return showAlert('업로드할 이미지를 선택해 주세요.', 'error');
+
+    const category = document.getElementById('fCategory').value;
+    const title    = document.getElementById('fTitle').value.trim();
+    const caption  = document.getElementById('fCaption').value.trim();
+    const tags     = document.getElementById('fTags').value.trim();
+
+    // UI 잠금
+    const btn = document.getElementById('btnUpload');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner" style="width:18px;height:18px;border-width:2px;margin:0;"></span> 업로드 중…';
+    showProgress(0, '서버에 전송 중…');
+    clearAlert();
+
+    try {
+      const fd = new FormData();
+      fd.append('image',    selectedFile);
+      fd.append('category', category);
+      fd.append('title',    title);
+      fd.append('caption',  caption);
+      fd.append('tags',     tags);
+
+      // XMLHttpRequest로 진행률 표시
+      const result = await uploadWithProgress(fd, token);
+
+      showAlert(`✅ 업로드 완료! → ${result.image.url}`, 'success');
+      clearFile();
+      document.getElementById('fTitle').value   = '';
+      document.getElementById('fCaption').value = '';
+      document.getElementById('fTags').value    = '';
+      hideProgress();
+      loadImages();
+
+    } catch (err) {
+      showAlert(err.message || '업로드 실패. 토큰과 서버 상태를 확인해 주세요.', 'error');
+      hideProgress();
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<span>⬆️</span> 업로드';
+    }
+  }
+
+  function uploadWithProgress(fd, token) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `${API_BASE}/gallery/upload`);
+      xhr.setRequestHeader('x-admin-token', token);
+
+      xhr.upload.addEventListener('progress', e => {
+        if (e.lengthComputable) {
+          const pct = Math.round(e.loaded / e.total * 100);
+          showProgress(pct, `전송 중… ${pct}%`);
+        }
+      });
+
+      xhr.addEventListener('load', () => {
+        try {
+          const data = JSON.parse(xhr.responseText);
+          if (data.ok) resolve(data);
+          else reject(new Error(data.message || '업로드 실패'));
+        } catch { reject(new Error('서버 응답 오류')); }
+      });
+
+      xhr.addEventListener('error', () => reject(new Error('네트워크 오류')));
+      xhr.send(fd);
+    });
+  }
+
+  // ============================================================
+  // 이미지 목록
+  // ============================================================
+  async function loadImages() {
+    document.getElementById('imgGrid').innerHTML = '<div class="spinner"></div>';
+    try {
+      const res  = await fetch(`${API_BASE}/gallery?limit=200`);
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.message);
+      allImages = data.images || [];
+      document.getElementById('listCount').textContent = `총 ${data.total}장`;
+      renderGrid();
+    } catch (err) {
+      document.getElementById('imgGrid').innerHTML =
+        `<div class="empty-state"><div class="empty-state-icon">⚠️</div><div class="empty-state-text">목록을 불러올 수 없습니다.<br><small>${err.message}</small></div></div>`;
+    }
+  }
+
+  function switchCat(btn) {
+    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCat = btn.dataset.cat;
+    renderGrid();
+  }
+
+  function renderGrid() {
+    const q    = document.getElementById('searchInput').value.toLowerCase();
+    let items  = allImages;
+
+    if (currentCat !== 'all') items = items.filter(i => i.category === currentCat);
+    if (q) items = items.filter(i =>
+      (i.title   || '').toLowerCase().includes(q) ||
+      (i.caption || '').toLowerCase().includes(q) ||
+      (i.tags    || '').toLowerCase().includes(q)
+    );
+
+    const grid = document.getElementById('imgGrid');
+
+    if (!items.length) {
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+        <div class="empty-state-icon">📭</div>
+        <div class="empty-state-text">업로드된 이미지가 없습니다.</div>
+      </div>`;
+      return;
+    }
+
+    grid.innerHTML = items.map(img => {
+      const imgUrl = `https://haein.exko.kr${img.url}`;
+      return `
+      <div class="img-card" id="card-${img.id}">
+        <div class="img-card-thumb">
+          <img src="${imgUrl}" alt="${esc(img.title || img.filename)}" loading="lazy"
+               onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22120%22><rect fill=%22%23eee%22 width=%22160%22 height=%22120%22/><text x=%2280%22 y=%2266%22 text-anchor=%22middle%22 fill=%22%23aaa%22 font-size=%2212%22>로드 실패</text></svg>'" />
+          <span class="img-card-cat">${CAT_LABEL[img.category] || img.category}</span>
+          <button class="img-card-del" onclick="deleteImage(${img.id}, '${esc(img.filename)}')" title="삭제">✕</button>
+        </div>
+        <div class="img-card-body">
+          <div class="img-card-title">${esc(img.title || img.filename)}</div>
+          <div class="img-card-caption">${esc(img.caption || '—')}</div>
+          <div class="img-card-url" onclick="copyUrl('${imgUrl}')" title="클릭하면 URL 복사">${img.url}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // ============================================================
+  // 삭제
+  // ============================================================
+  async function deleteImage(id, filename) {
+    if (!confirm(`"${filename}" 을 삭제하시겠습니까?\n파일과 DB 모두 삭제됩니다.`)) return;
+    const token = getToken();
+    if (!token) return showAlert('관리자 토큰이 필요합니다.', 'error');
+
+    try {
+      const res  = await fetch(`${API_BASE}/gallery/${id}`, {
+        method:  'DELETE',
+        headers: { 'x-admin-token': token },
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.message);
+      // 카드 즉시 제거
+      const card = document.getElementById(`card-${id}`);
+      if (card) card.remove();
+      allImages = allImages.filter(i => i.id !== id);
+      document.getElementById('listCount').textContent = `총 ${allImages.length}장`;
+      showToast('삭제되었습니다.');
+    } catch (err) {
+      showAlert(err.message || '삭제 실패', 'error');
+    }
+  }
+
+  // ============================================================
+  // 유틸
+  // ============================================================
+  function esc(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function showProgress(pct, text) {
+    document.getElementById('progressWrap').style.display = 'block';
+    document.getElementById('progressFill').style.width   = pct + '%';
+    document.getElementById('progressText').textContent   = text;
+  }
+  function hideProgress() { document.getElementById('progressWrap').style.display = 'none'; }
+
+  function showAlert(msg, type) {
+    const box  = document.getElementById('alertBox');
+    const icon = document.getElementById('alertIcon');
+    const msgEl = document.getElementById('alertMsg');
+    box.className  = `alert ${type} show`;
+    icon.textContent = type === 'success' ? '✅' : '❌';
+    msgEl.textContent = msg;
+  }
+  function clearAlert() {
+    document.getElementById('alertBox').className = 'alert';
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function copyUrl(url) {
+    navigator.clipboard.writeText(url).then(() => showToast('URL 복사됨 ✓'));
+  }
+
+  // ============================================================
+  // 초기화
+  // ============================================================
+  window.addEventListener('DOMContentLoaded', () => {
+    // 저장된 토큰 있으면 자동 인증 표시
+    if (getToken()) updateAuthBadge(true);
+    loadImages();
+  });
+</script>
+</body>
+</html>

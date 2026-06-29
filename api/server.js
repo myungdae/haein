@@ -5,6 +5,13 @@ const express   = require('express');
 const { Pool }  = require('pg');
 const cors      = require('cors');
 const rateLimit = require('express-rate-limit');
+const multer    = require('multer');
+const sharp     = require('sharp');
+const path      = require('path');
+const fs        = require('fs');
+
+// 업로드 저장 디렉토리 (서버 절대경로로 수정 필요 — .env의 UPLOAD_DIR 참조)
+const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(__dirname, '../images/gallery');
 
 const app  = express();
 const PORT = process.env.API_PORT || 3000;
@@ -40,10 +47,10 @@ app.use(cors({
     'http://localhost',
     'http://127.0.0.1'
   ],
-  methods: ['POST', 'GET'],
+  methods: ['POST', 'GET', 'DELETE'],
 }));
 
-// Rate Limit - 같은 IP에서 10분에 10회 제한
+// Rate Limit - 일반 API (10분에 10회)
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000,
   max: 10,
@@ -51,7 +58,42 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
-app.use('/api/', limiter);
+app.use('/api/contact', limiter);
+app.use('/api/apply', limiter);
+
+// Rate Limit - 업로드 (10분에 60회)
+const uploadLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 60,
+  message: { ok: false, message: '업로드 횟수 초과. 잠시 후 다시 시도해 주세요.' },
+});
+app.use('/api/gallery', uploadLimiter);
+
+// =============================================
+// 관리자 인증 미들웨어
+// =============================================
+const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'haein-admin-2024';
+
+function adminAuth(req, res, next) {
+  const token = req.headers['x-admin-token'] || req.query.token;
+  if (token !== ADMIN_TOKEN) {
+    return res.status(401).json({ ok: false, message: '인증이 필요합니다.' });
+  }
+  next();
+}
+
+// =============================================
+// Multer 설정 (메모리 저장 → sharp 처리 후 저장)
+// =============================================
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
+  fileFilter(req, file, cb) {
+    const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    if (allowed.includes(file.mimetype)) cb(null, true);
+    else cb(new Error('JPG, PNG, WEBP, GIF 파일만 업로드 가능합니다.'));
+  },
+});
 
 // =============================================
 // 유틸
@@ -66,6 +108,143 @@ function sanitize(str, maxLen = 500) {
 // =============================================
 app.get('/api/health', (req, res) => {
   res.json({ ok: true, message: '강해인 API 서버 정상 동작 중' });
+});
+
+// =============================================
+// POST /api/gallery/upload  — 이미지 업로드 (관리자)
+// =============================================
+app.post('/api/gallery/upload', adminAuth, upload.single('image'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ ok: false, message: '이미지 파일이 없습니다.' });
+  }
+
+  try {
+    // 파일명 생성: 카테고리-타임스탬프.jpg
+    const cat      = sanitize(req.body.category || 'etc', 20).replace(/[^a-z0-9]/gi, '-');
+    const title    = sanitize(req.body.title || '', 100);
+    const caption  = sanitize(req.body.caption || '', 200);
+    const tags     = sanitize(req.body.tags || '', 200);
+    const ts       = Date.now();
+    const filename = `${cat}-${ts}.jpg`;
+    const savePath = path.join(UPLOAD_DIR, filename);
+
+    // 업로드 디렉토리 없으면 생성
+    if (!fs.existsSync(UPLOAD_DIR)) {
+      fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+    }
+
+    // sharp로 리사이즈 + 최적화 (최대 1600px, WebP 품질 85)
+    await sharp(req.file.buffer)
+      .rotate()                          // EXIF 방향 자동 보정
+      .resize({ width: 1600, height: 1600, fit: 'inside', withoutEnlargement: true })
+      .jpeg({ quality: 85, progressive: true })
+      .toFile(savePath);
+
+    // DB에 메타 저장
+    const result = await pool.query(
+      `INSERT INTO gallery_images (filename, category, title, caption, tags, file_size)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING id, filename, category, title, caption, tags, created_at`,
+      [filename, cat, title, caption, tags,
+       fs.statSync(savePath).size]
+    );
+
+    const row = result.rows[0];
+    console.log(`[갤러리업로드] ${filename} | ${cat} | ${title}`);
+
+    res.json({
+      ok: true,
+      message: '업로드 완료',
+      image: {
+        id:       row.id,
+        filename: row.filename,
+        url:      `/images/gallery/${row.filename}`,
+        category: row.category,
+        title:    row.title,
+        caption:  row.caption,
+        tags:     row.tags,
+        created_at: row.created_at,
+      }
+    });
+
+  } catch (err) {
+    console.error('[갤러리업로드 오류]', err.message);
+    res.status(500).json({ ok: false, message: err.message || '서버 오류' });
+  }
+});
+
+// =============================================
+// GET /api/gallery  — 이미지 목록 조회
+// =============================================
+app.get('/api/gallery', async (req, res) => {
+  const cat    = req.query.category || '';
+  const limit  = Math.min(parseInt(req.query.limit) || 100, 200);
+  const offset = parseInt(req.query.offset) || 0;
+
+  try {
+    let query, params;
+    if (cat && cat !== 'all') {
+      query  = `SELECT * FROM gallery_images WHERE category=$1 ORDER BY sort_order ASC, created_at DESC LIMIT $2 OFFSET $3`;
+      params = [cat, limit, offset];
+    } else {
+      query  = `SELECT * FROM gallery_images ORDER BY sort_order ASC, created_at DESC LIMIT $1 OFFSET $2`;
+      params = [limit, offset];
+    }
+
+    const result = await pool.query(query, params);
+    const countQ = cat && cat !== 'all'
+      ? await pool.query(`SELECT COUNT(*) FROM gallery_images WHERE category=$1`, [cat])
+      : await pool.query(`SELECT COUNT(*) FROM gallery_images`);
+
+    res.json({
+      ok: true,
+      total: parseInt(countQ.rows[0].count),
+      images: result.rows.map(r => ({
+        id:         r.id,
+        filename:   r.filename,
+        url:        `/images/gallery/${r.filename}`,
+        category:   r.category,
+        title:      r.title,
+        caption:    r.caption,
+        tags:       r.tags,
+        sort_order: r.sort_order,
+        created_at: r.created_at,
+      }))
+    });
+
+  } catch (err) {
+    console.error('[갤러리조회 오류]', err.message);
+    res.status(500).json({ ok: false, message: '서버 오류' });
+  }
+});
+
+// =============================================
+// DELETE /api/gallery/:id  — 이미지 삭제 (관리자)
+// =============================================
+app.delete('/api/gallery/:id', adminAuth, async (req, res) => {
+  const id = parseInt(req.params.id);
+  if (!id) return res.status(400).json({ ok: false, message: '잘못된 ID' });
+
+  try {
+    const result = await pool.query(`SELECT filename FROM gallery_images WHERE id=$1`, [id]);
+    if (!result.rows.length) return res.status(404).json({ ok: false, message: '이미지 없음' });
+
+    const filename = result.rows[0].filename;
+    const filePath = path.join(UPLOAD_DIR, filename);
+
+    // DB에서 삭제
+    await pool.query(`DELETE FROM gallery_images WHERE id=$1`, [id]);
+
+    // 파일 삭제
+    if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+
+    console.log(`[갤러리삭제] id=${id} | ${filename}`);
+    res.json({ ok: true, message: '삭제 완료' });
+
+  } catch (err) {
+    console.error('[갤러리삭제 오류]', err.message);
+    res.status(500).json({ ok: false, message: '서버 오류' });
+  }
 });
 
 // =============================================
