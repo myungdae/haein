@@ -249,6 +249,56 @@ app.get('/api/gallery', async (req, res) => {
 });
 
 // =============================================
+// PUT /api/gallery/:id  — 메타 수정 (관리자)
+// =============================================
+app.put('/api/gallery/:id', adminAuth, async (req, res) => {
+  const id = parseInt(req.params.id);
+  if (!id) return res.status(400).json({ ok: false, message: '잘못된 ID' });
+
+  const category   = sanitize(req.body.category  || '', 50);
+  const title      = sanitize(req.body.title      || '', 200);
+  const caption    = sanitize(req.body.caption    || '', 500);
+  const tags       = sanitize(req.body.tags       || '', 300);
+  const sort_order = parseInt(req.body.sort_order) || 0;
+
+  try {
+    const result = await pool.query(
+      `UPDATE gallery_images
+          SET category=$1, title=$2, caption=$3, tags=$4, sort_order=$5
+        WHERE id=$6
+        RETURNING id, filename, category, title, caption, tags, sort_order, created_at`,
+      [category, title, caption, tags, sort_order, id]
+    );
+
+    if (!result.rows.length) {
+      return res.status(404).json({ ok: false, message: '이미지를 찾을 수 없습니다.' });
+    }
+
+    const row = result.rows[0];
+    console.log(`[갤러리수정] id=${id} | ${category} | ${title}`);
+    res.json({
+      ok: true,
+      message: '수정 완료',
+      image: {
+        id:         row.id,
+        filename:   row.filename,
+        url:        `/images/gallery/${row.filename}`,
+        category:   row.category,
+        title:      row.title,
+        caption:    row.caption,
+        tags:       row.tags,
+        sort_order: row.sort_order,
+        created_at: row.created_at,
+      }
+    });
+
+  } catch (err) {
+    console.error('[갤러리수정 오류]', err.message);
+    res.status(500).json({ ok: false, message: '서버 오류' });
+  }
+});
+
+// =============================================
 // DELETE /api/gallery/:id  — 이미지 삭제 (관리자)
 // =============================================
 app.delete('/api/gallery/:id', adminAuth, async (req, res) => {
