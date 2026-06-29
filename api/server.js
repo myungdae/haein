@@ -16,6 +16,9 @@ const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(__dirname, '../images/gal
 const app  = express();
 const PORT = process.env.API_PORT || 3000;
 
+// Nginx 리버스 프록시 신뢰 설정 (X-Forwarded-For 에러 해결)
+app.set('trust proxy', 1);
+
 // =============================================
 // DB 연결
 // =============================================
@@ -34,6 +37,33 @@ pool.connect((err) => {
     console.log('[DB] PostgreSQL 연결 성공');
   }
 });
+
+// 서버 시작 시 gallery_images 테이블 자동 생성
+(async () => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS gallery_images (
+        id          SERIAL PRIMARY KEY,
+        created_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+        filename    VARCHAR(200) NOT NULL UNIQUE,
+        category    VARCHAR(50)  NOT NULL DEFAULT 'etc',
+        title       VARCHAR(200),
+        caption     VARCHAR(500),
+        tags        VARCHAR(300),
+        sort_order  INTEGER      NOT NULL DEFAULT 0,
+        file_size   INTEGER,
+        is_visible  BOOLEAN      NOT NULL DEFAULT TRUE
+      )
+    `);
+    await pool.query(`
+      CREATE INDEX IF NOT EXISTS idx_gallery_cat
+        ON gallery_images(category, sort_order, created_at DESC)
+    `);
+    console.log('[DB] gallery_images 테이블 준비 완료');
+  } catch (err) {
+    console.error('[DB] 테이블 생성 오류:', err.message);
+  }
+})();
 
 // =============================================
 // 미들웨어
