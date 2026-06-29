@@ -150,104 +150,302 @@
         <!-- Masonry Grid -->
         <div class="masonry-grid" id="galleryGrid">
 
-          <!-- Item 1 -->
-          <div class="masonry-item fade-in" data-cat="performance">
-            <div class="gallery-placeholder" style="height:320px; background:linear-gradient(160deg,#EDE0C4,#C9A96E); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="#8D6E63" stroke-width="1.2" fill="none"/><circle cx="20" cy="20" r="6" stroke="#8D6E63" stroke-width="1.2" fill="none"/></svg>
-              <span style="font-size:0.75rem; color:#8D6E63; letter-spacing:0.1em;">제10회 효 콘서트 공연 사진</span>
-            </div>
+          <!-- 공연 사진 1: 마이크 공연 (흰 재킷) -->
+          <div class="masonry-item fade-in" data-cat="performance" data-caption="공연 무대 위 강해인">
+            <img src="https://www.genspark.ai/api/files/s/eDTHxF19" alt="공연 무대 위 강해인" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
               </span>
+              <span class="masonry-caption">공연 무대 위 강해인</span>
             </div>
           </div>
 
-          <!-- Item 2 -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="performance">
-            <div class="gallery-placeholder" style="height:220px; background:linear-gradient(160deg,#3E2723,#6D4C41); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="rgba(232,213,163,0.6)" stroke-width="1.2" fill="none"/><circle cx="20" cy="20" r="6" stroke="rgba(232,213,163,0.6)" stroke-width="1.2" fill="none"/></svg>
-              <span style="font-size:0.75rem; color:rgba(232,213,163,0.5); letter-spacing:0.1em;">무대 위 강해인</span>
-            </div>
+          <!-- 공연 사진 2: 사계문화제 한복 -->
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="사계문화제 한복 공연">
+            <img src="https://www.genspark.ai/api/files/s/x6aQmi0b" alt="사계문화제 한복 공연" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">사계문화제 한복 공연</span>
             </div>
           </div>
 
-          <!-- Item 3 -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal">
-            <div class="gallery-placeholder" style="height:280px; background:linear-gradient(160deg,#F5EDD8,#A67C3C); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="#6D4C41" stroke-width="1.2" fill="none"/><circle cx="20" cy="20" r="6" stroke="#6D4C41" stroke-width="1.2" fill="none"/></svg>
-              <span style="font-size:0.75rem; color:#6D4C41; letter-spacing:0.1em;">리허설 장면</span>
-            </div>
+          <!-- 연습/일상 1: 꽃화관 측면 (숲속) -->
+          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="꽃화관을 쓴 강해인">
+            <img src="https://www.genspark.ai/api/files/s/jsM7dV6o" alt="꽃화관을 쓴 강해인" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">꽃화관을 쓴 강해인</span>
             </div>
           </div>
 
-          <!-- Item 4 -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="event">
-            <div class="gallery-placeholder" style="height:260px; background:linear-gradient(160deg,#E8D5A3,#8D6E63); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="rgba(253,250,245,0.7)" stroke-width="1.2" fill="none"/><circle cx="20" cy="20" r="6" stroke="rgba(253,250,245,0.7)" stroke-width="1.2" fill="none"/></svg>
-              <span style="font-size:0.75rem; color:rgba(253,250,245,0.6); letter-spacing:0.1em;">행사 스케치</span>
-            </div>
+          <!-- 행사 스케치 1: 취임식 (크림코트+꽃) -->
+          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="국제시낭송예술인연합회 취임식">
+            <img src="https://www.genspark.ai/api/files/s/vBWP7Me2" alt="국제시낭송예술인연합회 취임식" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">국제시낭송예술인연합회 취임식</span>
             </div>
           </div>
 
-          <!-- Item 5 -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="performance">
-            <div class="gallery-placeholder" style="height:350px; background:linear-gradient(160deg,#5D4037,#3E2723); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="rgba(232,213,163,0.5)" stroke-width="1.2" fill="none"/><circle cx="20" cy="20" r="6" stroke="rgba(232,213,163,0.5)" stroke-width="1.2" fill="none"/></svg>
-              <span style="font-size:0.75rem; color:rgba(232,213,163,0.4); letter-spacing:0.1em;">효 콘서트 전경</span>
-            </div>
+          <!-- 공연 사진 3: 하늘색 재킷 (강릉 예선대회) -->
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="강릉지역 시낭송예선대회">
+            <img src="https://www.genspark.ai/api/files/s/TLXnysyZ" alt="강릉지역 시낭송예선대회" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">강릉지역 시낭송예선대회</span>
             </div>
           </div>
 
-          <!-- Item 6 -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal">
-            <div class="gallery-placeholder" style="height:240px; background:linear-gradient(160deg,#EDE0C4,#E8D5A3); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="#8D6E63" stroke-width="1.2" fill="none"/><circle cx="20" cy="20" r="6" stroke="#8D6E63" stroke-width="1.2" fill="none"/></svg>
-              <span style="font-size:0.75rem; color:#8D6E63; letter-spacing:0.1em;">연습실 풍경</span>
-            </div>
+          <!-- 연습/일상 2: 공식 프로필 (베이지 코트) -->
+          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="강해인 공식 프로필">
+            <img src="https://www.genspark.ai/api/files/s/pReRqyu5" alt="강해인 공식 프로필" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">강해인 공식 프로필</span>
             </div>
           </div>
 
-          <!-- Item 7 -->
-          <div class="masonry-item fade-in" data-delay="0" data-cat="event">
-            <div class="gallery-placeholder" style="height:290px; background:linear-gradient(160deg,#6D4C41,#A67C3C); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="rgba(253,250,245,0.6)" stroke-width="1.2" fill="none"/><circle cx="20" cy="20" r="6" stroke="rgba(253,250,245,0.6)" stroke-width="1.2" fill="none"/></svg>
-              <span style="font-size:0.75rem; color:rgba(253,250,245,0.5); letter-spacing:0.1em;">시낭송 경연대회</span>
-            </div>
+          <!-- 행사 스케치 2: 빨간치마 전신 (취임식) -->
+          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="취임식 무대 전경">
+            <img src="https://www.genspark.ai/api/files/s/JbLHnpcg" alt="취임식 무대 전경" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">취임식 무대 전경</span>
             </div>
           </div>
 
-          <!-- Item 8 -->
-          <div class="masonry-item fade-in" data-delay="60" data-cat="performance">
-            <div class="gallery-placeholder" style="height:200px; background:linear-gradient(160deg,#C9A96E,#3E2723); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="rgba(253,250,245,0.6)" stroke-width="1.2" fill="none"/><circle cx="20" cy="20" r="6" stroke="rgba(253,250,245,0.6)" stroke-width="1.2" fill="none"/></svg>
-              <span style="font-size:0.75rem; color:rgba(253,250,245,0.5); letter-spacing:0.1em;">가을 시낭송 공연</span>
-            </div>
+          <!-- 공연 사진 4: 흰 수트 (마이크 들고 앉아) -->
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="공연 중 강해인">
+            <img src="https://www.genspark.ai/api/files/s/d9hmnVKX" alt="공연 중 강해인" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">공연 중 강해인</span>
             </div>
           </div>
 
-          <!-- Item 9 -->
-          <div class="masonry-item fade-in" data-delay="120" data-cat="event">
-            <div class="gallery-placeholder" style="height:320px; background:linear-gradient(160deg,#F9F3E8,#C9A96E); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="2" stroke="#6D4C41" stroke-width="1.2" fill="none"/><circle cx="20" cy="20" r="6" stroke="#6D4C41" stroke-width="1.2" fill="none"/></svg>
-              <span style="font-size:0.75rem; color:#6D4C41; letter-spacing:0.1em;">수상 기념 촬영</span>
-            </div>
+          <!-- 행사 스케치 3: 단체 엄지 (취임식) -->
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="취임식 단체 기념 사진">
+            <img src="https://www.genspark.ai/api/files/s/Qo77hyun" alt="취임식 단체 기념 사진" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
             <div class="masonry-overlay">
               <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">취임식 단체 기념 사진</span>
+            </div>
+          </div>
+
+          <!-- 공연 사진 5: 한밭시낭송 한복 (파란 한복) -->
+          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="한밭시낭송 전국대회">
+            <img src="https://www.genspark.ai/api/files/s/8Y6BU0hv" alt="한밭시낭송 전국대회" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">한밭시낭송 전국대회</span>
+            </div>
+          </div>
+
+          <!-- 공연 사진 6: 천년사랑 무대 (흰 드레스) -->
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="천년사랑 시낭송 무대">
+            <img src="https://www.genspark.ai/api/files/s/dfp4P0xB" alt="천년사랑 시낭송 무대" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">천년사랑 시낭송 무대</span>
+            </div>
+          </div>
+
+          <!-- 행사 스케치 4: 효콘서트 단체 (꽃다발) -->
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="강해인의 시낭송 효 콘서트">
+            <img src="https://www.genspark.ai/api/files/s/VdvH15Tk" alt="강해인의 시낭송 효 콘서트" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">강해인의 시낭송 효 콘서트</span>
+            </div>
+          </div>
+
+          <!-- 공연 사진 7: 효콘서트 꽃다발 (흰 드레스) -->
+          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="효 콘서트 무대 인사">
+            <img src="https://www.genspark.ai/api/files/s/t6VjYDfm" alt="효 콘서트 무대 인사" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">효 콘서트 무대 인사</span>
+            </div>
+          </div>
+
+          <!-- 행사 스케치 5: 효콘서트 단체2 (전체 단체) -->
+          <div class="masonry-item fade-in" data-delay="60" data-cat="event" data-caption="효 콘서트 단체 기념 사진">
+            <img src="https://www.genspark.ai/api/files/s/ruHr8WwS" alt="효 콘서트 단체 기념 사진" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">효 콘서트 단체 기념 사진</span>
+            </div>
+          </div>
+
+          <!-- 연습/일상 3: 목련 빨간재킷 야외 -->
+          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="봄날 목련 아래서">
+            <img src="https://www.genspark.ai/api/files/s/wp0y08di" alt="봄날 목련 아래서" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">봄날 목련 아래서</span>
+            </div>
+          </div>
+
+          <!-- 공연 사진 8: 분홍한복 -->
+          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="한복 공연">
+            <img src="https://www.genspark.ai/api/files/s/4wQa8MY6" alt="한복 공연" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">한복 공연</span>
+            </div>
+          </div>
+
+          <!-- 공연 사진 9: 시낭송콘서트 (꽃 배경) -->
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="시낭송 콘서트">
+            <img src="https://www.genspark.ai/api/files/s/ROup82cg" alt="시낭송 콘서트" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">시낭송 콘서트</span>
+            </div>
+          </div>
+
+          <!-- 행사 스케치 6: 전주예선 단체 -->
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="전주지역 시낭송예선대회">
+            <img src="https://www.genspark.ai/api/files/s/fyxpMXC2" alt="전주지역 시낭송예선대회" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">전주지역 시낭송예선대회</span>
+            </div>
+          </div>
+
+          <!-- 연습/일상 4: 꽃화관 정면 (숲속) -->
+          <div class="masonry-item fade-in" data-delay="0" data-cat="rehearsal" data-caption="꽃화관 강해인">
+            <img src="https://www.genspark.ai/api/files/s/9jAV3lNJ" alt="꽃화관 강해인" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">꽃화관 강해인</span>
+            </div>
+          </div>
+
+          <!-- 연습/일상 5: 핑크재킷야외 -->
+          <div class="masonry-item fade-in" data-delay="60" data-cat="rehearsal" data-caption="핑크 재킷 야외">
+            <img src="https://www.genspark.ai/api/files/s/8EE7xpBO" alt="핑크 재킷 야외" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">핑크 재킷 야외</span>
+            </div>
+          </div>
+
+          <!-- 행사 스케치 7: 단체 (한밭 단체) -->
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="시낭송 단체 기념">
+            <img src="https://www.genspark.ai/api/files/s/Q4LxsjCS" alt="시낭송 단체 기념" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">시낭송 단체 기념</span>
+            </div>
+          </div>
+
+          <!-- 공연 사진 10: 하늘색 웃음 -->
+          <div class="masonry-item fade-in" data-delay="0" data-cat="performance" data-caption="하늘빛 무대 위 미소">
+            <img src="https://www.genspark.ai/api/files/s/mN23jukr" alt="하늘빛 무대 위 미소" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">하늘빛 무대 위 미소</span>
+            </div>
+          </div>
+
+          <!-- 공연 사진 11: 하늘색 열정 -->
+          <div class="masonry-item fade-in" data-delay="60" data-cat="performance" data-caption="열정의 무대">
+            <img src="https://www.genspark.ai/api/files/s/YOJ5e23I" alt="열정의 무대" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">열정의 무대</span>
+            </div>
+          </div>
+
+          <!-- 일상 사진: 강릉 야경 다리 -->
+          <div class="masonry-item fade-in" data-delay="120" data-cat="rehearsal" data-caption="강릉 야경">
+            <img src="https://www.genspark.ai/api/files/s/MPYOPBzw" alt="강릉 야경" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">강릉 야경</span>
+            </div>
+          </div>
+
+          <!-- 행사 스케치 8: 취임식 단체 케이크 -->
+          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="취임식 축하 단체 사진">
+            <img src="https://www.genspark.ai/api/files/s/o0V13NB1" alt="취임식 축하 단체 사진" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">취임식 축하 단체 사진</span>
+            </div>
+          </div>
+
+          <!-- 연습/일상: 피아노 옆 노래 -->
+          <div class="masonry-item fade-in" data-delay="60" data-cat="rehearsal" data-caption="강해인 강의">
+            <img src="https://www.genspark.ai/api/files/s/fXqhuuPM" alt="강해인 강의" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">강해인 강의</span>
+            </div>
+          </div>
+
+          <!-- 공연 사진: 한밭시낭송 파란한복 낭송 -->
+          <div class="masonry-item fade-in" data-delay="120" data-cat="performance" data-caption="한밭시낭송대회 낭송">
+            <img src="https://www.genspark.ai/api/files/s/LF0Snxsy" alt="한밭시낭송대회 낭송" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">한밭시낭송대회 낭송</span>
+            </div>
+          </div>
+
+          <!-- 행사: 전주예선 대회장 -->
+          <div class="masonry-item fade-in" data-delay="0" data-cat="event" data-caption="전주지역 예선대회 현장">
+            <img src="https://www.genspark.ai/api/files/s/D3Og0uQ1" alt="전주지역 예선대회 현장" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">전주지역 예선대회 현장</span>
+            </div>
+          </div>
+
+          <!-- 일상: 빨간 스웨터 정원 -->
+          <div class="masonry-item fade-in" data-delay="60" data-cat="rehearsal" data-caption="봄 나들이">
+            <img src="https://www.genspark.ai/api/files/s/UOknJ1IO" alt="봄 나들이" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">봄 나들이</span>
+            </div>
+          </div>
+
+          <!-- 행사: 시낭송 효콘서트 무대팀 -->
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="효 콘서트 공연팀">
+            <img src="https://www.genspark.ai/api/files/s/9nlx02jy" alt="효 콘서트 공연팀" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">효 콘서트 공연팀</span>
+            </div>
+          </div>
+
+          <!-- 일상: 꽃길 산책 (붉은 스웨터) -->
+          <div class="masonry-item fade-in" data-delay="0" data-cat="rehearsal" data-caption="꽃길 산책">
+            <img src="https://www.genspark.ai/api/files/s/5qNGF0YE" alt="꽃길 산책" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">꽃길 산책</span>
+            </div>
+          </div>
+
+          <!-- 행사: 책 출판 기념 -->
+          <div class="masonry-item fade-in" data-delay="60" data-cat="event" data-caption="출판 기념 행사">
+            <img src="https://www.genspark.ai/api/files/s/FpwTQbuY" alt="출판 기념 행사" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">출판 기념 행사</span>
+            </div>
+          </div>
+
+          <!-- 행사: 강릉 단체 야외 -->
+          <div class="masonry-item fade-in" data-delay="120" data-cat="event" data-caption="강릉 단체 행사">
+            <img src="https://www.genspark.ai/api/files/s/jZGexCUt" alt="강릉 단체 행사" loading="lazy" style="width:100%;display:block;object-fit:cover;" />
+            <div class="masonry-overlay">
+              <span class="masonry-overlay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+              <span class="masonry-caption">강릉 단체 행사</span>
             </div>
           </div>
 
@@ -287,9 +485,7 @@
     <button class="lightbox-nav lightbox-prev" aria-label="이전">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
     </button>
-    <div class="gallery-placeholder lightbox-img" style="min-width:200px; min-height:200px; max-width:80vw; max-height:80vh; background:linear-gradient(135deg,#3E2723,#5D4037); display:flex; align-items:center; justify-content:center; color:rgba(253,250,245,0.3); font-size:0.85rem; border-radius:4px;">
-      이미지 로드 중...
-    </div>
+    <img class="lightbox-img" src="" alt="" style="max-width:88vw; max-height:82vh; object-fit:contain; border-radius:4px; display:block;" />
     <button class="lightbox-nav lightbox-next" aria-label="다음">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
     </button>
@@ -333,7 +529,7 @@
 
   <script src="../js/main.js?v=20260604"></script>
   <script>
-    // Gallery filter (handled in main.js, but also assign filter to lightbox items)
+    // Gallery filter
     document.querySelectorAll('.gallery-filter .filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.gallery-filter .filter-btn').forEach(b => b.classList.remove('active'));
@@ -344,6 +540,82 @@
         });
       });
     });
+
+    // Lightbox for real images
+    (function() {
+      const lightbox = document.getElementById('lightbox');
+      const lbImg = lightbox.querySelector('.lightbox-img');
+      const lbCaption = lightbox.querySelector('.lightbox-caption');
+      const lbClose = lightbox.querySelector('.lightbox-close');
+      const lbPrev = lightbox.querySelector('.lightbox-prev');
+      const lbNext = lightbox.querySelector('.lightbox-next');
+
+      let items = [];
+      let currentIdx = 0;
+
+      function getVisibleItems() {
+        return Array.from(document.querySelectorAll('.masonry-item')).filter(el => el.style.display !== 'none');
+      }
+
+      function openLightbox(idx) {
+        items = getVisibleItems();
+        currentIdx = idx;
+        showItem(currentIdx);
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function showItem(idx) {
+        const item = items[idx];
+        if (!item) return;
+        const img = item.querySelector('img');
+        if (img) {
+          lbImg.src = img.src;
+          lbImg.alt = img.alt;
+        }
+        const caption = item.dataset.caption || img?.alt || '';
+        lbCaption.textContent = caption;
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      }
+
+      document.querySelectorAll('.masonry-item').forEach((item) => {
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', () => {
+          items = getVisibleItems();
+          const idx = items.indexOf(item);
+          if (idx >= 0) openLightbox(idx);
+        });
+      });
+
+      lbClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      lbPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentIdx = (currentIdx - 1 + items.length) % items.length;
+        showItem(currentIdx);
+      });
+
+      lbNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentIdx = (currentIdx + 1) % items.length;
+        showItem(currentIdx);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') { currentIdx = (currentIdx - 1 + items.length) % items.length; showItem(currentIdx); }
+        if (e.key === 'ArrowRight') { currentIdx = (currentIdx + 1) % items.length; showItem(currentIdx); }
+      });
+    })();
   </script>
 </body>
 </html>
