@@ -141,6 +141,64 @@ app.get('/api/health', (req, res) => {
 });
 
 // =============================================
+// POST /api/gallery/sync  — 폴더 스캔 → DB 자동 등록 (관리자)
+// =============================================
+app.post('/api/gallery/sync', adminAuth, async (req, res) => {
+  try {
+    // 1. 폴더에 있는 이미지 파일 목록
+    if (!fs.existsSync(UPLOAD_DIR)) {
+      return res.json({ ok: true, added: 0, message: '폴더가 없습니다.' });
+    }
+    const exts    = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+    const files   = fs.readdirSync(UPLOAD_DIR)
+      .filter(f => exts.includes(path.extname(f).toLowerCase()));
+
+    // 2. DB에 이미 있는 파일명 목록
+    const existing = await pool.query('SELECT filename FROM gallery_images');
+    const existSet = new Set(existing.rows.map(r => r.filename));
+
+    // 3. DB에 없는 파일만 등록
+    let added = 0;
+    for (const filename of files) {
+      if (existSet.has(filename)) continue;
+
+      // 파일명에서 카테고리 유추
+      // perf- → performance, event- → event, daily- → rehearsal
+      let category = 'etc';
+      if (/^perf-/i.test(filename))       category = 'performance';
+      else if (/^event-/i.test(filename)) category = 'event';
+      else if (/^daily-/i.test(filename)) category = 'rehearsal';
+      else if (/^performance/i.test(filename)) category = 'performance';
+      else if (/^rehearsal/i.test(filename))   category = 'rehearsal';
+
+      // 파일 크기
+      const filePath = path.join(UPLOAD_DIR, filename);
+      const fileSize = fs.statSync(filePath).size;
+
+      await pool.query(
+        `INSERT INTO gallery_images (filename, category, title, caption, tags, file_size)
+         VALUES ($1, $2, $3, $4, $5, $6)
+         ON CONFLICT (filename) DO NOTHING`,
+        [filename, category, '', '', '', fileSize]
+      );
+      added++;
+    }
+
+    console.log(`[갤러리싱크] 총 ${files.length}개 파일 / ${added}개 신규 등록`);
+    res.json({
+      ok: true,
+      total_files: files.length,
+      added,
+      message: `${files.length}개 파일 중 ${added}개 신규 등록 완료`,
+    });
+
+  } catch (err) {
+    console.error('[갤러리싱크 오류]', err.message);
+    res.status(500).json({ ok: false, message: err.message });
+  }
+});
+
+// =============================================
 // POST /api/gallery/upload  — 이미지 업로드 (관리자)
 // =============================================
 app.post('/api/gallery/upload', adminAuth, upload.single('image'), async (req, res) => {
