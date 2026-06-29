@@ -259,24 +259,75 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
+  // Google Sheets 연동 설정
+  // Google Apps Script 배포 후 아래 URL을 교체하세요
+  // ==========================================
+  const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+
+  // 공통 전송 함수
+  async function sendToSheet(payload, btn, successMsg) {
+    const original = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '전송 중...';
+
+    // SCRIPT_URL 미설정 시 안내
+    if (!SCRIPT_URL || SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+      showNotification(successMsg, 'success');
+      btn.disabled = false;
+      btn.textContent = original;
+      return;
+    }
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' }, // CORS 우회
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.result === 'success') {
+        showNotification(successMsg, 'success');
+      } else {
+        throw new Error(data.message || '오류');
+      }
+    } catch (err) {
+      console.error('폼 전송 오류:', err);
+      showNotification('전송 중 오류가 발생했습니다. 직접 연락 주시면 빠르게 답변 드리겠습니다.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = original;
+    }
+  }
+
+  // ==========================================
   // Contact Form (contact.html)
   // ==========================================
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = contactForm.querySelector('[name="name"]')?.value.trim();
-      const tel = contactForm.querySelector('[name="tel"]')?.value.trim();
-      const email = contactForm.querySelector('[name="email"]')?.value.trim();
+      const name    = contactForm.querySelector('[name="name"]')?.value.trim();
+      const tel     = contactForm.querySelector('[name="tel"]')?.value.trim();
+      const email   = contactForm.querySelector('[name="email"]')?.value.trim();
+      const type    = contactForm.querySelector('[name="type"]')?.value;
+      const org     = contactForm.querySelector('[name="org"]')?.value.trim();
       const message = contactForm.querySelector('[name="message"]')?.value.trim();
 
-      if (!name || !message) {
-        showNotification('이름과 문의내용을 입력해 주세요.', 'error');
+      if (!name || !tel) {
+        showNotification('이름과 연락처를 입력해 주세요.', 'error');
+        return;
+      }
+      if (!message) {
+        showNotification('문의 내용을 입력해 주세요.', 'error');
         return;
       }
 
-      // Simulated form submission
-      showNotification('문의가 접수되었습니다. 빠른 시일 내에 답변 드리겠습니다.', 'success');
+      const btn = contactForm.querySelector('[type="submit"]');
+      await sendToSheet(
+        { formType: 'contact', name, tel, email, type, org, message },
+        btn,
+        '문의가 접수되었습니다. 빠른 시일 내에 답변 드리겠습니다.'
+      );
       contactForm.reset();
     });
   }
@@ -286,9 +337,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   const applyForm = document.getElementById('applyForm');
   if (applyForm) {
-    applyForm.addEventListener('submit', (e) => {
+    applyForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      showNotification('수강 신청이 완료되었습니다. 확인 후 연락 드리겠습니다.', 'success');
+      const name    = applyForm.querySelector('[name="name"]')?.value.trim();
+      const tel     = applyForm.querySelector('[name="tel"]')?.value.trim();
+      const email   = applyForm.querySelector('[name="email"]')?.value.trim();
+      const course  = applyForm.querySelector('[name="course"]')?.value;
+      const message = applyForm.querySelector('[name="message"]')?.value.trim();
+
+      if (!name || !tel) {
+        showNotification('이름과 연락처를 입력해 주세요.', 'error');
+        return;
+      }
+
+      const btn = applyForm.querySelector('[type="submit"]');
+      await sendToSheet(
+        { formType: 'apply', name, tel, email, course, message },
+        btn,
+        '수강 신청이 완료되었습니다. 확인 후 연락 드리겠습니다.'
+      );
       applyForm.reset();
     });
   }
