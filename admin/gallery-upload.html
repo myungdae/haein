@@ -609,6 +609,78 @@
     .img-card:hover .img-card-edit { opacity: 1; }
     .img-card-edit:hover { background: var(--blue); }
 
+    /* ── 태그 클라우드 ── */
+    .tag-cloud-wrap {
+      margin-bottom: 0.85rem;
+    }
+    .tag-cloud-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--brown);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tag-cloud-label .tag-clear {
+      font-weight: 400;
+      color: var(--blue);
+      cursor: pointer;
+      font-size: 0.72rem;
+      text-decoration: underline;
+      display: none;
+    }
+    .tag-cloud-label .tag-clear.visible { display: inline; }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .tag-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.28rem 0.75rem;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 0.78rem;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.18s;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .tag-chip:hover {
+      border-color: var(--gold);
+      color: var(--brown);
+      background: #fffdf5;
+    }
+    .tag-chip.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(201,169,110,0.4);
+    }
+    .tag-chip .tag-count {
+      font-size: 0.68rem;
+      opacity: 0.75;
+      background: rgba(0,0,0,0.08);
+      padding: 0 5px;
+      border-radius: 99px;
+    }
+    .tag-chip.active .tag-count {
+      background: rgba(255,255,255,0.3);
+    }
+    .tag-cloud-empty {
+      font-size: 0.78rem;
+      color: #bbb;
+      padding: 0.2rem 0;
+    }
+
     /* 반응형 */
     @media (max-width: 900px) {
       .admin-body { grid-template-columns: 1fr; }
@@ -753,6 +825,17 @@
       <button class="cat-tab" data-cat="rehearsal" onclick="switchCat(this)">일상 &amp; 스케치</button>
     </div>
 
+    <!-- 태그 클라우드 -->
+    <div class="tag-cloud-wrap" id="tagCloudWrap">
+      <div class="tag-cloud-label">
+        🏷️ 태그 필터
+        <span class="tag-clear" id="tagClearBtn" onclick="clearTagFilter()">✕ 선택 해제</span>
+      </div>
+      <div class="tag-cloud" id="tagCloud">
+        <span class="tag-cloud-empty">이미지를 불러오면 태그 목록이 표시됩니다.</span>
+      </div>
+    </div>
+
     <!-- 검색 -->
     <div class="search-row">
       <input type="text" id="searchInput" placeholder="제목·캡션·태그 검색…" oninput="renderGrid()" />
@@ -838,8 +921,9 @@
     etc:         '기타',
   };
 
-  let allImages    = [];   // 전체 이미지 캐시
+  let allImages    = [];        // 전체 이미지 캐시
   let currentCat   = 'all';
+  let selectedTags = new Set(); // 선택된 태그 집합
   let selectedFile = null;
 
   // ============================================================
@@ -1030,6 +1114,7 @@
       if (!data.ok) throw new Error(data.message);
       allImages = data.images || [];
       document.getElementById('listCount').textContent = `총 ${data.total}장`;
+      buildTagCloud(); // 태그 클라우드 갱신
       renderGrid();
     } catch (err) {
       document.getElementById('imgGrid').innerHTML =
@@ -1041,6 +1126,68 @@
     document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentCat = btn.dataset.cat;
+    buildTagCloud(); // 카테고리가 바뀌면 태그 카운트도 재계산
+    renderGrid();
+  }
+
+  // ============================================================
+  // 태그 클라우드
+  // ============================================================
+  /**
+   * allImages에서 고유 태그를 추출해 클라우드 칩으로 렌더링.
+   * 카테고리 필터 상태와 무관하게 전체 이미지 기준으로 태그 목록을 만들고,
+   * 칩 옆에 (현재 카테고리 필터 기준) 노출될 이미지 수를 표시.
+   */
+  function buildTagCloud() {
+    const tagMap = new Map(); // tag → count (현재 cat 기준)
+
+    allImages.forEach(img => {
+      if (!img.tags) return;
+      const inCat = currentCat === 'all' || img.category === currentCat;
+      img.tags.split(',').map(t => t.trim()).filter(Boolean).forEach(tag => {
+        if (!tagMap.has(tag)) tagMap.set(tag, 0);
+        if (inCat) tagMap.set(tag, tagMap.get(tag) + 1);
+      });
+    });
+
+    const cloud = document.getElementById('tagCloud');
+    const clearBtn = document.getElementById('tagClearBtn');
+
+    if (tagMap.size === 0) {
+      cloud.innerHTML = '<span class="tag-cloud-empty">등록된 태그가 없습니다.</span>';
+      clearBtn.classList.remove('visible');
+      return;
+    }
+
+    // 빈도순 정렬
+    const sorted = [...tagMap.entries()].sort((a, b) => b[1] - a[1]);
+
+    cloud.innerHTML = sorted.map(([tag, cnt]) => {
+      const active = selectedTags.has(tag) ? 'active' : '';
+      return `<button class="tag-chip ${active}" onclick="toggleTag('${esc(tag)}')" title="${esc(tag)} 태그로 필터링">
+        #${esc(tag)}<span class="tag-count">${cnt}</span>
+      </button>`;
+    }).join('');
+
+    // 선택된 태그가 있으면 '선택 해제' 표시
+    clearBtn.classList.toggle('visible', selectedTags.size > 0);
+  }
+
+  /** 태그 칩 클릭: 선택/해제 토글 후 그리드 갱신 */
+  function toggleTag(tag) {
+    if (selectedTags.has(tag)) {
+      selectedTags.delete(tag);
+    } else {
+      selectedTags.add(tag);
+    }
+    buildTagCloud(); // 칩 active 상태 갱신
+    renderGrid();
+  }
+
+  /** '선택 해제' 클릭: 모든 태그 선택 초기화 */
+  function clearTagFilter() {
+    selectedTags.clear();
+    buildTagCloud();
     renderGrid();
   }
 
@@ -1048,7 +1195,19 @@
     const q    = document.getElementById('searchInput').value.toLowerCase();
     let items  = allImages;
 
+    // 카테고리 필터
     if (currentCat !== 'all') items = items.filter(i => i.category === currentCat);
+
+    // 태그 필터 — 선택된 태그를 모두 포함하는 이미지만
+    if (selectedTags.size > 0) {
+      items = items.filter(i => {
+        if (!i.tags) return false;
+        const imgTags = i.tags.split(',').map(t => t.trim()).filter(Boolean);
+        return [...selectedTags].every(sel => imgTags.includes(sel));
+      });
+    }
+
+    // 텍스트 검색 필터
     if (q) items = items.filter(i =>
       (i.title   || '').toLowerCase().includes(q) ||
       (i.caption || '').toLowerCase().includes(q) ||
@@ -1204,6 +1363,7 @@
       if (card) card.remove();
       allImages = allImages.filter(i => i.id !== id);
       document.getElementById('listCount').textContent = `총 ${allImages.length}장`;
+      buildTagCloud(); // 삭제 후 태그 클라우드 갱신
       showToast('삭제되었습니다.');
     } catch (err) {
       showAlert(err.message || '삭제 실패', 'error');
