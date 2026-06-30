@@ -178,82 +178,92 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.6rem;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
-/* 왼쪽 : MC SVG 아이콘 블록 */
+/* SVG 원형 아이콘 */
 .logo-mc-svg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   transition: transform 0.25s ease, filter 0.25s ease;
 }
 .logo:hover .logo-mc-svg {
-  transform: scale(1.06);
-  filter: drop-shadow(0 0 6px rgba(91,179,208,0.7));
+  transform: scale(1.07);
+  filter: drop-shadow(0 0 5px rgba(91,179,208,0.65));
 }
 
-/* 오른쪽 : 텍스트 블록 */
+/* 텍스트 블록 */
 .logo-text-block {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0;
+  line-height: 1;
+  gap: 3px;
 }
 
-/* 위 줄 : MC 강조 */
+/* 윗줄 : MC강해인 — 색상 직접 지정(gradient 제거, 호환성 확보) */
 .logo-mc-text {
   font-family: 'Arial Black', Arial, sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 900;
+  letter-spacing: 0.04em;
+  color: #3a9cbf;          /* 단색 fallback */
   line-height: 1;
-  letter-spacing: 0.06em;
-  background: linear-gradient(135deg, #5bb3d0 0%, #3a9cbf 60%, #87d4ee 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+}
+/* 지원하는 브라우저만 gradient */
+@supports (-webkit-background-clip: text) {
+  .logo-mc-text {
+    background: linear-gradient(120deg, #5bc8e8 0%, #3a9cbf 55%, #2a7ea0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
-/* 아래 줄 : 강해인 */
+/* 아랫줄 : 怡娜 Kang Haein */
 .logo-name-text {
   font-family: var(--font-serif);
-  font-size: 0.82rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--deep-brown);
-  letter-spacing: 0.12em;
-  line-height: 1.2;
-  margin-top: 0.05em;
+  letter-spacing: 0.15em;
+  line-height: 1;
 }
 .logo-name-text .logo-hanja {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 400;
   color: var(--text-muted);
-  letter-spacing: 0.05em;
-  opacity: 0.75;
-  margin-left: 0.3em;
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+  margin-left: 0.25em;
 }
 
-/* 하위 호환 — 이전 클래스 (푸터 등) */
-.logo-kr { display: none; }
-.logo-sub { display: none; }
-.logo-en  { display: none; }
+/* 하위 호환 — 이전 클래스 숨김 */
+.logo-kr { display: none !important; }
+.logo-sub { display: none !important; }
+.logo-en  { display: none !important; }
 
-/* ── 푸터 ── */
+/* 푸터용 */
 .footer-brand .logo-mc-text {
-  background: linear-gradient(135deg, #87d4ee 0%, #5bb3d0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #7ed4ee;
+}
+@supports (-webkit-background-clip: text) {
+  .footer-brand .logo-mc-text {
+    background: linear-gradient(120deg, #a8e8fa 0%, #5bb3d0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 .footer-brand .logo-name-text {
   color: var(--pale-gold);
 }
 .footer-brand .logo-name-text .logo-hanja {
-  color: rgba(255,240,220,0.55);
+  color: rgba(255,235,190,0.6);
 }
 
 .logo-hanja {
