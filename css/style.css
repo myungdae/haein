@@ -183,6 +183,63 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   font-weight: 600;
   color: var(--deep-brown);
   letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+/* ── MC 뱃지 ── */
+.logo-mc-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #3a9cbf 0%, #5bb3d0 50%, #7ec8e3 100%);
+  color: #fff;
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  padding: 0.12em 0.38em 0.1em;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(58,156,191,0.45), inset 0 1px 0 rgba(255,255,255,0.3);
+  position: relative;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  transition: box-shadow 0.2s;
+}
+.logo-mc-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+.logo:hover .logo-mc-badge {
+  box-shadow: 0 2px 8px rgba(58,156,191,0.65), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+/* ── 로고 하단 텍스트 (MC강해인) ── */
+.logo-sub {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  font-family: var(--font-serif);
+  display: flex;
+  align-items: center;
+  gap: 0.15em;
+  margin-top: 0.05em;
+}
+.logo-sub-mc {
+  color: #5bb3d0;
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+}
+.logo-sub-name {
+  color: var(--soft-gold);
+  font-family: var(--font-serif);
 }
 
 .logo-en {
@@ -205,6 +262,14 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   font-family: var(--font-serif);
   opacity: 0.85;
 }
+
+/* ── 푸터 MC 뱃지 ── */
+.footer-brand .logo-mc-badge {
+  background: linear-gradient(135deg, #3a9cbf 0%, #5bb3d0 100%);
+  opacity: 0.9;
+}
+.footer-brand .logo-sub-mc { color: #87d4ee; }
+.footer-brand .logo-sub-name { color: var(--pale-gold); }
 
 .nav-menu {
   display: flex;
