@@ -421,6 +421,24 @@
 
       galleryGrid.innerHTML = filtered.map((img, i) => makeCard(img, (i % 3) * 60)).join('');
 
+      // 동적으로 삽입된 fade-in 카드에 visible 클래스 부여 (IntersectionObserver 우회)
+      const newItems = galleryGrid.querySelectorAll('.masonry-item');
+      if ('IntersectionObserver' in window) {
+        const cardObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const delay = parseInt(entry.target.dataset.delay || 0);
+              setTimeout(() => entry.target.classList.add('visible'), delay);
+              cardObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+        newItems.forEach(el => cardObserver.observe(el));
+      } else {
+        // IntersectionObserver 미지원 시 즉시 표시
+        newItems.forEach(el => el.classList.add('visible'));
+      }
+
       // 라이트박스 이벤트 재연결
       initLightbox();
     }
