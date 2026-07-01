@@ -2038,101 +2038,53 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   .nav-menu { display: none; }
   .hamburger { display: flex; }
 
-  /* ---- 모바일 히어로: 사진을 배경처럼 깔고 텍스트를 하단에 ---- */
-  #hero {
-    height: auto;
-    min-height: 100svh;
-    align-items: flex-end;
-  }
-
+  /* ---- 모바일 히어로: 원래 레이아웃 유지, 사진만 아래로 내림 ---- */
   .hero-content {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
-    justify-content: flex-end;
-    padding-top: 0;
-    padding-bottom: 3rem;
-    gap: 0;
-    position: relative;
-    /* 모바일에서 사진(absolute)의 기준점이 되도록 전체 높이 채움 */
-    min-height: 100svh;
-    width: 100%;
+    padding-top: 5rem;
+    gap: 1rem;
   }
 
-  /* 사진을 히어로 배경 위에 중앙 배치 — 얼굴이 잘리지 않도록 */
+  .hero-text-area { text-align: center; }
+  .hero-buttons { justify-content: center; }
+
   .hero-photos {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 340px;
+    width: 220px;
     min-height: unset;
-    height: 100%;
-    align-self: unset;
-    opacity: 0;
-    animation: fadeInRight 1s ease 0.6s forwards;
-    pointer-events: none;
+    align-self: center;
+    /* 사진을 아래로 내려 얼굴이 보이게 */
+    margin-top: 30px;
   }
 
-  /* 슬라이드가 전체 높이를 채우도록 */
+  /* 슬라이드 원래대로 */
   .hero-slide,
   .hero-slide.active {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+    top: unset;
+    left: unset;
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: flex-start;   /* 얼굴이 위에서부터 보이도록 */
-    justify-content: center;
+    height: auto;
   }
 
   .hero-person-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;  /* 얼굴(상단) 기준 크롭 */
+    height: auto;
+    object-fit: contain;
+    object-position: bottom center;
+    /* 사진을 아래로 밀어 얼굴이 화면 안에 들어오게 */
+    margin-top: 20px;
   }
 
-  /* 셀카도 동일하게 */
+  /* 셀카 모바일 */
   .hero-selfie-img {
-    height: 100% !important;
-    object-position: center top !important;
-    border-radius: 0 !important;
+    height: 280px !important;
+    object-fit: cover !important;
+    object-position: center 15% !important;
+    border-radius: 8px !important;
   }
 
-  /* 텍스트는 사진 위 하단에 오버레이 */
-  .hero-text-area {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    width: 100%;
-    padding: 0 1.2rem;
-    /* 배경 그라디언트로 가독성 확보 */
-    background: linear-gradient(to top,
-      rgba(107,39,55,0.92) 0%,
-      rgba(107,39,55,0.7) 60%,
-      transparent 100%);
-    padding-top: 3rem;
-    padding-bottom: 1rem;
-  }
-
-  .hero-buttons { justify-content: center; }
-
-  /* dot은 텍스트 아래로 */
-  .hero-slider-dots {
-    position: relative;
-    bottom: unset;
-    left: unset;
-    transform: none;
-    z-index: 4;
-    justify-content: center;
-    margin-top: 0.8rem;
-    margin-bottom: 0.5rem;
-  }
-
-  /* 배지는 숨김 (텍스트 영역과 겹침) */
-  .hero-photo-badge { display: none; }
+  .hero-photo-badge { display: block; }
 
   .badge-kr { font-size: 0.9rem; }
 
