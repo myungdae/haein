@@ -175,20 +175,35 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
    LOGO  —  MC강해인
 ══════════════════════════════════════ */
 .logo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: row !important;
+          flex-direction: row !important;
+  -webkit-box-align: center !important;
+      -ms-flex-align: center !important;
+          align-items: center !important;
   gap: 0.6rem;
-  text-decoration: none;
-  flex-shrink: 0;
+  text-decoration: none !important;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  visibility: visible !important;
+  opacity: 1 !important;
+  overflow: visible !important;
 }
 
 /* SVG 원형 아이콘 */
 .logo-mc-svg {
-  display: block;
-  flex-shrink: 0;
-  width: 42px;
-  height: 42px;
+  display: block !important;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px;
+  visibility: visible !important;
+  overflow: visible !important;
   transition: transform 0.25s ease, filter 0.25s ease;
 }
 .logo:hover .logo-mc-svg {
@@ -198,22 +213,32 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 
 /* 텍스트 블록 */
 .logo-text-block {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  line-height: 1;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: column !important;
+          flex-direction: column !important;
+  -webkit-box-align: start !important;
+      -ms-flex-align: start !important;
+          align-items: flex-start !important;
   gap: 3px;
+  visibility: visible !important;
 }
 
 /* 윗줄 : MC강해인 */
 .logo-mc-text {
-  font-family: 'Arial Black', Arial, sans-serif;
-  font-size: 1.1rem;
-  font-weight: 900;
+  font-family: 'Arial Black', Arial, sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 900 !important;
   letter-spacing: 0.04em;
-  color: #2a9dbf;
+  color: #2a9dbf !important;
   line-height: 1;
-  display: block;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: initial !important;
 }
 
 /* 아랫줄 : 怡娜 Kang Haein */
@@ -221,9 +246,12 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   font-family: var(--font-serif);
   font-size: 0.75rem;
   font-weight: 500;
-  color: var(--deep-brown);
+  color: var(--deep-brown) !important;
   letter-spacing: 0.15em;
   line-height: 1;
+  display: block !important;
+  visibility: visible !important;
+  -webkit-text-fill-color: initial !important;
 }
 .logo-name-text .logo-hanja {
   font-size: 0.65rem;
@@ -241,10 +269,12 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 
 /* 푸터용 */
 .footer-brand .logo-mc-text {
-  color: #7ed4ee;
+  color: #7ed4ee !important;
+  -webkit-text-fill-color: initial !important;
 }
 .footer-brand .logo-name-text {
-  color: var(--pale-gold);
+  color: var(--pale-gold) !important;
+  -webkit-text-fill-color: initial !important;
 }
 .footer-brand .logo-name-text .logo-hanja {
   color: rgba(255,235,190,0.6);
