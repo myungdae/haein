@@ -501,26 +501,15 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 .hero-photos {
   position: relative;
   flex-shrink: 0;
-  width: 340px;
-  min-height: 420px;
   align-self: flex-end;
   opacity: 0;
   animation: fadeInRight 1s ease 0.6s forwards;
+  /* 크기는 .hero-slider 가 담당 */
 }
 
 @keyframes fadeInRight {
   from { opacity: 0; transform: translateX(30px); }
   to   { opacity: 1; transform: translateX(0); }
-}
-
-/* 인물 사진 — 배경 없이 자연스럽게 */
-.hero-person-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  object-position: bottom center;
-  filter: drop-shadow(0 20px 40px rgba(18, 10, 8, 0.6));
 }
 
 /* 하단 페이드 */
@@ -569,12 +558,17 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 }
 
 /* ---- Hero Slider (자동 슬라이드쇼) ---- */
+/* 컨테이너: 고정 높이 + 모든 슬라이드의 absolute 기준점 */
 .hero-slider {
   overflow: hidden;
+  position: relative;
+  width: 340px;
+  height: 460px;   /* 데스크톱 고정 높이 */
 }
 
+/* 모든 슬라이드: 항상 absolute, 같은 위치에 겹침 */
 .hero-slide {
-  position: absolute;
+  position: absolute !important;
   top: 0;
   left: 0;
   width: 100%;
@@ -587,20 +581,27 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   justify-content: center;
 }
 
+/* 활성 슬라이드: opacity만 1로 */
 .hero-slide.active {
   opacity: 1;
   pointer-events: auto;
-  position: relative;
 }
 
-/* 셀카 사진 — 정사각형 크롭 (object-fit: cover) */
+/* 모든 사진: 컨테이너를 꽉 채움 */
+.hero-person-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 20px 40px rgba(18, 10, 8, 0.6));
+}
+
+/* 셀카: 상반신 크롭 */
 .hero-selfie-img {
   object-fit: cover !important;
-  object-position: center top !important;
-  height: 400px !important;
-  width: 100% !important;
+  object-position: center 10% !important;
   border-radius: 12px;
-  filter: drop-shadow(0 20px 40px rgba(18, 10, 8, 0.6)) !important;
 }
 
 /* Dot 인디케이터 */
@@ -2031,14 +2032,15 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 }
 
 @media (max-width: 1024px) {
-  .hero-photos { width: 270px; }
+  /* 슬라이더 크기 축소 */
+  .hero-slider { width: 270px; height: 380px; }
 }
 
 @media (max-width: 768px) {
   .nav-menu { display: none; }
   .hamburger { display: flex; }
 
-  /* ---- 모바일 히어로: 원래 레이아웃 유지, 사진만 아래로 내림 ---- */
+  /* 텍스트 위, 사진 아래 — column-reverse */
   .hero-content {
     flex-direction: column-reverse;
     align-items: center;
@@ -2049,42 +2051,11 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   .hero-text-area { text-align: center; }
   .hero-buttons { justify-content: center; }
 
-  .hero-photos {
-    width: 220px;
-    min-height: unset;
-    align-self: center;
-    /* 사진을 아래로 내려 얼굴이 보이게 */
-    margin-top: 30px;
+  /* 슬라이더: 모바일 고정 크기 */
+  .hero-slider {
+    width: 240px;
+    height: 300px;
   }
-
-  /* 슬라이드 원래대로 */
-  .hero-slide,
-  .hero-slide.active {
-    position: relative;
-    top: unset;
-    left: unset;
-    width: 100%;
-    height: auto;
-  }
-
-  .hero-person-img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    object-position: bottom center;
-    /* 사진을 아래로 밀어 얼굴이 화면 안에 들어오게 */
-    margin-top: 20px;
-  }
-
-  /* 셀카 모바일 */
-  .hero-selfie-img {
-    height: 280px !important;
-    object-fit: cover !important;
-    object-position: center 15% !important;
-    border-radius: 8px !important;
-  }
-
-  .hero-photo-badge { display: block; }
 
   .badge-kr { font-size: 0.9rem; }
 
