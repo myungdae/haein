@@ -115,17 +115,62 @@
           </div>
         </div>
 
-        <!-- 사진 영역 -->
-        <div class="hero-photos">
-          <img
-            class="hero-person-img"
-            src="images/haein-singing-nobg.png?v=20260606"
-            alt="강해인 시낭송 공연"
-          />
-          <!-- 골드 장식 텍스트 -->
+        <!-- 사진 슬라이드쇼 영역 -->
+        <div class="hero-photos hero-slider" id="heroSlider">
+          <!-- 슬라이드 1: 시낭송 공연 -->
+          <div class="hero-slide active">
+            <img
+              class="hero-person-img"
+              src="images/haein-singing-nobg.png?v=20260701"
+              alt="강해인 시낭송 공연"
+            />
+          </div>
+          <!-- 슬라이드 2: 셀카 -->
+          <div class="hero-slide">
+            <img
+              class="hero-person-img hero-selfie-img"
+              src="images/haein-selfie.jpg?v=20260701"
+              alt="MC강해인 셀카"
+            />
+          </div>
+          <!-- 슬라이드 3: 골드 드레스 -->
+          <div class="hero-slide">
+            <img
+              class="hero-person-img"
+              src="images/haein-gold-nobg.png?v=20260701"
+              alt="강해인 골드 드레스"
+            />
+          </div>
+          <!-- 슬라이드 4: 트렌치코트 -->
+          <div class="hero-slide">
+            <img
+              class="hero-person-img"
+              src="images/haein-trench-nobg.png?v=20260701"
+              alt="강해인 트렌치코트"
+            />
+          </div>
+          <!-- 슬라이드 5: 프로필 -->
+          <div class="hero-slide">
+            <img
+              class="hero-person-img"
+              src="images/haein-pink-nobg.png?v=20260701"
+              alt="강해인 프로필"
+            />
+          </div>
+
+          <!-- 골드 장식 텍스트 (슬라이드 위에 고정) -->
           <div class="hero-photo-badge">
             <span class="badge-kr">강해인</span>
             <span class="badge-en">Poet &amp; Reciter</span>
+          </div>
+
+          <!-- 슬라이드 인디케이터 dots -->
+          <div class="hero-slider-dots" aria-label="슬라이드 이동">
+            <button class="slider-dot active" data-index="0" aria-label="슬라이드 1"></button>
+            <button class="slider-dot" data-index="1" aria-label="슬라이드 2"></button>
+            <button class="slider-dot" data-index="2" aria-label="슬라이드 3"></button>
+            <button class="slider-dot" data-index="3" aria-label="슬라이드 4"></button>
+            <button class="slider-dot" data-index="4" aria-label="슬라이드 5"></button>
           </div>
         </div>
       </div>
@@ -426,5 +471,61 @@
   </footer>
 
   <script src="js/main.js?v=20260701"></script>
+
+  <!-- 히어로 슬라이드쇼 -->
+  <script>
+  (function() {
+    'use strict';
+    var slider = document.getElementById('heroSlider');
+    if (!slider) return;
+
+    var slides = slider.querySelectorAll('.hero-slide');
+    var dots   = slider.querySelectorAll('.slider-dot');
+    var current = 0;
+    var total   = slides.length;
+    var timer   = null;
+    var INTERVAL = 4000; // 4초
+
+    function goTo(index) {
+      // 이전 슬라이드 비활성화
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+
+      current = (index + total) % total;
+
+      // 새 슬라이드 활성화
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+
+    function next() {
+      goTo(current + 1);
+    }
+
+    function startAuto() {
+      timer = setInterval(next, INTERVAL);
+    }
+
+    function stopAuto() {
+      clearInterval(timer);
+    }
+
+    // dot 클릭 이벤트
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        stopAuto();
+        goTo(parseInt(this.getAttribute('data-index'), 10));
+        startAuto();
+      });
+    });
+
+    // 호버 시 일시정지
+    slider.addEventListener('mouseenter', stopAuto);
+    slider.addEventListener('mouseleave', startAuto);
+
+    // 시작 (페이지 로드 후 약간 지연)
+    setTimeout(startAuto, 600);
+  })();
+  </script>
 </body>
 </html>
