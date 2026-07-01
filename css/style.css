@@ -205,23 +205,15 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
   gap: 3px;
 }
 
-/* 윗줄 : MC강해인 — 색상 직접 지정(gradient 제거, 호환성 확보) */
+/* 윗줄 : MC강해인 */
 .logo-mc-text {
   font-family: 'Arial Black', Arial, sans-serif;
   font-size: 1.1rem;
   font-weight: 900;
   letter-spacing: 0.04em;
-  color: #3a9cbf;          /* 단색 fallback */
+  color: #2a9dbf;
   line-height: 1;
-}
-/* 지원하는 브라우저만 gradient */
-@supports (-webkit-background-clip: text) {
-  .logo-mc-text {
-    background: linear-gradient(120deg, #5bc8e8 0%, #3a9cbf 55%, #2a7ea0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+  display: block;
 }
 
 /* 아랫줄 : 怡娜 Kang Haein */
@@ -250,14 +242,6 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
 /* 푸터용 */
 .footer-brand .logo-mc-text {
   color: #7ed4ee;
-}
-@supports (-webkit-background-clip: text) {
-  .footer-brand .logo-mc-text {
-    background: linear-gradient(120deg, #a8e8fa 0%, #5bb3d0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
 }
 .footer-brand .logo-name-text {
   color: var(--pale-gold);
