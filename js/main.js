@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // API 서버 설정 (PostgreSQL 연동)
   // ==========================================
-  const API_BASE = 'https://haein.exko.kr/api';
+  const API_BASE = '/api';
 
   // 공통 전송 함수
   async function sendToAPI(endpoint, payload, btn, successMsg) {

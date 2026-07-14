@@ -910,7 +910,7 @@
   // ============================================================
   // 설정
   // ============================================================
-  const API_BASE = 'https://haein.exko.kr/api';   // 실제 서버 API URL
+  const API_BASE = '/api';   // 실제 서버 API URL
   // 로컬 테스트 시 아래 주석 해제:
   // const API_BASE = 'http://localhost:3000/api';
 
@@ -1225,7 +1225,7 @@
     }
 
     grid.innerHTML = items.map(img => {
-      const imgUrl = `https://haein.exko.kr${img.url}`;
+      const imgUrl = `${img.url}`;
       return `
       <div class="img-card" id="card-${img.id}">
         <div class="img-card-thumb">
@@ -1251,7 +1251,7 @@
     const img = allImages.find(i => i.id === id);
     if (!img) return showToast('이미지 정보를 찾을 수 없습니다.');
 
-    const imgUrl = `https://haein.exko.kr${img.url}`;
+    const imgUrl = `${img.url}`;
     document.getElementById('modalId').value          = img.id;
     document.getElementById('modalThumb').src         = imgUrl;
     document.getElementById('modalThumb').alt         = img.title || img.filename;
