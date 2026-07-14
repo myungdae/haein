@@ -1,0 +1,241 @@
+/* ============================================================
+   강해인 시낭송교실 PWA — Stylesheet
+   Palette inherited from kanghaein.com (rose / dusty-pink)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --ivory: #FFF8F8;
+  --warm-beige: #FCE8EC;
+  --soft-beige: #F7D0D8;
+  --light-beige: #FEF0F3;
+
+  --soft-gold: #D4849A;
+  --deep-gold: #B05E76;
+  --pale-gold: #F2B8C6;
+
+  --deep-brown: #6B2737;
+  --medium-brown: #8B3A4E;
+  --warm-brown: #A04E64;
+  --light-brown: #C47A8A;
+
+  --text-dark: #3D1520;
+  --text-medium: #5C2D3A;
+  --text-light: #85485A;
+  --text-muted: #B07A88;
+  --white: #FFFFFF;
+
+  --shadow-sm: 0 2px 8px rgba(107, 39, 55, 0.08);
+  --shadow-md: 0 4px 20px rgba(107, 39, 55, 0.13);
+  --shadow-lg: 0 8px 40px rgba(107, 39, 55, 0.20);
+
+  --font-serif: 'Noto Serif KR', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-sans);
+  background: var(--ivory);
+  color: var(--text-dark);
+  line-height: 1.7;
+  overflow-x: hidden;
+  padding-bottom: var(--safe-bottom);
+}
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; color: inherit; }
+ul, ol { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; line-height: 1.4; color: var(--text-dark); }
+
+.container { max-width: 720px; margin: 0 auto; padding: 0 1.25rem; }
+
+/* ===== Top App Bar ===== */
+.appbar {
+  position: sticky; top: 0; z-index: 50;
+  padding-top: var(--safe-top);
+  background: rgba(255,248,248,0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(107,39,55,0.08);
+}
+.appbar-inner { display: flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.25rem; max-width: 720px; margin: 0 auto; }
+.appbar-logo { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: var(--shadow-sm); }
+.appbar-title { font-family: var(--font-serif); font-size: 1.02rem; color: var(--deep-brown); font-weight: 600; }
+.appbar-sub { font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.05em; }
+.appbar-spacer { flex: 1; }
+.install-chip {
+  font-size: 0.72rem; color: var(--white); background: var(--soft-gold);
+  border-radius: 20px; padding: 0.4rem 0.85rem; display: none; align-items:center; gap:0.3rem;
+  box-shadow: var(--shadow-sm);
+}
+.install-chip.show { display: inline-flex; }
+
+/* ===== Hero ===== */
+.hero {
+  position: relative; overflow: hidden;
+  background: radial-gradient(circle at 30% 20%, #8B3A4E 0%, #6B2737 55%, #3D1520 100%);
+  padding: 2.2rem 0 0;
+  min-height: 62vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.hero-sparkle { color: var(--pale-gold); font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.85; }
+.hero-title { font-size: clamp(2.1rem, 9vw, 2.7rem); color: var(--ivory); margin: 0.6rem 0 0.5rem; }
+.hero-desc { color: rgba(253,250,245,0.65); font-size: 0.88rem; letter-spacing: 0.04em; margin-bottom: 1.6rem; }
+.hero-photo-wrap { position: relative; display: flex; justify-content: center; margin-top: 0.5rem; }
+.hero-photo-wrap img {
+  height: 280px; width: auto;
+  filter: drop-shadow(0 14px 30px rgba(10,4,8,0.5));
+}
+.hero-badges { display: flex; gap: 0.6rem; padding: 0 1.25rem 1.6rem; flex-wrap: wrap; }
+.hero-badge {
+  font-size: 0.72rem; color: var(--ivory); background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(242,184,198,0.35); border-radius: 20px; padding: 0.35rem 0.8rem;
+}
+
+/* ===== Section shells ===== */
+.section { padding: 3rem 0; }
+.section.alt { background: var(--warm-beige); }
+.section-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--soft-gold);
+}
+.section-title { font-size: clamp(1.4rem, 5vw, 1.8rem); margin-top: 0.4rem; }
+.section-sub { color: var(--text-muted); font-size: 0.88rem; margin-top: 0.6rem; font-weight: 300; }
+.divider { width: 46px; height: 2px; background: linear-gradient(90deg, var(--soft-gold), var(--pale-gold)); margin: 1rem 0 1.4rem; border-radius: 2px; }
+
+/* ===== Stats ===== */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin-top: 1.6rem; }
+.stat-box { text-align: center; background: var(--white); border-radius: 14px; padding: 0.9rem 0.3rem; box-shadow: var(--shadow-sm); }
+.stat-num { font-family: var(--font-serif); font-size: 1.35rem; color: var(--deep-brown); font-weight: 600; }
+.stat-label { font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.04em; margin-top: 0.15rem; }
+
+.intro-body { font-size: 0.92rem; color: var(--text-medium); line-height: 1.85; font-weight: 300; margin-top: 0.9rem; }
+.intro-body + .intro-body { margin-top: 0.7rem; }
+
+/* ===== Teacher card ===== */
+.teacher-card {
+  display: flex; align-items: center; gap: 1.1rem; background: var(--white);
+  border-radius: 18px; padding: 1.2rem; margin-top: 1.6rem; box-shadow: var(--shadow-md);
+}
+.teacher-card img { width: 82px; height: 82px; object-fit: cover; border-radius: 50%; box-shadow: var(--shadow-sm); }
+.teacher-name { font-family: var(--font-serif); font-size: 1.05rem; color: var(--deep-brown); font-weight: 600; }
+.teacher-title { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+/* ===== Info list ===== */
+.info-card {
+  margin-top: 1.4rem; background: linear-gradient(160deg, var(--soft-beige), var(--pale-gold));
+  border-radius: 16px; padding: 1.4rem; box-shadow: var(--shadow-md);
+}
+.info-row {
+  display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(107,39,55,0.12); font-size: 0.85rem;
+}
+.info-row:last-child { border-bottom: none; }
+.info-key { color: var(--deep-gold); font-weight: 600; min-width: 62px; flex-shrink: 0; }
+.info-val { color: var(--text-medium); }
+
+/* ===== Venue card ===== */
+.venue-card { margin-top: 1.6rem; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-md); background: var(--white); }
+.venue-card img { width: 100%; height: 170px; object-fit: cover; }
+.venue-body { padding: 1.2rem; }
+.venue-name { font-family: var(--font-serif); font-size: 1.05rem; color: var(--deep-brown); font-weight: 600; }
+.venue-desc { font-size: 0.85rem; color: var(--text-medium); margin-top: 0.5rem; line-height: 1.75; font-weight: 300; }
+.venue-meta { display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.9rem; font-size: 0.8rem; color: var(--text-light); }
+.venue-meta a { color: var(--deep-gold); text-decoration: underline; text-decoration-color: rgba(176,94,118,0.3); }
+
+/* ===== Curriculum ===== */
+.curr-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.curr-item {
+  background: var(--white); border-radius: 14px; padding: 1rem 1.1rem; box-shadow: var(--shadow-sm);
+  display: flex; gap: 0.9rem; align-items: flex-start;
+}
+.curr-week {
+  flex-shrink: 0; font-family: var(--font-serif); font-size: 0.78rem; color: var(--white);
+  background: var(--deep-brown); border-radius: 10px; padding: 0.35rem 0.6rem; white-space: nowrap;
+}
+.curr-title { font-size: 0.92rem; color: var(--text-dark); font-weight: 600; }
+.curr-desc { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.6; }
+
+/* ===== Schedule ===== */
+.sched-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.65rem; }
+.sched-item {
+  display: flex; justify-content: space-between; align-items: center; background: var(--white);
+  border-radius: 14px; padding: 0.9rem 1.1rem; box-shadow: var(--shadow-sm);
+}
+.sched-item.current { border: 1.5px solid var(--soft-gold); box-shadow: var(--shadow-md); }
+.sched-term { font-size: 0.9rem; font-weight: 600; color: var(--text-dark); }
+.sched-dates { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem; }
+.sched-status { font-size: 0.72rem; font-weight: 600; padding: 0.3rem 0.7rem; border-radius: 20px; white-space: nowrap; }
+.status-모집예정, .status-모집중 { color: var(--white); background: var(--soft-gold); }
+.status-마감, .status-수료완료 { color: var(--text-muted); background: var(--warm-beige); }
+
+/* ===== Apply form ===== */
+.apply-form { margin-top: 1.6rem; display: flex; flex-direction: column; gap: 0.9rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-group label { font-size: 0.78rem; color: var(--text-medium); font-weight: 500; }
+.form-group input, .form-group select, .form-group textarea {
+  font-family: inherit; font-size: 0.9rem; padding: 0.75rem 0.9rem; border-radius: 10px;
+  border: 1px solid rgba(107,39,55,0.15); background: var(--white); color: var(--text-dark); width: 100%;
+}
+.form-group textarea { resize: vertical; min-height: 90px; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--soft-gold); box-shadow: 0 0 0 3px rgba(212,132,154,0.15);
+}
+.btn-submit {
+  margin-top: 0.4rem; width: 100%; padding: 1rem; border-radius: 30px; text-align: center;
+  background: linear-gradient(120deg, var(--soft-gold), var(--deep-gold)); color: var(--white);
+  font-size: 0.95rem; font-weight: 600; letter-spacing: 0.03em; box-shadow: var(--shadow-md);
+  transition: transform 0.2s ease;
+}
+.btn-submit:active { transform: scale(0.98); }
+.btn-submit[disabled] { opacity: 0.6; }
+.form-msg { font-size: 0.82rem; text-align: center; margin-top: 0.6rem; display: none; }
+.form-msg.show { display: block; }
+.form-msg.ok { color: var(--deep-gold); }
+.form-msg.err { color: #a13030; }
+
+/* ===== Footer ===== */
+.footer { background: var(--deep-brown); color: rgba(255,248,248,0.75); padding: 2.4rem 0 calc(2.4rem + var(--safe-bottom)); text-align: center; }
+.footer-logo { font-family: var(--font-serif); font-size: 1rem; color: var(--pale-gold); margin-bottom: 0.4rem; }
+.footer-line { font-size: 0.78rem; margin-top: 0.25rem; }
+.footer-line a { text-decoration: underline; text-decoration-color: rgba(242,184,198,0.4); }
+.footer-copy { font-size: 0.68rem; opacity: 0.55; margin-top: 1.2rem; }
+
+/* ===== Install banner (bottom sheet style) ===== */
+.install-banner {
+  position: fixed; left: 0.9rem; right: 0.9rem; bottom: calc(0.9rem + var(--safe-bottom));
+  background: var(--white); border-radius: 16px; box-shadow: var(--shadow-lg);
+  padding: 1rem 1.1rem; display: none; align-items: center; gap: 0.8rem; z-index: 200;
+  border: 1px solid rgba(107,39,55,0.08);
+}
+.install-banner.show { display: flex; animation: slideUp 0.35s ease; }
+.install-banner img { width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0; }
+.install-banner-text { flex: 1; }
+.install-banner-title { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); }
+.install-banner-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.1rem; }
+.install-banner-btn {
+  background: var(--soft-gold); color: var(--white); font-size: 0.78rem; font-weight: 600;
+  padding: 0.5rem 0.9rem; border-radius: 20px; flex-shrink: 0;
+}
+.install-banner-close { position: absolute; top: 0.4rem; right: 0.6rem; color: var(--text-muted); font-size: 1rem; padding: 0.3rem; }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* ===== Fade-in on load (CSS-only, no JS/scroll dependency so content
+   is always visible — for screen-readers, no-JS, SSR screenshots, etc.) ===== */
+@keyframes fadeUpIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUpIn 0.5s ease both; }
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { animation: none; }
+}
+
+/* ===== Small screens tuning ===== */
+@media (min-width: 480px) {
+  .hero-photo-wrap img { height: 320px; }
+}
