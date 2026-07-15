@@ -19,18 +19,16 @@
       width: 100%;
       border-radius: 12px;
       overflow: hidden;
-      background: linear-gradient(160deg, var(--soft-beige) 0%, var(--pale-gold) 100%);
       aspect-ratio: 3/4;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
       box-shadow: 0 8px 32px rgba(107,39,55,0.15);
       margin-bottom: 1.5rem;
     }
     .class-teacher-photo img {
-      width: 90%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
       display: block;
-      filter: drop-shadow(0 6px 14px rgba(107,39,55,0.2));
     }
     .class-teacher-name {
       text-align: center;
@@ -92,69 +90,140 @@
   </nav>
 
   <style>
-    /* 히어로 섹션 전체를 position:relative로 잡아 사진이 꽉 차게 */
-    .class-hero-wrap {
+    /* 히어로 섹션 — 실제 수업 현장 사진을 풀-배경으로 사용 */
+    .class-hero {
       position: relative;
-      overflow: hidden;
-      min-height: 420px;
+      min-height: 460px;
       display: flex;
       align-items: flex-end;
-      padding: 7rem 0 0;
+      overflow: hidden;
+      padding: 7rem 0 3.5rem;
+      background: linear-gradient(135deg, #8B3A4E 0%, #6B2737 100%);
     }
-    .class-hero-wrap .container {
+    .class-hero-bg-photo {
+      position: absolute;
+      inset: 0;
+      background-image: url('../images/activity-poetry-class.jpg');
+      background-size: cover;
+      background-position: center 30%;
+    }
+    .class-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+        rgba(107,39,55,0.88) 0%,
+        rgba(139,58,78,0.58) 55%,
+        rgba(45,15,22,0.82) 100%);
+    }
+    .class-hero-inner {
       position: relative;
       z-index: 2;
       width: 100%;
+      max-width: 560px;
     }
-    .page-hero-2col {
+
+    /* 수업 현장 스냅 그리드 */
+    .class-snap-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 200px);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    .class-snap-item {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: var(--shadow-md);
+    }
+    .class-snap-item--wide {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    .class-snap-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .class-snap-item:hover img { transform: scale(1.06); }
+    .class-snap-caption {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 0.9rem 1rem 0.7rem;
+      background: linear-gradient(to top, rgba(18,6,10,0.75), transparent);
+      color: var(--ivory);
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .class-snap-item:hover .class-snap-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (max-width: 900px) {
+      .class-snap-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 160px);
+      }
+      .class-snap-item--wide { grid-column: span 2; grid-row: span 1; }
+      .class-snap-caption { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 480px) {
+      .class-snap-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 180px);
+      }
+      .class-snap-item--wide { grid-column: span 1; }
+    }
+
+    /* 수강신청 상단 배너 */
+    .apply-banner {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .apply-banner img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+    .apply-banner-overlay {
+      position: absolute;
+      inset: 0;
       display: flex;
       align-items: flex-end;
-      gap: 2.5rem;
+      background: linear-gradient(to top, rgba(107,39,55,0.75) 0%, transparent 55%);
+      padding: 1.2rem 1.5rem;
     }
-    .page-hero-2col-text {
-      flex: 1;
-      padding-bottom: 3rem;
+    .apply-banner-overlay p {
+      color: var(--ivory);
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      margin: 0;
     }
-    .page-hero-2col-photo {
-      flex-shrink: 0;
-      position: absolute;
-      right: 2%;
-      bottom: -35%;  /* 발 부분이 섹션 아래로 충분히 내려가도록 */
-      height: 200%;
-    }
-    .page-hero-2col-photo img {
-      height: 100%;
-      width: auto;
-      display: block;
-      filter: drop-shadow(0 12px 28px rgba(18,6,10,0.5));
-    }
-    @media(max-width:900px){
-      .page-hero-2col-photo { height: 180%; right: 0; }
-    }
-    @media(max-width:640px){
-      .page-hero-2col { flex-direction:column; align-items:center; }
-      .page-hero-2col-text { text-align:center; padding-bottom:1rem; }
-      .page-hero-2col-photo {
-        position: static;
-        height: auto;
-        width: 180px;
-        order: -1;
-      }
-      .page-hero-2col-photo img { height: auto; width: 100%; }
+    @media (max-width: 640px) {
+      .apply-banner img { height: 180px; }
     }
   </style>
   <!-- PAGE HERO -->
-  <section class="page-hero class-hero-bg class-hero-wrap" style="padding-bottom:0;">
+  <section class="page-hero class-hero">
+    <div class="class-hero-bg-photo"></div>
+    <div class="class-hero-overlay"></div>
     <div class="container">
-      <div class="page-hero-2col">
-        <div class="page-hero-2col-text">
-          <span class="section-label" style="color:var(--pale-gold);">Poetry Recital Class</span>
-          <h1 style="font-family:var(--font-serif); font-size:clamp(2rem,4vw,3rem); color:var(--ivory); margin:0.75rem 0 1rem;">시낭송교실</h1>
-          <p style="color:rgba(253,250,245,0.6); letter-spacing:0.1em; font-size:0.9rem;">강해인과 함께하는 시낭송의 세계</p>
-        </div>
-        <div class="page-hero-2col-photo">
-          <img src="../images/haein-stage-nobg.png?v=20260606" alt="강해인 시낭송교실" />
-        </div>
+      <div class="class-hero-inner">
+        <span class="section-label" style="color:var(--pale-gold);">Poetry Recital Class</span>
+        <h1 style="font-family:var(--font-serif); font-size:clamp(2rem,4vw,3rem); color:var(--ivory); margin:0.75rem 0 1rem;">시낭송교실</h1>
+        <p style="color:rgba(253,250,245,0.75); letter-spacing:0.1em; font-size:0.9rem; line-height:1.7;">강해인과 함께하는 시낭송의 세계<br>도서관 서재에서 시작되는 낭송 수업 현장</p>
       </div>
     </div>
   </section>
@@ -208,7 +277,7 @@
           <div class="fade-in" data-delay="200">
             <!-- Teacher Photo -->
             <div class="class-teacher-photo">
-              <img src="../images/haein-stage-nobg-light.png?v=20260606" alt="강해인 시낭송교실 원장" />
+              <img src="../images/gallery/daily-07-lecture.jpg?v=20260701" alt="강해인 시낭송교실 원장 강의 모습" />
             </div>
             <p class="class-teacher-name">강해인</p>
             <p class="class-teacher-title">시인 · 시낭송가 · 문화예술 강사</p>
@@ -292,6 +361,37 @@
       </div>
     </section>
 
+    <!-- Class Snapshots -->
+    <section style="background:var(--ivory); padding:5rem 0;">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label fade-up">Class Moments</span>
+          <h2 class="section-title fade-up" data-delay="100">수업 현장 스냅</h2>
+          <div class="divider"></div>
+          <p class="section-subtitle fade-up" data-delay="200">함께 배우고, 무대에 오르고, 성장하는 수강생들의 순간들</p>
+        </div>
+
+        <div class="class-snap-grid fade-up" data-delay="150">
+          <a href="gallery.html" class="class-snap-item class-snap-item--wide">
+            <img src="../images/activity-poetry-class.jpg" alt="시낭송교실 수업 현장" loading="lazy" />
+            <span class="class-snap-caption">서재에서 함께 낭송하는 수업 현장</span>
+          </a>
+          <a href="gallery.html" class="class-snap-item">
+            <img src="../images/gallery/perf-12-hanbat-recite.jpg" alt="한밭시낭송 전국대회 무대" loading="lazy" />
+            <span class="class-snap-caption">전국대회 무대에 오른 수강생</span>
+          </a>
+          <a href="gallery.html" class="class-snap-item">
+            <img src="../images/gallery/event-05-hyo-group2.jpg" alt="효 콘서트 수료생 단체사진" loading="lazy" />
+            <span class="class-snap-caption">효 콘서트 발표회 단체사진</span>
+          </a>
+          <a href="gallery.html" class="class-snap-item">
+            <img src="../images/gallery/perf-07-hanbat-hanbok.jpg" alt="한복을 입고 시낭송하는 수강생" loading="lazy" />
+            <span class="class-snap-caption">한복을 입고 오른 낭송 무대</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- Schedule -->
     <section style="background:var(--ivory); padding:5rem 0;">
       <div class="container">
@@ -357,6 +457,13 @@
     <!-- Apply Form -->
     <section style="background:var(--warm-beige); padding:5rem 0;">
       <div class="container">
+        <div class="apply-banner fade-up">
+          <img src="../images/gallery/event-04-hyo-group1.jpg" alt="시낭송교실 수료생 단체사진" loading="lazy" />
+          <div class="apply-banner-overlay">
+            <p>지난 기수 수료생들과 함께한 무대의 순간</p>
+          </div>
+        </div>
+
         <div class="section-header">
           <span class="section-label fade-up">Apply</span>
           <h2 class="section-title fade-up" data-delay="100">수강 신청</h2>
