@@ -122,21 +122,9 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; line-height: 
   object-fit: contain; object-position: bottom center;
   filter: drop-shadow(0 10px 20px rgba(18,10,8,0.5));
 }
-.hero-group-img { object-fit: cover !important; object-position: center; }
-.hero-photo-badge {
-  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-  z-index: 3; text-align: center; white-space: nowrap; pointer-events: none;
-}
-.badge-kr {
-  display: block; font-family: var(--font-serif); font-size: 0.85rem; font-weight: 600;
-  color: var(--pale-gold); letter-spacing: 0.28em; text-shadow: 0 2px 8px rgba(18,10,8,0.6);
-}
-.badge-en {
-  display: block; font-family: var(--font-sans); font-size: 0.56rem; font-weight: 300;
-  color: rgba(253,250,245,0.55); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 0.15rem;
-}
+.hero-cover-img { object-fit: cover !important; object-position: center 20%; filter: none; }
 .hero-slider-dots {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
   z-index: 4; display: flex; gap: 6px; align-items: center;
 }
 .slider-dot {

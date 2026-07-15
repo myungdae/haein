@@ -56,24 +56,15 @@ export function HomePage({
           <div class="hero-photos">
             <div class="hero-slider" id="heroSlider">
               <div class="hero-slide active">
-                <img class="hero-person-img" src="/images/hero-haein.webp" alt="강해인 시낭송 공연" />
-              </div>
-              <div class="hero-slide">
                 <img class="hero-person-img" src="/images/profile-haein.webp" alt="강해인 프로필" />
               </div>
               <div class="hero-slide">
-                <img class="hero-person-img hero-group-img" src="/images/activity-class.jpg" alt="시낭송 수업 현장" />
-              </div>
-
-              <div class="hero-photo-badge">
-                <span class="badge-kr">강해인</span>
-                <span class="badge-en">Poet &amp; Reciter</span>
+                <img class="hero-person-img hero-cover-img" src="/images/hero-maroon.jpg" alt="강해인 시낭송 공연" />
               </div>
 
               <div class="hero-slider-dots" aria-label="슬라이드 이동">
                 <button class="slider-dot active" data-index="0" aria-label="슬라이드 1"></button>
                 <button class="slider-dot" data-index="1" aria-label="슬라이드 2"></button>
-                <button class="slider-dot" data-index="2" aria-label="슬라이드 3"></button>
               </div>
             </div>
           </div>
@@ -186,6 +177,21 @@ export function HomePage({
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Class Snapshot ===== */}
+        <section class="section">
+          <div class="container">
+            <span class="section-label fade-up">Class Snapshot</span>
+            <h2 class="section-title fade-up">수업 현장</h2>
+            <div class="divider"></div>
+            <div class="venue-card fade-up">
+              <img src="/images/activity-class.jpg" alt="시낭송 수업 현장" />
+              <div class="venue-body">
+                <p class="venue-desc">함께 낭송을 나누며 서로의 목소리에 귀 기울이는 시간, 강해인 시낭송교실의 실제 수업 풍경입니다.</p>
+              </div>
             </div>
           </div>
         </section>
