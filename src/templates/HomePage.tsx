@@ -41,18 +41,17 @@ export function HomePage({
 
       {/* ===== Hero ===== */}
       <section class="hero">
-        <div class="container">
+        <div class="hero-bg-photo"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-inner">
           <span class="hero-sparkle">Poetry Recital Class</span>
           <h1 class="hero-title">{c(content, 'hero_title', '시낭송교실')}</h1>
           <p class="hero-desc">{c(content, 'hero_subtitle')}</p>
-        </div>
-        <div class="hero-photo-wrap">
-          <img src="/images/hero-haein.webp" alt="강해인 시낭송교실" />
-        </div>
-        <div class="hero-badges">
-          <span class="hero-badge">🎤 소수정예 {c(content, 'stat_capacity', '8명')}</span>
-          <span class="hero-badge">📍 남산 · 문학의 집 서울</span>
-          {current && <span class="hero-badge">✦ {current.term_label} {STATUS_LABELS[current.status] ?? current.status}</span>}
+          <div class="hero-badges">
+            <span class="hero-badge">🎤 소수정예 {c(content, 'stat_capacity', '8명')}</span>
+            <span class="hero-badge">📍 남산 · 문학의 집 서울</span>
+            {current && <span class="hero-badge">✦ {current.term_label} {STATUS_LABELS[current.status] ?? current.status}</span>}
+          </div>
         </div>
       </section>
 
@@ -86,7 +85,7 @@ export function HomePage({
             </div>
 
             <div class="teacher-card fade-up">
-              <img src="/images/profile-haein.webp" alt={c(content, 'teacher_name', '강해인')} />
+              <img src="/images/teacher-photo.jpg" alt={c(content, 'teacher_name', '강해인')} />
               <div>
                 <div class="teacher-name">{c(content, 'teacher_name', '강해인')}</div>
                 <div class="teacher-title">{c(content, 'teacher_title')}</div>
@@ -145,6 +144,34 @@ export function HomePage({
           </div>
         </section>
 
+        {/* ===== Class Snapshots ===== */}
+        <section class="section">
+          <div class="container">
+            <span class="section-label fade-up">Class Moments</span>
+            <h2 class="section-title fade-up">수업 현장 스냅</h2>
+            <div class="divider"></div>
+            <p class="section-sub fade-up">함께 배우고, 무대에 오르고, 성장하는 수강생들의 순간들</p>
+            <div class="snap-grid fade-up">
+              <a class="snap-item snap-item--wide" href="#apply">
+                <img src="/images/snap-lecture.jpg" alt="시낭송교실 강의 현장" loading="lazy" />
+                <span class="snap-caption">강해인 원장의 강의 현장</span>
+              </a>
+              <a class="snap-item" href="#apply">
+                <img src="/images/snap-hanbok.jpg" alt="전국대회 무대에 오른 수강생" loading="lazy" />
+                <span class="snap-caption">전국대회 무대</span>
+              </a>
+              <a class="snap-item" href="#apply">
+                <img src="/images/snap-concert.jpg" alt="시낭송 콘서트 공연 모습" loading="lazy" />
+                <span class="snap-caption">시낭송 콘서트</span>
+              </a>
+              <a class="snap-item" href="#apply">
+                <img src="/images/snap-group.jpg" alt="수료생 단체사진" loading="lazy" />
+                <span class="snap-caption">수료생 단체 기념사진</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
         {/* ===== Curriculum ===== */}
         <section class="section" id="curriculum">
           <div class="container">
@@ -195,6 +222,13 @@ export function HomePage({
             <h2 class="section-title fade-up">수강 신청</h2>
             <div class="divider"></div>
             <p class="section-sub fade-up">{c(content, 'apply_subtitle')}</p>
+
+            <div class="apply-banner fade-up">
+              <img src="/images/apply-banner.jpg" alt="수료생과 함께한 축하 자리" loading="lazy" />
+              <div class="apply-banner-overlay">
+                <p>지난 기수 수료생들과 함께한 순간</p>
+              </div>
+            </div>
 
             <form class="apply-form fade-up" id="applyForm">
               <div class="form-row">
