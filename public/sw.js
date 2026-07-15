@@ -1,5 +1,5 @@
 // 강해인 시낭송교실 PWA — Service Worker
-const CACHE_VERSION = 'haein-class-v1';
+const CACHE_VERSION = 'haein-class-v2';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 
 const PRECACHE_URLS = [
