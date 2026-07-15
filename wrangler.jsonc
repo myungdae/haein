@@ -12,7 +12,7 @@
     {
       "binding": "DB",
       "database_name": "haein-class-db",
-      "database_id": "REPLACE_WITH_D1_ID",
+      "database_id": "37707b50-5a47-4856-abaa-d7f4cb22434e",
       "migrations_dir": "migrations"
     }
   ]
