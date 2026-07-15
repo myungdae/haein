@@ -41,16 +41,41 @@ export function HomePage({
 
       {/* ===== Hero ===== */}
       <section class="hero">
-        <div class="hero-bg-photo"></div>
-        <div class="hero-overlay"></div>
-        <div class="container hero-inner">
-          <span class="hero-sparkle">Poetry Recital Class</span>
-          <h1 class="hero-title">{c(content, 'hero_title', '시낭송교실')}</h1>
-          <p class="hero-desc">{c(content, 'hero_subtitle')}</p>
-          <div class="hero-badges">
-            <span class="hero-badge">🎤 소수정예 {c(content, 'stat_capacity', '8명')}</span>
-            <span class="hero-badge">📍 남산 · 문학의 집 서울</span>
-            {current && <span class="hero-badge">✦ {current.term_label} {STATUS_LABELS[current.status] ?? current.status}</span>}
+        <div class="hero-content container">
+          <div class="hero-text-area">
+            <span class="hero-sparkle">Poetry Recital Class</span>
+            <h1 class="hero-title">{c(content, 'hero_title', '시낭송교실')}</h1>
+            <p class="hero-desc">{c(content, 'hero_subtitle')}</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🎤 소수정예 {c(content, 'stat_capacity', '8명')}</span>
+              <span class="hero-badge">📍 남산 · 문학의 집 서울</span>
+              {current && <span class="hero-badge">✦ {current.term_label} {STATUS_LABELS[current.status] ?? current.status}</span>}
+            </div>
+          </div>
+
+          <div class="hero-photos">
+            <div class="hero-slider" id="heroSlider">
+              <div class="hero-slide active">
+                <img class="hero-person-img" src="/images/hero-haein.webp" alt="강해인 시낭송 공연" />
+              </div>
+              <div class="hero-slide">
+                <img class="hero-person-img" src="/images/profile-haein.webp" alt="강해인 프로필" />
+              </div>
+              <div class="hero-slide">
+                <img class="hero-person-img hero-group-img" src="/images/activity-class.jpg" alt="시낭송 수업 현장" />
+              </div>
+
+              <div class="hero-photo-badge">
+                <span class="badge-kr">강해인</span>
+                <span class="badge-en">Poet &amp; Reciter</span>
+              </div>
+
+              <div class="hero-slider-dots" aria-label="슬라이드 이동">
+                <button class="slider-dot active" data-index="0" aria-label="슬라이드 1"></button>
+                <button class="slider-dot" data-index="1" aria-label="슬라이드 2"></button>
+                <button class="slider-dot" data-index="2" aria-label="슬라이드 3"></button>
+              </div>
+            </div>
           </div>
         </div>
       </section>

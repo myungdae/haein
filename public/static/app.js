@@ -122,4 +122,49 @@
       msg.className = 'form-msg show ' + (ok ? 'ok' : 'err');
     }
   }
+
+  // ---- Hero photo slider (auto-rotate + dots + hover pause) ----
+  const slider = document.getElementById('heroSlider');
+  if (slider) {
+    const slides = slider.querySelectorAll('.hero-slide');
+    const dots = slider.querySelectorAll('.slider-dot');
+    let current = 0;
+    const total = slides.length;
+    let timer = null;
+    const INTERVAL = 4000;
+
+    function goTo(index) {
+      if (!total) return;
+      slides[current].classList.remove('active');
+      if (dots[current]) dots[current].classList.remove('active');
+      current = (index + total) % total;
+      slides[current].classList.add('active');
+      if (dots[current]) dots[current].classList.add('active');
+    }
+
+    function next() {
+      goTo(current + 1);
+    }
+
+    function startAuto() {
+      timer = setInterval(next, INTERVAL);
+    }
+
+    function stopAuto() {
+      clearInterval(timer);
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        stopAuto();
+        goTo(parseInt(dot.getAttribute('data-index'), 10));
+        startAuto();
+      });
+    });
+
+    slider.addEventListener('mouseenter', stopAuto);
+    slider.addEventListener('mouseleave', startAuto);
+
+    setTimeout(startAuto, 600);
+  }
 })();
