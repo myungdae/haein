@@ -1,5 +1,5 @@
 // 강해인 시낭송교실 PWA — Service Worker
-const CACHE_VERSION = 'haein-class-v3';
+const CACHE_VERSION = 'haein-class-v4';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 
 const PRECACHE_URLS = [
@@ -44,11 +44,25 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static assets (images/icons/css): cache-first
+  // CSS/JS (frequently updated on deploy): network-first so a redeploy is
+  // reflected immediately, falling back to cache only when offline.
+  if (url.pathname.startsWith('/static/')) {
+    event.respondWith(
+      fetch(request)
+        .then((res) => {
+          const clone = res.clone();
+          caches.open(STATIC_CACHE).then((cache) => cache.put(request, clone));
+          return res;
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  // Images/icons (rarely change once uploaded): cache-first for speed.
   if (
     url.pathname.startsWith('/icons/') ||
-    url.pathname.startsWith('/images/') ||
-    url.pathname.startsWith('/static/')
+    url.pathname.startsWith('/images/')
   ) {
     event.respondWith(
       caches.match(request).then((cached) => {
