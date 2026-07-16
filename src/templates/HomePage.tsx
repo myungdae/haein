@@ -41,16 +41,43 @@ export function HomePage({
 
       {/* ===== Hero ===== */}
       <section class="hero">
-        <div class="hero-bg-photo"></div>
-        <div class="hero-overlay"></div>
-        <div class="container hero-inner">
-          <span class="hero-sparkle">Poetry Recital Class</span>
-          <h1 class="hero-title">{c(content, 'hero_title', '시낭송교실')}</h1>
-          <p class="hero-desc">{c(content, 'hero_subtitle')}</p>
-          <div class="hero-badges">
-            <span class="hero-badge">🎤 소수정예 {c(content, 'stat_capacity', '8명')}</span>
-            <span class="hero-badge">📍 남산 · 문학의 집 서울</span>
-            {current && <span class="hero-badge">✦ {current.term_label} {STATUS_LABELS[current.status] ?? current.status}</span>}
+        <div class="hero-content container">
+          <div class="hero-text-area">
+            <span class="hero-sparkle">Poetry Recital Class</span>
+            <h1 class="hero-title">{c(content, 'hero_title', '시낭송교실')}</h1>
+            <p class="hero-desc">{c(content, 'hero_subtitle')}</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🎤 소수정예 {c(content, 'stat_capacity', '8명')}</span>
+              <span class="hero-badge">📍 남산 · 문학의 집 서울</span>
+              {current && <span class="hero-badge">✦ {current.term_label} {STATUS_LABELS[current.status] ?? current.status}</span>}
+            </div>
+          </div>
+
+          <div class="hero-photos">
+            {/* Mobile (~<640px): single-slot crossfade slider */}
+            <div class="hero-slider hero-slider-mobile" id="heroSlider">
+              <div class="hero-slide active">
+                <img class="hero-person-img" src="/images/profile-haein.webp" alt="강해인 프로필" />
+              </div>
+              <div class="hero-slide">
+                <img class="hero-person-img hero-cover-img" src="/images/hero-maroon.jpg" alt="강해인 시낭송 공연" />
+              </div>
+
+              <div class="hero-slider-dots" aria-label="슬라이드 이동">
+                <button class="slider-dot active" data-index="0" aria-label="슬라이드 1"></button>
+                <button class="slider-dot" data-index="1" aria-label="슬라이드 2"></button>
+              </div>
+            </div>
+
+            {/* Tablet/Desktop (≥640px): two photos side-by-side */}
+            <div class="hero-duo" id="heroDuo">
+              <div class="hero-duo-item">
+                <img src="/images/profile-haein.webp" alt="강해인 프로필" />
+              </div>
+              <div class="hero-duo-item">
+                <img src="/images/hero-maroon.jpg" alt="강해인 시낭송 공연" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -144,34 +171,6 @@ export function HomePage({
           </div>
         </section>
 
-        {/* ===== Class Snapshots ===== */}
-        <section class="section">
-          <div class="container">
-            <span class="section-label fade-up">Class Moments</span>
-            <h2 class="section-title fade-up">수업 현장 스냅</h2>
-            <div class="divider"></div>
-            <p class="section-sub fade-up">함께 배우고, 무대에 오르고, 성장하는 수강생들의 순간들</p>
-            <div class="snap-grid fade-up">
-              <a class="snap-item snap-item--wide" href="#apply">
-                <img src="/images/snap-lecture.jpg" alt="시낭송교실 강의 현장" loading="lazy" />
-                <span class="snap-caption">강해인 원장의 강의 현장</span>
-              </a>
-              <a class="snap-item" href="#apply">
-                <img src="/images/snap-hanbok.jpg" alt="전국대회 무대에 오른 수강생" loading="lazy" />
-                <span class="snap-caption">전국대회 무대</span>
-              </a>
-              <a class="snap-item" href="#apply">
-                <img src="/images/snap-concert.jpg" alt="시낭송 콘서트 공연 모습" loading="lazy" />
-                <span class="snap-caption">시낭송 콘서트</span>
-              </a>
-              <a class="snap-item" href="#apply">
-                <img src="/images/snap-group.jpg" alt="수료생 단체사진" loading="lazy" />
-                <span class="snap-caption">수료생 단체 기념사진</span>
-              </a>
-            </div>
-          </div>
-        </section>
-
         {/* ===== Curriculum ===== */}
         <section class="section" id="curriculum">
           <div class="container">
@@ -189,6 +188,21 @@ export function HomePage({
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Class Snapshot ===== */}
+        <section class="section">
+          <div class="container">
+            <span class="section-label fade-up">Class Snapshot</span>
+            <h2 class="section-title fade-up">수업 현장</h2>
+            <div class="divider"></div>
+            <div class="venue-card fade-up">
+              <img src="/images/activity-class.jpg" alt="시낭송 수업 현장" />
+              <div class="venue-body">
+                <p class="venue-desc">함께 낭송을 나누며 서로의 목소리에 귀 기울이는 시간, 강해인 시낭송교실의 실제 수업 풍경입니다.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -222,13 +236,6 @@ export function HomePage({
             <h2 class="section-title fade-up">수강 신청</h2>
             <div class="divider"></div>
             <p class="section-sub fade-up">{c(content, 'apply_subtitle')}</p>
-
-            <div class="apply-banner fade-up">
-              <img src="/images/apply-banner.jpg" alt="수료생과 함께한 축하 자리" loading="lazy" />
-              <div class="apply-banner-overlay">
-                <p>지난 기수 수료생들과 함께한 순간</p>
-              </div>
-            </div>
 
             <form class="apply-form fade-up" id="applyForm">
               <div class="form-row">
