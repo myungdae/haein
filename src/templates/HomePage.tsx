@@ -54,7 +54,8 @@ export function HomePage({
           </div>
 
           <div class="hero-photos">
-            <div class="hero-slider" id="heroSlider">
+            {/* Mobile (~<640px): single-slot crossfade slider */}
+            <div class="hero-slider hero-slider-mobile" id="heroSlider">
               <div class="hero-slide active">
                 <img class="hero-person-img" src="/images/profile-haein.webp" alt="강해인 프로필" />
               </div>
@@ -65,6 +66,16 @@ export function HomePage({
               <div class="hero-slider-dots" aria-label="슬라이드 이동">
                 <button class="slider-dot active" data-index="0" aria-label="슬라이드 1"></button>
                 <button class="slider-dot" data-index="1" aria-label="슬라이드 2"></button>
+              </div>
+            </div>
+
+            {/* Tablet/Desktop (≥640px): two photos side-by-side */}
+            <div class="hero-duo" id="heroDuo">
+              <div class="hero-duo-item">
+                <img src="/images/profile-haein.webp" alt="강해인 프로필" />
+              </div>
+              <div class="hero-duo-item">
+                <img src="/images/hero-maroon.jpg" alt="강해인 시낭송 공연" />
               </div>
             </div>
           </div>

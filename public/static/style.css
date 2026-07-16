@@ -135,6 +135,19 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; line-height: 
 .slider-dot.active { background: var(--pale-gold); transform: scale(1.35); }
 .slider-dot:hover { background: rgba(253,250,245,0.7); }
 
+/* ---- Hero duo (two photos side-by-side, tablet/desktop only — see below) ---- */
+.hero-duo { display: none; }
+.hero-duo-item {
+  overflow: hidden; border-radius: 18px;
+  box-shadow: 0 14px 36px rgba(61,21,32,0.35);
+  background: linear-gradient(160deg, rgba(139,58,78,0.55), rgba(61,21,32,0.55));
+}
+.hero-duo-item img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 20%;
+}
+.hero-duo-item:first-child img { object-position: bottom center; }
+
 /* ===== Section shells ===== */
 .section { padding: 3rem 0; }
 .section.alt { background: var(--warm-beige); }
@@ -278,7 +291,7 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; line-height: 
   .hero-slider { width: 260px; height: 340px; }
 }
 
-/* ===== Wider screens: text left, slider right ===== */
+/* ===== Wider screens: text left, two photos side-by-side on the right ===== */
 @media (min-width: 640px) {
   .hero-content {
     flex-direction: row; align-items: center; justify-content: space-between; gap: 2.4rem;
@@ -286,7 +299,14 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; line-height: 
   .hero-text-area { text-align: left; }
   .hero-badges { justify-content: flex-start; }
   .hero-photos { opacity: 0; animation: heroPhotosInRight 0.9s ease 0.15s forwards; }
-  .hero-slider { width: 280px; height: 380px; }
+
+  /* swap: hide the single rolling slider, show two photos side-by-side */
+  .hero-slider-mobile { display: none; }
+  .hero-duo { display: flex; gap: 0.9rem; }
+  .hero-duo-item { width: 170px; height: 320px; }
+}
+@media (min-width: 900px) {
+  .hero-duo-item { width: 190px; height: 350px; }
 }
 @keyframes heroPhotosInRight {
   from { opacity: 0; transform: translateX(24px); }

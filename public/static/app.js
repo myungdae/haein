@@ -123,11 +123,15 @@
     }
   }
 
-  // ---- Hero photo slider (auto-rotate + dots + hover pause) ----
+  // ---- Hero photo slider (mobile only: auto-rotate + dots + hover pause) ----
+  // On tablet/desktop (>=640px) the CSS swaps this out for .hero-duo
+  // (two photos side-by-side), so the rolling slider only needs to run
+  // while the mobile single-slot layout is actually visible.
   const slider = document.getElementById('heroSlider');
   if (slider) {
     const slides = slider.querySelectorAll('.hero-slide');
     const dots = slider.querySelectorAll('.slider-dot');
+    const desktopQuery = window.matchMedia('(min-width: 640px)');
     let current = 0;
     const total = slides.length;
     let timer = null;
@@ -147,6 +151,8 @@
     }
 
     function startAuto() {
+      if (desktopQuery.matches) return; // hidden on desktop — nothing to animate
+      clearInterval(timer);
       timer = setInterval(next, INTERVAL);
     }
 
@@ -164,6 +170,22 @@
 
     slider.addEventListener('mouseenter', stopAuto);
     slider.addEventListener('mouseleave', startAuto);
+
+    // Stop/start the interval as the viewport crosses the breakpoint
+    // (e.g. rotating a tablet, or resizing a desktop browser window).
+    const handleBreakpointChange = () => {
+      if (desktopQuery.matches) {
+        stopAuto();
+      } else {
+        startAuto();
+      }
+    };
+    if (desktopQuery.addEventListener) {
+      desktopQuery.addEventListener('change', handleBreakpointChange);
+    } else if (desktopQuery.addListener) {
+      // Safari <14 fallback
+      desktopQuery.addListener(handleBreakpointChange);
+    }
 
     setTimeout(startAuto, 600);
   }
