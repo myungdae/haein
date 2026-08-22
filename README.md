@@ -2,7 +2,7 @@
 
 시인·시낭송가 강해인의 공식 홈페이지
 
-🌐 **도메인**: [haein.exko.kr](https://haein.exko.kr)
+🌐 **도메인**: [kanghaein.com](https://kanghaein.com)
 
 ## 페이지 구성
 

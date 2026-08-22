@@ -49,9 +49,9 @@ curl -fsS http://127.0.0.1:3000/api/health
 
 ## 확인 URL
 
-- 관리자: `https://haein.exko.kr/admin/`
-- 공개 CMS API: `https://haein.exko.kr/api/cms/content`
-- 갤러리 관리: `https://haein.exko.kr/admin/gallery-upload.html`
+- 관리자: `https://kanghaein.com/admin/`
+- 공개 CMS API: `https://kanghaein.com/api/cms/content`
+- 갤러리 관리: `https://kanghaein.com/admin/gallery-upload.html`
 
 ## Rollback
 

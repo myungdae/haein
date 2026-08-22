@@ -5,15 +5,15 @@
 # =============================================
 set -e
 
-echo "[Nginx] 현재 haein.exko.kr 설정 파일 찾는 중..."
+echo "[Nginx] 현재 kanghaein.com 설정 파일 찾는 중..."
 
-# haein.exko.kr 설정 파일 위치 찾기
-NGINX_CONF=$(sudo nginx -T 2>/dev/null | grep -B5 "haein.exko.kr" | grep "# configuration file" | head -1 | awk '{print $NF}' | tr -d ':')
+# kanghaein.com 설정 파일 위치 찾기
+NGINX_CONF=$(sudo nginx -T 2>/dev/null | grep -B5 "kanghaein.com" | grep "# configuration file" | head -1 | awk '{print $NF}' | tr -d ':')
 
 if [ -z "$NGINX_CONF" ]; then
   # 일반적인 위치 탐색
   for f in /etc/nginx/sites-enabled/* /etc/nginx/conf.d/*.conf; do
-    if sudo grep -q "haein.exko.kr" "$f" 2>/dev/null; then
+    if sudo grep -q "kanghaein.com" "$f" 2>/dev/null; then
       NGINX_CONF="$f"
       break
     fi
@@ -21,7 +21,7 @@ if [ -z "$NGINX_CONF" ]; then
 fi
 
 if [ -z "$NGINX_CONF" ]; then
-  echo "[오류] haein.exko.kr Nginx 설정 파일을 찾을 수 없습니다."
+  echo "[오류] kanghaein.com Nginx 설정 파일을 찾을 수 없습니다."
   echo "  수동으로 nginx-api.conf 내용을 server 블록 안에 추가해 주세요."
   exit 1
 fi
@@ -58,4 +58,4 @@ sudo systemctl reload nginx
 
 echo ""
 echo "[완료] Nginx /api/ 프록시 설정 적용 완료!"
-echo "▶ 테스트: curl https://haein.exko.kr/api/health"
+echo "▶ 테스트: curl https://kanghaein.com/api/health"

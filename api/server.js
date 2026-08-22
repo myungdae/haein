@@ -84,10 +84,10 @@ pool.connect((err) => {
 // =============================================
 app.use(express.json());
 
-// CORS - haein.exko.kr 에서만 허용
+// CORS - kanghaein.com 에서만 허용
 app.use(cors({
   origin: [
-    'https://haein.exko.kr',
+    'https://kanghaein.com',
     'http://localhost',
     'http://127.0.0.1'
   ],
