@@ -119,14 +119,13 @@ async function uploadProfile() {
   } catch (err) { alert(err.message); }
 }
 
-$('loginForm').addEventListener('submit', async (event) => {
-  event.preventDefault(); $('loginMessage').textContent = '';
-  const form = new FormData(event.currentTarget);
-  try {
-    await api('/api/admin/login', { method:'POST', body:JSON.stringify(Object.fromEntries(form)) });
-    showCms(); await loadContent(); event.currentTarget.reset();
-  } catch (err) { $('loginMessage').textContent = err.message; }
-});
+$('loginForm').addEventListener('submit', createAdminLoginHandler({
+  api,
+  showCms,
+  loadContent,
+  clearMessage: () => { $('loginMessage').textContent = ''; },
+  showError: (message) => { $('loginMessage').textContent = message; }
+}));
 document.querySelectorAll('[data-section]').forEach((button) => button.addEventListener('click', () => openEditor(button.dataset.section)));
 $('backButton').addEventListener('click', () => { $('editorView').hidden=true; $('menuView').hidden=false; state.current=null; });
 $('logoutButton').addEventListener('click', async () => { await api('/api/admin/logout',{method:'POST'}).catch(()=>{}); showLogin(); });
