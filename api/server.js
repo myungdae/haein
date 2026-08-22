@@ -9,9 +9,23 @@ const multer    = require('multer');
 const sharp     = require('sharp');
 const path      = require('path');
 const fs        = require('fs');
+const {
+  COOKIE_NAME,
+  clearSessionCookie,
+  createSessionToken,
+  normalizeSectionUpdate,
+  parseCookies,
+  requireCmsEnv,
+  safeEqual,
+  sessionCookie,
+  verifySessionToken,
+} = require('./cms');
+
+requireCmsEnv();
 
 // 업로드 저장 디렉토리 (서버 절대경로로 수정 필요 — .env의 UPLOAD_DIR 참조)
 const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(__dirname, '../images/gallery');
+const CMS_UPLOAD_DIR = process.env.CMS_UPLOAD_DIR || path.join(path.dirname(UPLOAD_DIR), 'cms');
 
 const app  = express();
 const PORT = process.env.API_PORT || 3000;
@@ -22,12 +36,12 @@ app.set('trust proxy', 1);
 // =============================================
 // DB 연결
 // =============================================
-const pool = new Pool({
+const pool = global.__HAEIN_TEST_POOL || new Pool({
   host:     process.env.DB_HOST || 'localhost',
   port:     parseInt(process.env.DB_PORT) || 5432,
   database: process.env.DB_NAME || 'haein_db',
   user:     process.env.DB_USER || 'haein_user',
-  password: process.env.DB_PASS || 'haein2024!secure',
+  password: process.env.DB_PASS,
 });
 
 pool.connect((err) => {
@@ -77,7 +91,8 @@ app.use(cors({
     'http://localhost',
     'http://127.0.0.1'
   ],
-  methods: ['POST', 'GET', 'DELETE'],
+  methods: ['POST', 'GET', 'PUT', 'DELETE'],
+  credentials: true,
 }));
 
 // Rate Limit - 일반 API (10분에 10회)
@@ -99,14 +114,35 @@ const uploadLimiter = rateLimit({
 });
 app.use('/api/gallery', uploadLimiter);
 
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: { ok: false, message: '로그인 시도가 너무 많습니다. 잠시 후 다시 시도해 주세요.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 // =============================================
 // 관리자 인증 미들웨어
 // =============================================
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'haein-admin-2024';
+const ADMIN_TOKEN = process.env.ADMIN_TOKEN || '';
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'haein';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const ADMIN_SESSION_SECRET = process.env.ADMIN_SESSION_SECRET;
+
+function requestIsSecure(req) {
+  return req.secure || req.get('x-forwarded-proto') === 'https';
+}
+
+function getAdminSession(req) {
+  const cookies = parseCookies(req.headers.cookie || '');
+  return verifySessionToken(cookies[COOKIE_NAME], ADMIN_SESSION_SECRET);
+}
 
 function adminAuth(req, res, next) {
   const token = req.headers['x-admin-token'] || req.query.token;
-  if (token !== ADMIN_TOKEN) {
+  const legacyTokenIsValid = ADMIN_TOKEN && safeEqual(token, ADMIN_TOKEN);
+  if (!getAdminSession(req) && !legacyTokenIsValid) {
     return res.status(401).json({ ok: false, message: '인증이 필요합니다.' });
   }
   next();
@@ -138,6 +174,120 @@ function sanitize(str, maxLen = 500) {
 // =============================================
 app.get('/api/health', (req, res) => {
   res.json({ ok: true, message: '강해인 API 서버 정상 동작 중' });
+});
+
+// =============================================
+// CMS 공개 콘텐츠
+// =============================================
+app.get('/api/cms/content', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT key, value, updated_at FROM site_content ORDER BY section, key');
+    const content = {};
+    let updatedAt = null;
+    for (const row of result.rows) {
+      content[row.key] = row.value;
+      if (!updatedAt || row.updated_at > updatedAt) updatedAt = row.updated_at;
+    }
+    // 관리자가 공개한 내용이 새로고침 즉시 반영되도록 재검증합니다.
+    res.set('Cache-Control', 'no-cache');
+    res.json({ ok: true, content, updated_at: updatedAt });
+  } catch (err) {
+    console.error('[CMS 콘텐츠 조회 오류]', err.message);
+    res.status(503).json({ ok: false, message: '현재 기본 홈페이지 내용을 표시합니다.' });
+  }
+});
+
+// =============================================
+// CMS 관리자 로그인 / 세션
+// =============================================
+app.post('/api/admin/login', loginLimiter, (req, res) => {
+  const username = String(req.body?.username || '').trim();
+  const password = String(req.body?.password || '');
+  if (!safeEqual(username, ADMIN_USERNAME) || !safeEqual(password, ADMIN_PASSWORD)) {
+    return res.status(401).json({ ok: false, message: '아이디 또는 비밀번호를 확인해 주세요.' });
+  }
+  const token = createSessionToken(username, ADMIN_SESSION_SECRET);
+  res.setHeader('Set-Cookie', sessionCookie(token, requestIsSecure(req)));
+  res.json({ ok: true, username });
+});
+
+app.get('/api/admin/session', (req, res) => {
+  const session = getAdminSession(req);
+  if (!session) return res.status(401).json({ ok: false });
+  res.json({ ok: true, username: session.username });
+});
+
+app.post('/api/admin/logout', (req, res) => {
+  res.setHeader('Set-Cookie', clearSessionCookie(requestIsSecure(req)));
+  res.json({ ok: true });
+});
+
+app.get('/api/admin/content', adminAuth, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT key, section, label, value, updated_at FROM site_content ORDER BY section, key');
+    const sections = {};
+    for (const row of result.rows) {
+      if (!sections[row.section]) sections[row.section] = {};
+      sections[row.section][row.key] = row.value;
+    }
+    res.json({ ok: true, sections });
+  } catch (err) {
+    console.error('[CMS 관리자 조회 오류]', err.message);
+    res.status(500).json({ ok: false, message: '콘텐츠를 불러오지 못했습니다.' });
+  }
+});
+
+app.put('/api/admin/content/:section', adminAuth, async (req, res) => {
+  let values;
+  try {
+    values = normalizeSectionUpdate(req.params.section, req.body?.values);
+  } catch (err) {
+    return res.status(400).json({ ok: false, message: err.message });
+  }
+  if (!values || !Object.keys(values).length) {
+    return res.status(400).json({ ok: false, message: '저장할 내용을 확인해 주세요.' });
+  }
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    for (const [key, value] of Object.entries(values)) {
+      await client.query(
+        `UPDATE site_content SET value=$1, updated_at=NOW()
+           WHERE key=$2 AND section=$3`,
+        [value, key, req.params.section]
+      );
+    }
+    await client.query('COMMIT');
+    res.json({ ok: true, message: '저장하고 공개했습니다.', values });
+  } catch (err) {
+    await client.query('ROLLBACK');
+    console.error('[CMS 저장 오류]', err.message);
+    res.status(500).json({ ok: false, message: '저장하지 못했습니다.' });
+  } finally {
+    client.release();
+  }
+});
+
+app.post('/api/admin/profile-image', adminAuth, upload.single('image'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ ok: false, message: '사진을 선택해 주세요.' });
+  const targetDir = CMS_UPLOAD_DIR;
+  const filename = `profile-${Date.now()}.jpg`;
+  const savePath = path.join(targetDir, filename);
+  try {
+    fs.mkdirSync(targetDir, { recursive: true });
+    await sharp(req.file.buffer)
+      .rotate()
+      .resize({ width: 1600, height: 2000, fit: 'inside', withoutEnlargement: true })
+      .jpeg({ quality: 88, progressive: true })
+      .toFile(savePath);
+    const url = `/images/cms/${filename}`;
+    res.json({ ok: true, url, message: '사진을 올렸습니다. 미리보기 후 저장 및 공개를 눌러 주세요.' });
+  } catch (err) {
+    if (fs.existsSync(savePath)) fs.unlinkSync(savePath);
+    console.error('[프로필 사진 오류]', err.message);
+    res.status(500).json({ ok: false, message: '사진을 저장하지 못했습니다.' });
+  }
 });
 
 // =============================================
@@ -454,6 +604,14 @@ app.post('/api/apply', async (req, res) => {
 // =============================================
 // 서버 시작
 // =============================================
-app.listen(PORT, '127.0.0.1', () => {
-  console.log(`[서버] http://127.0.0.1:${PORT} 에서 실행 중`);
-});
+if (process.env.SERVE_STATIC === 'true') {
+  app.use(express.static(path.join(__dirname, '..'), { extensions: ['html'] }));
+}
+
+if (require.main === module) {
+  app.listen(PORT, '127.0.0.1', () => {
+    console.log(`[서버] http://127.0.0.1:${PORT} 에서 실행 중`);
+  });
+}
+
+module.exports = { app, pool };
