@@ -27,10 +27,17 @@ const SECTION_CONFIG = {
 };
 
 const state = { sections: {}, current: null };
+let authTransition = 0;
 const $ = (id) => document.getElementById(id);
 
 async function api(url, options = {}) {
-  const response = await fetch(url, { credentials: 'same-origin', ...options, headers: { ...(options.body instanceof FormData ? {} : {'Content-Type':'application/json'}), ...(options.headers || {}) } });
+  const requestOptions = { credentials: 'same-origin', cache: url.startsWith('/api/admin/') ? 'no-store' : 'default', ...options, headers: { ...(options.body instanceof FormData ? {} : {'Content-Type':'application/json'}), ...(options.headers || {}) } };
+  let response = await fetch(url, requestOptions);
+  // 일부 프록시가 fetch에 본문 없는 304를 직접 전달하는 경우 한 번 새로 조회합니다.
+  if (response.status === 304) {
+    const separator = url.includes('?') ? '&' : '?';
+    response = await fetch(`${url}${separator}_cms=${Date.now()}`, { ...requestOptions, cache:'reload' });
+  }
   const data = await response.json().catch(() => ({}));
   if (!response.ok) throw Object.assign(new Error(data.message || '요청을 처리하지 못했습니다.'), { status: response.status });
   return data;
@@ -38,13 +45,24 @@ async function api(url, options = {}) {
 
 function showLogin() { $('loginView').hidden = false; $('cmsView').hidden = true; }
 function showCms() { $('loginView').hidden = true; $('cmsView').hidden = false; }
+function beginAuthTransition() { authTransition += 1; return authTransition; }
+function showDashboardError(message) { $('dashboardMessage').textContent = message || '콘텐츠를 불러오지 못했습니다. 새로고침해 주세요.'; }
 
 async function boot() {
+  const transition = beginAuthTransition();
   try {
     await api('/api/admin/session');
+    if (transition !== authTransition) return;
     showCms();
+  } catch {
+    if (transition === authTransition) showLogin();
+    return;
+  }
+  try {
     await loadContent();
-  } catch { showLogin(); }
+  } catch (err) {
+    if (transition === authTransition) showDashboardError(err.message);
+  }
 }
 
 async function loadContent() {
@@ -123,8 +141,10 @@ $('loginForm').addEventListener('submit', createAdminLoginHandler({
   api,
   showCms,
   loadContent,
+  beginAuthTransition,
   clearMessage: () => { $('loginMessage').textContent = ''; },
-  showError: (message) => { $('loginMessage').textContent = message; }
+  showError: (message) => { $('loginMessage').textContent = message; },
+  showDashboardError
 }));
 document.querySelectorAll('[data-section]').forEach((button) => button.addEventListener('click', () => openEditor(button.dataset.section)));
 $('backButton').addEventListener('click', () => { $('editorView').hidden=true; $('menuView').hidden=false; state.current=null; });
