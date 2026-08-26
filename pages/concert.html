@@ -16,7 +16,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css?v=20260701c" />
   <style>
-    /* concert intro - photo alongside stats */
+    /* concert introduction */
+    .concert-intro-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
+    }
     .concert-intro-photo {
       display: flex;
       flex-direction: column;
@@ -73,6 +79,21 @@
     .concert-planner-info span {
       font-size: 0.78rem;
       color: rgba(255,240,243,0.6);
+    }
+    @media (max-width: 768px) {
+      .concert-intro-section { padding: 3rem 0 !important; }
+      .concert-intro-layout { grid-template-columns: minmax(0, 1fr); gap: 2rem; width: 100%; max-width: 100%; }
+      .concert-intro-copy,.concert-intro-photo,.concert-planner-card { width: 100%; max-width: 100%; min-width: 0; }
+      .concert-planner-card { padding: 1.25rem; align-items: center; }
+      .concert-planner-photo { width: clamp(72px, 24vw, 96px); }
+      .concert-planner-info { min-width: 0; }
+      .concert-planner-info span { overflow-wrap: anywhere; }
+      .concert-intro-copy img,.concert-intro-photo img { max-width: 100%; height: auto; }
+    }
+    @media (max-width: 360px) {
+      .concert-planner-card { gap: 0.85rem; padding: 1rem; }
+      .concert-planner-info h4 { font-size: 1.05rem; }
+      .concert-planner-info span { font-size: 0.72rem; }
     }
   </style>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><radialGradient id='bg' cx='40%25' cy='40%25' r='60%25'><stop offset='0%25' stop-color='%23202845'/><stop offset='100%25' stop-color='%230d1020'/></radialGradient><linearGradient id='mc' x1='0%25' y1='0%25' x2='0%25' y2='100%25'><stop offset='0%25' stop-color='%23b8ecff'/><stop offset='40%25' stop-color='%235bbfd8'/><stop offset='100%25' stop-color='%232a88aa'/></linearGradient><linearGradient id='pk' x1='0%25' y1='0%25' x2='0%25' y2='100%25'><stop offset='0%25' stop-color='%23ffcce0'/><stop offset='100%25' stop-color='%23e04c8a'/></linearGradient><filter id='g'><feGaussianBlur stdDeviation='2' result='b'/><feMerge><feMergeNode in='b'/><feMergeNode in='SourceGraphic'/></feMerge></filter></defs><circle cx='50' cy='50' r='49' fill='url(%23bg)'/><circle cx='50' cy='50' r='46' fill='none' stroke='url(%23pk)' stroke-width='2'/><text x='50' y='22' text-anchor='middle' font-size='13' fill='url(%23pk)' filter='url(%23g)'>&#10025;</text><text x='50' y='63' text-anchor='middle' font-family='Arial Black,Arial,sans-serif' font-size='38' font-weight='900' fill='url(%23mc)' stroke='%230a0e1a' stroke-width='3' stroke-linejoin='round' filter='url(%23g)'>MC</text><text x='50' y='82' text-anchor='middle' font-family='Arial,sans-serif' font-size='13' font-weight='800' fill='url(%23pk)' letter-spacing='1'>&#xAC15;&#xD574;&#xC778;</text></svg>" />
@@ -156,10 +177,10 @@
   <main>
 
     <!-- Concert Introduction -->
-    <section style="background:var(--warm-beige); padding:4rem 0;">
+    <section class="concert-intro-section" style="background:var(--warm-beige); padding:4rem 0;">
       <div class="container">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
-          <div class="fade-up">
+        <div class="concert-intro-layout">
+          <div class="concert-intro-copy fade-up">
             <span class="section-label">About Hyo Concert</span>
             <div style="display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap; margin-top:0.5rem; margin-bottom:0;">
               <h2 class="section-title" style="margin:0;">효 콘서트란</h2>
@@ -186,7 +207,7 @@
               매 회차마다 테마를 달리하며, 다양한 시낭송가들이 함께 참여하여 관객들에게 깊은 감동과 울림을 전합니다. 2018년 초연 이후 연 1회 정기공연을 이어오며 많은 관객들의 사랑을 받고 있습니다.
             </p>
           </div>
-          <div class="fade-in" data-delay="200" class="concert-intro-photo">
+          <div class="concert-intro-photo fade-in" data-delay="200">
             <!-- Planner card -->
             <div class="concert-planner-card">
               <div class="concert-planner-photo">
@@ -198,25 +219,6 @@
                 <span>효 콘서트 창립자 · 총 연출</span>
               </div>
             </div>
-            <!-- Stats grid -->
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:0;">
-            <div style="background:var(--ivory); padding:1.5rem; border-radius:4px; text-align:center; box-shadow:var(--shadow-sm);">
-              <div style="font-family:var(--font-serif); font-size:2.5rem; font-weight:300; color:var(--deep-brown);">10+</div>
-              <div style="font-size:0.8rem; color:var(--text-muted); letter-spacing:0.1em; margin-top:0.3rem;">정기 공연 횟수</div>
-            </div>
-            <div style="background:var(--ivory); padding:1.5rem; border-radius:4px; text-align:center; box-shadow:var(--shadow-sm);">
-              <div style="font-family:var(--font-serif); font-size:2.5rem; font-weight:300; color:var(--deep-brown);">3천+</div>
-              <div style="font-size:0.8rem; color:var(--text-muted); letter-spacing:0.1em; margin-top:0.3rem;">누적 관객 수</div>
-            </div>
-            <div style="background:var(--ivory); padding:1.5rem; border-radius:4px; text-align:center; box-shadow:var(--shadow-sm);">
-              <div style="font-family:var(--font-serif); font-size:2.5rem; font-weight:300; color:var(--deep-brown);">50+</div>
-              <div style="font-size:0.8rem; color:var(--text-muted); letter-spacing:0.1em; margin-top:0.3rem;">낭송 작품 수</div>
-            </div>
-            <div style="background:var(--ivory); padding:1.5rem; border-radius:4px; text-align:center; box-shadow:var(--shadow-sm);">
-              <div style="font-family:var(--font-serif); font-size:2.5rem; font-weight:300; color:var(--deep-brown);">20+</div>
-              <div style="font-size:0.8rem; color:var(--text-muted); letter-spacing:0.1em; margin-top:0.3rem;">참여 낭송가 수</div>
-            </div>
-            </div><!-- /stats grid -->
           </div><!-- /concert-intro-photo -->
         </div>
       </div>
@@ -482,6 +484,6 @@
       if (e.key === 'Escape') closeVideoModal();
     });
   </script>
-  <script src="../js/cms-phase2.js?v=20260826"></script>
+  <script src="../js/cms-phase2.js?v=20260826-public-fix-1"></script>
 </body>
 </html>

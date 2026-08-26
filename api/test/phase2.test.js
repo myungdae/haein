@@ -6,6 +6,13 @@ const { RESOURCES, normalize } = require('../phase2');
 test('Phase 2는 요청된 구조화 테이블 자원을 모두 정의한다', () => {
   assert.deepEqual(Object.keys(RESOURCES), ['careers','awards','activities','press','fields','works','performances','programs','performers','media']);
 });
+test('작품 공개 여부는 사실 확인 상태와 독립적이다', () => {
+  assert.equal(RESOURCES.works.requireVerified, undefined);
+  assert.equal(RESOURCES.careers.requireVerified, true);
+  const value=normalize('works',{title:'확인 전 공개 작품',is_visible:true,verification_status:'needs_review'});
+  assert.equal(value.is_visible,true);
+  assert.equal(value.verification_status,'needs_review');
+});
 test('작품 입력은 공개·대표·정렬 값을 안전한 형식으로 변환한다', () => {
   const value=normalize('works',{title:'  어머니의 봄 ',body:'본문',is_visible:'false',is_featured:'true',sort_order:'20',unknown:'x'});
   assert.deepEqual(value,{title:'어머니의 봄',body:'본문',is_visible:false,is_featured:true,sort_order:20});

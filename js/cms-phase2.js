@@ -11,19 +11,25 @@
   function renderWorks(items) {
     var grid=document.getElementById('poemsGrid'); if(!grid || !items.length)return;
     grid.replaceChildren(); items.forEach(function(item,index){
-      var card=document.createElement('article'); card.className='poem-card fade-up'; card.dataset.title=item.title||''; card.dataset.date=item.published_date||''; card.dataset.poem=item.body||''; card.dataset.delay=String((index%3)*80);
+      var card=document.createElement('article'); card.className='poem-card fade-up visible'; card.dataset.title=item.title||''; card.dataset.date=item.published_date||''; card.dataset.poem=item.body||''; card.dataset.delay=String((index%3)*80); card.tabIndex=0;
       if(item.image_url){var image=document.createElement('img');image.src=item.image_url;image.alt=item.title||'';card.appendChild(image);}
       card.appendChild(text('span','poem-category',item.category)); card.appendChild(text('h2','poem-card-title',item.title));
       var excerpt=text('p','poem-card-excerpt',item.excerpt); excerpt.style.whiteSpace='pre-line'; card.appendChild(excerpt); card.appendChild(text('span','poem-card-date',item.published_date)); grid.appendChild(card);
     });
+    if(!grid.dataset.cmsModalBound){
+      function openPoem(card){var modal=document.getElementById('poemModal');if(!modal)return;modal.querySelector('.modal-poem-title').textContent=card.dataset.title||'';modal.querySelector('.modal-poem-text').textContent=card.dataset.poem||'';modal.querySelector('.modal-poem-date').textContent=card.dataset.date||'';modal.classList.add('open');document.body.style.overflow='hidden';}
+      grid.addEventListener('click',function(event){var card=event.target.closest('.poem-card');if(card&&grid.contains(card))openPoem(card);});
+      grid.addEventListener('keydown',function(event){var card=event.target.closest('.poem-card');if(card&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openPoem(card);}});
+      grid.dataset.cmsModalBound='true';
+    }
   }
   function renderPerformances(items) {
     var grid=document.querySelector('.concert-grid'); if(!grid || !items.length)return;
     grid.replaceChildren(); items.forEach(function(item){
-      var article=document.createElement('article'); article.className='concert-card fade-up';
-      if(item.image_url){var image=document.createElement('img');image.src=item.image_url;image.alt=item.title||'';image.style.cssText='width:100%;height:260px;object-fit:cover';article.appendChild(image);}
-      article.appendChild(text('p','concert-number',(item.edition?'제'+item.edition+'회 · ':'')+(item.event_date||''))); article.appendChild(text('h3','concert-title',item.subtitle||item.title)); article.appendChild(text('p','concert-desc',item.description));
-      if(item.page_slug){var link=text('a','btn btn-outline','자세히 보기');link.href=item.page_slug;article.appendChild(link);} grid.appendChild(article);
+      var article=document.createElement('article'); article.className='concert-card fade-up visible'; article.dataset.cat=String(item.event_date||'').slice(0,4);
+      if(item.image_url){var wrap=document.createElement('div');wrap.className='concert-img';var image=document.createElement('img');image.src=item.image_url;image.alt=item.title||'';image.style.cssText='width:100%;height:100%;object-fit:cover';wrap.appendChild(image);article.appendChild(wrap);}
+      var body=document.createElement('div');body.className='concert-body';body.appendChild(text('p','concert-number',(item.edition?'제'+item.edition+'회 · ':'')+(item.event_date||''))); body.appendChild(text('h3','concert-title',item.subtitle||item.title)); body.appendChild(text('p','concert-poems',item.description));
+      if(item.page_slug){var link=text('a','concert-detail-btn','자세히 보기');link.href=item.page_slug;body.appendChild(link);} article.appendChild(body);grid.appendChild(article);
     });
   }
   function renderProfile(resource, sectionIndex) {

@@ -1,12 +1,12 @@
 'use strict';
 
 const RESOURCES = Object.freeze({
-  careers: { table:'career_items', fields:['date_label','title','description','is_visible','sort_order','verification_status'] },
-  awards: { table:'awards', fields:['date_label','title','organization','award_detail','description','evidence_url','is_visible','sort_order','verification_status'] },
-  activities: { table:'activity_items', fields:['date_label','title','role','organization','description','media_url','is_visible','sort_order','verification_status'] },
-  press: { table:'press_items', fields:['published_date','publisher','title','article_url','description','image_url','is_visible','sort_order','verification_status'] },
+  careers: { table:'career_items', requireVerified:true, fields:['date_label','title','description','is_visible','sort_order','verification_status'] },
+  awards: { table:'awards', requireVerified:true, fields:['date_label','title','organization','award_detail','description','evidence_url','is_visible','sort_order','verification_status'] },
+  activities: { table:'activity_items', requireVerified:true, fields:['date_label','title','role','organization','description','media_url','is_visible','sort_order','verification_status'] },
+  press: { table:'press_items', requireVerified:true, fields:['published_date','publisher','title','article_url','description','image_url','is_visible','sort_order','verification_status'] },
   fields: { table:'activity_fields', fields:['title','short_description','description','image_url','link_url','is_visible','sort_order'] },
-  works: { table:'works', fields:['title','body','excerpt','published_date','category','image_url','video_url','audio_url','is_visible','is_featured','sort_order'] },
+  works: { table:'works', fields:['title','body','excerpt','published_date','category','image_url','video_url','audio_url','is_visible','is_featured','sort_order','verification_status'] },
   performances: { table:'performances', fields:['edition','title','subtitle','event_date','event_time','venue','host','organizer','sponsor','description','image_url','poster_url','invitation_url','is_visible','is_featured','sort_order','page_slug'] },
   programs: { table:'performance_programs', fields:['performance_id','item_order','title','work_title','performer','role','description','is_visible'] },
   performers: { table:'performers', fields:['performance_id','name','photo_url','position_title','bio','work_title','role','sort_order','is_visible'] },
@@ -46,7 +46,7 @@ function registerPhase2(app, pool, adminAuth) {
       if (config.fields.includes('performance_id') && req.query.performance_id) {
         params.push(Number(req.query.performance_id)); filters.push(`performance_id = $${params.length}`);
       }
-      if (config.fields.includes('verification_status') && req.query.include_unverified !== 'true') filters.push("verification_status = 'verified'");
+      if (config.requireVerified && req.query.include_unverified !== 'true') filters.push("verification_status = 'verified'");
       const order = config.fields.includes('item_order') ? 'item_order ASC, id ASC' : 'sort_order ASC, id ASC';
       const result = await pool.query(`SELECT * FROM ${config.table} WHERE ${filters.join(' AND ')} ORDER BY ${order}`, params);
       res.set('Cache-Control', 'no-cache');

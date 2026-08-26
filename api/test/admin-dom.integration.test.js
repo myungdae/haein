@@ -99,7 +99,7 @@ test('Phase 2 메뉴 클릭으로 실제 목록 화면과 내 소개 검토 항�
   const {window}=dom; const {document}=window; window.scrollTo=()=>{};
   const style=document.createElement('style'); style.textContent=css; document.head.appendChild(style);
 
-  const works=Array.from({length:9},(_,index)=>({id:index+1,title:`기존 작품 ${index+1}`,excerpt:'이관 작품',is_visible:true,sort_order:index*10}));
+  const works=Array.from({length:9},(_,index)=>({id:index+1,title:`기존 작품 ${index+1}`,excerpt:'이관 작품',is_visible:true,sort_order:index*10,verification_status:'needs_review'}));
   const performances=Array.from({length:4},(_,index)=>({id:index+1,title:`제${index+1}회 효 콘서트`,subtitle:`공연 ${index+1}`,is_visible:true,sort_order:index*10}));
   const profileData={
     careers:[{id:1,date_label:'2024',title:'기존 약력',is_visible:true,sort_order:10,verification_status:'needs_review'}],
@@ -125,6 +125,7 @@ test('Phase 2 메뉴 클릭으로 실제 목록 화면과 내 소개 검토 항�
   await eventually(()=>assert.equal(document.querySelectorAll('#resourceList .resource-card').length,9));
   assert.equal(document.getElementById('resourceView').hidden,false,'창작시 관리 화면이 보여야 합니다.');
   assert.match(document.getElementById('resourceList').textContent,/기존 작품 9/);
+  assert.match(document.getElementById('resourceList').textContent,/⚠️ 현재 홈페이지 표시 내용 — 사실 확인 필요/);
 
   document.getElementById('resourceBack').dispatchEvent(new window.MouseEvent('click',{bubbles:true}));
   const performanceCard=document.querySelector('[data-resource="performances"]');
