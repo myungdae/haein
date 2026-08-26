@@ -20,6 +20,7 @@ const {
   sessionCookie,
   verifySessionToken,
 } = require('./cms');
+const { registerPhase2 } = require('./phase2');
 
 requireCmsEnv();
 
@@ -289,6 +290,9 @@ app.post('/api/admin/profile-image', adminAuth, upload.single('image'), async (r
     res.status(500).json({ ok: false, message: '사진을 저장하지 못했습니다.' });
   }
 });
+
+// Phase 2 구조화 콘텐츠(작품, 공연, 약력 등)
+registerPhase2(app, pool, adminAuth);
 
 // =============================================
 // POST /api/gallery/sync  — 폴더 스캔 → DB 자동 등록 (관리자)

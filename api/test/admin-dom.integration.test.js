@@ -24,7 +24,7 @@ async function eventually(assertion, timeoutMs = 1000) {
   assertion();
 }
 
-test('로그인 성공 후 실제 DOM에서 로그인 패널은 숨고 5개 대시보드 메뉴가 보인다', async () => {
+test('로그인 성공 후 실제 DOM에서 로그인 패널은 숨고 7개 대시보드 메뉴가 보인다', async () => {
   const html = fs.readFileSync(path.join(root, 'admin/index.html'), 'utf8');
   const css = fs.readFileSync(path.join(root, 'admin/style.css'), 'utf8');
   const loginHandler = fs.readFileSync(path.join(root, 'admin/login-handler.js'), 'utf8');
@@ -76,7 +76,7 @@ test('로그인 성공 후 실제 DOM에서 로그인 패널은 숨고 5개 대�
     assert.notEqual(window.getComputedStyle(cmsView).display, 'none');
   });
 
-  const expected = ['내 소개', '메인 화면', '시낭송교실', '연락처', '갤러리'];
+  const expected = ['내 소개', '메인 화면', '시낭송교실', '연락처', '갤러리', '창작시', '효 콘서트'];
   const cards = [...document.querySelectorAll('#menuView .menu-card')];
   assert.deepEqual(cards.map(card => card.querySelector('strong').textContent), expected);
   for (const card of cards) {

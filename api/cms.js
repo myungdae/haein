@@ -3,7 +3,7 @@
 const crypto = require('crypto');
 
 const CMS_FIELDS = Object.freeze({
-  profile: ['profile_image', 'profile_tagline', 'profile_heading', 'profile_intro_1', 'profile_intro_2', 'profile_roles'],
+  profile: ['profile_image', 'profile_tagline', 'profile_heading', 'profile_intro_1', 'profile_intro_2', 'profile_roles', 'activity_section_title', 'activity_section_intro', 'hide_unverified_profile'],
   hero: ['hero_tag', 'hero_title_1', 'hero_title_2', 'hero_subtitle'],
   contact: [
     'contact_banner_title', 'contact_banner_services', 'contact_intro', 'contact_email', 'contact_tel',
