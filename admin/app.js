@@ -98,13 +98,27 @@ function openEditor(section) {
   const config = SECTION_CONFIG[section];
   $('editorTitle').textContent = config.title;
   $('fields').innerHTML = config.fields.map(fieldHtml).join('');
-  if (section === 'profile') $('fields').insertAdjacentHTML('beforeend', `<div class="field-card"><h2>소개 상세 관리</h2><div class="resource-actions">${['careers','awards','activities','press','fields'].map(key => `<button type="button" data-open-resource="${key}">${RESOURCE_CONFIG[key].title}</button>`).join('')}</div></div>`);
+  if (section === 'profile') {
+    $('fields').insertAdjacentHTML('beforeend', `<section class="field-card profile-structured"><h2>소개 상세 관리</h2><p class="field-help">약력과 활동 기록을 확인하고 직접 관리합니다. 확인되지 않은 기존 내용도 관리자에게 표시됩니다.</p><div id="profileResourceOverview" class="profile-resource-overview" aria-live="polite"></div></section>`);
+    loadProfileOverview();
+  }
   $('menuView').hidden = true;
   $('editorView').hidden = false;
   $('saveMessage').textContent = '';
   $('uploadProfile')?.addEventListener('click', uploadProfile);
-  document.querySelectorAll('[data-open-resource]').forEach(button => button.addEventListener('click', () => openResource(button.dataset.openResource)));
   window.scrollTo(0,0);
+}
+
+const PROFILE_RESOURCES = ['careers','awards','activities','press','fields'];
+async function loadProfileOverview() {
+  const container=$('profileResourceOverview'); if(!container)return;
+  container.innerHTML='<p class="field-help">소개 항목을 불러오는 중입니다.</p>';
+  const results=await Promise.all(PROFILE_RESOURCES.map(async key => {
+    try { const data=await api(`/api/admin/${key}`); return {key,items:data.items||[]}; }
+    catch(error){ return {key,items:[],error:error.message}; }
+  }));
+  if(!$('profileResourceOverview'))return;
+  container.innerHTML=results.map(({key,items,error})=>`<section class="profile-resource-panel" data-profile-resource="${key}"><div class="profile-resource-head"><div><h3>${RESOURCE_CONFIG[key].title}</h3><small>${items.length}개 항목</small></div><button type="button" class="secondary" data-open-resource="${key}">관리하기</button></div>${error?`<p class="message">${escapeHtml(error)}</p>`:items.length?`<ul>${items.slice(0,5).map(item=>`<li><span>${escapeHtml(item.date_label||item.published_date||'')}</span><strong>${escapeHtml(itemHeading(item))}</strong>${item.verification_status==='needs_review'?'<em>⚠ 확인 필요</em>':item.verification_status==='verified'?'<em class="verified">✓ 확인 완료</em>':''}</li>`).join('')}</ul>`:'<p class="field-help">등록된 항목이 없습니다.</p>'}</section>`).join('');
 }
 
 let resourceState = { key:null, items:[], editing:null, parentId:null };
@@ -210,8 +224,13 @@ $('loginForm').addEventListener('submit', createAdminLoginHandler({
   showError: (message) => { $('loginMessage').textContent = message; },
   showDashboardError
 }));
-document.querySelectorAll('[data-section]').forEach((button) => button.addEventListener('click', () => openEditor(button.dataset.section)));
-document.querySelectorAll('[data-resource]').forEach((button) => button.addEventListener('click', () => openResource(button.dataset.resource)));
+$('menuView').addEventListener('click',(event)=>{
+  const sectionButton=event.target.closest('[data-section]');
+  if(sectionButton){ event.preventDefault(); openEditor(sectionButton.dataset.section); return; }
+  const resourceButton=event.target.closest('[data-resource]');
+  if(resourceButton){ event.preventDefault(); openResource(resourceButton.dataset.resource); }
+});
+$('fields').addEventListener('click',(event)=>{ const button=event.target.closest('[data-open-resource]'); if(button)openResource(button.dataset.openResource); });
 $('resourceBack').addEventListener('click',()=>{$('resourceView').hidden=true;$('menuView').hidden=false;});
 $('addResource').addEventListener('click',()=>showResourceForm());
 $('resourceList').addEventListener('click',resourceAction);
